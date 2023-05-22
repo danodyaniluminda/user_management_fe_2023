@@ -1,6 +1,10 @@
 import { Routes } from '@angular/router';
 
 import { FullComponent } from './layouts/full/full.component';
+import {
+  ViewPrintTranscriptDetailsComponent
+} from "./exam-management/transcript/print-transcript/view-print-transcript-details/view-print-transcript-details.component";
+import {VerifyTranscriptComponent} from "./exam-management/transcript/verify-transcript/verify-transcript.component";
 
 export const AppRoutes: Routes = [
   {
@@ -13,14 +17,13 @@ export const AppRoutes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: '',
-        loadChildren:
-          () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
+        path : 'transcript-type-and-results-status',
+        component : ViewPrintTranscriptDetailsComponent
       },
       {
-        path: 'dashboard',
-        loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
-      }
+        path : 'verify_transcript',
+        component : VerifyTranscriptComponent
+      },
     ]
   }
 ];
