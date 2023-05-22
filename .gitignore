@@ -5,7 +5,7 @@
 /tmp
 /out-tsc
 .angular
-
+package-lock.json
 # dependencies
 /node_modules
 
