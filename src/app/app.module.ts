@@ -22,6 +22,7 @@ import {QRCodeModule} from "angularx-qrcode";
 import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { ExamManagementModule } from './exam-management/exam-management.module';
+import { FinanceServicesModule } from './finance-services/finance-services.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ExamManagementModule } from './exam-management/exam-management.module';
     NgxQRCodeModule,
     NgxMatSelectSearchModule,
     DemoMaterialModule,
-    ExamManagementModule
+    ExamManagementModule,
+    FinanceServicesModule
 
 
   ],
