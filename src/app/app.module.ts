@@ -21,7 +21,7 @@ import {DataTablesModule} from "angular-datatables";
 import {QRCodeModule} from "angularx-qrcode";
 import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
-import {ExamManagementModule} from "./exam-management/exam-management.module";
+import { ExamManagementModule } from './exam-management/exam-management.module';
 
 @NgModule({
   declarations: [
