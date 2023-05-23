@@ -1,1 +1,133 @@
-<p>view-print-transcript-details works!</p>
+
+<br>
+<mat-card class="example-card">
+  <div class="row ml-4">
+      <form class="date-block" [formGroup]="form">
+        <div class="row ml-2">
+            <mat-card-content>
+              <div>
+                <mat-form-field class="form-fields" appearance="outline">
+                  <mat-label>NIC or Reg number</mat-label>
+                  <input matInput type="text" formControlName="nic" placeholder="NIC or Reg number">
+                  <button matSuffix mat-icon-button aria-label="Search">
+                    <mat-icon>search</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+
+              <div>
+              <mat-form-field appearance="outline" class="form-fields">
+                <mat-label>Search By Date Range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input (dateChange)="onDateChange()" formControlName="fromDate" matStartDate matInput
+                         placeholder="Start date">
+                  <input (dateChange)="onDateChange()" formControlName="toDate" matEndDate matInput
+                         placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </div>
+
+
+            <div>
+              <mat-form-field appearance="outline" style="width: 600px">
+                <mat-label>Select Programme</mat-label>
+                <mat-select (click)="programmeChange()"
+                  formControlName="programme">
+                  <mat-option>
+                    <ngx-mat-select-search [formControl]="programmeFilterCtrl"  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
+                      <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option >Select All</mat-option>
+
+                  <mat-option *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
+                    {{programme.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+            </mat-card-content>
+
+            <div>
+            <mat-card-content>
+
+              <div>
+                <mat-form-field appearance="outline" class="form-fields">
+                  <mat-label>Select Transcript Type</mat-label>
+                  <mat-select
+                  formControlName="transcriptType">
+                  <mat-option >Select All</mat-option>
+                  <mat-option *ngFor="let transcriptType of transcriptTypes" [value]="transcriptType.id">
+                    {{transcriptType.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field appearance="outline" class="form-fields">
+                  <mat-label>Select Service Type</mat-label>
+                  <mat-select
+                  formControlName="service">
+                  <mat-option >Select All</mat-option>
+                  <mat-option *ngFor="let service of serviceTypes" [value]="service.id">{{service.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </mat-card-content>
+            </div>
+        </div>
+
+        <div>
+          <button mat-raised-button color="primary" (click)="search()">Search</button>
+        </div>
+      </form>
+  </div>
+  <br>
+
+
+<!-- <pre>{{transcripts|json}}</pre> -->
+
+
+  </mat-card>
+  <br>
+
+  <div class="card" *ngIf="showTable">
+    <!-- <pre>{{transcripts|json}}</pre> -->
+              <div class="table-responsive">
+                <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                  <thead>
+                    <tr>
+                      <th style="width: 20%;">Programme Name</th>
+                      <th>Service Type</th>
+                      <th>Transcript Type</th>
+                      <th>Date Applied</th>
+                      <th>Reg No</th>
+                      <th>NIC/Passport</th>
+                      <th>Print</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let transcript of transcripts">
+                      <td style="width: 20%;">{{ transcript.programmeName }}</td>
+                      <td>{{ transcript.serviceType }}</td>
+                      <td>{{ transcript.transcriptType }}</td>
+                      <td>{{ transcript.dateApplied }}</td>
+                      <td>{{ transcript.regNo }}</td>
+                      <td>{{ transcript.nic }}</td>
+                      <td>
+                        <button class="btn btn-primary btn-sm" type="submit" (click)="fetchTranscriptDetails(transcript.nic,transcript.transcriptType,transcript.regNo,transcript.transcript_type_id,transcript.programme_id,transcript.id)">Print</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+  </div>
+
+
+
+
+
