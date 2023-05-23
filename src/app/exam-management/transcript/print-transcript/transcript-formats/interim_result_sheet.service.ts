@@ -19,7 +19,7 @@ export class Interim_result_sheetService {
   constructor(private commonData:PrintCommonService,private printTranscriptService:PrintTranscriptService) {
     (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
   }
-
+ 
 
   bbbbb:any;
   additionalRequirementsHeading:any;
@@ -30,11 +30,11 @@ export class Interim_result_sheetService {
   //this.generateEnglishGPATable(gg.gpaDetailsjsonDataEnglish),
 
   async  generateWordDoc(data:any,applicantId:any,resultType:any,gg:any) {
-
-console.log("course Details lenght",gg.coursejsonDataEnglish);
-console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
+   
+//console.log("course Details lenght",gg.coursejsonDataEnglish);
+//console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
     const rows = [];
-
+    
     const rows1 = new TableRow({
       children: [
           new TableCell({
@@ -57,7 +57,7 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
           }),
           new TableCell({
               width: {
-                  size: 2500,
+                  size: 3000,
                   type: WidthType.PERCENTAGE,
               },
               children: [
@@ -75,7 +75,7 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
           }),
           new TableCell({
             width: {
-                size: 800,
+                size: 400,
                 type: WidthType.PERCENTAGE,
             },
             children: [
@@ -93,7 +93,7 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
         }),
         new TableCell({
           width: {
-              size: 2500,
+              size: 400,
               type: WidthType.PERCENTAGE,
           },
           children: [
@@ -112,7 +112,7 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
       ],
   });
   rows.push(rows1);
-
+    
     for (let i = 0; i < data.academicPerformanceDetails.length; i++) {
       const courseDetails=data.academicPerformanceDetails[i].courseDetails;
       const rowLevel = new docx.TableRow({
@@ -138,8 +138,10 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
         let rowCourse = new docx.TableRow({
           children: [
             new docx.TableCell({
+              verticalAlign: docx.VerticalAlign.CENTER,
             children: [
               new docx.Paragraph({
+                alignment: docx.AlignmentType.CENTER,
                 children: [
                   new TextRun({
                     font:"Book Antiqua",
@@ -148,7 +150,7 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
                   }),
                 ]
               })
-
+             
             ],
           }),
           new docx.TableCell({
@@ -162,12 +164,14 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
                   }),
                 ]
               })
-
+             
             ],
           }),
           new docx.TableCell({
+            verticalAlign: docx.VerticalAlign.CENTER,
             children: [
               new docx.Paragraph({
+                alignment: docx.AlignmentType.CENTER,
                 children: [
                   new TextRun({
                     font:"Book Antiqua",
@@ -176,12 +180,14 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
                   }),
                 ]
               })
-
+             
             ],
           }),
           new docx.TableCell({
+            verticalAlign: docx.VerticalAlign.CENTER,
             children: [
               new docx.Paragraph({
+                alignment: docx.AlignmentType.CENTER,
                 children: [
                   new TextRun({
                     font:"Book Antiqua",
@@ -190,11 +196,11 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
                   }),
                 ]
               })
-
+              
             ],
           })
-
-
+        
+        
         ],
         });
         rows.push(rowCourse);
@@ -213,11 +219,11 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
         new docx.TableCell({
           children: [new docx.Paragraph("")],
         })
-
-
+      
+      
       ],
       });
-
+      
       rows.push(rowEmpty);
     }
 
@@ -228,7 +234,7 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
         size: 100,
         type: docx.WidthType.PERCENTAGE,
       },
-
+      
       rows,
     });
 
@@ -249,9 +255,13 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
     margins:{top:100},
     rows: [
         new TableRow({
+          height: {
+            value: 10, // Adjust the value as needed
+            rule: docx.HeightRule.ATLEAST,
+          },
             children: [
                 new TableCell({
-
+                  
                     children: [
                      new Paragraph({
                         children: [
@@ -272,18 +282,21 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text:data.personalDetails.titleText,
+                            text:data.personalDetails.titleText+'.',
                           }),
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text:' '+data.personalDetails.initials+' ',
+                            text:this.camelCaseText(' '+data.personalDetails.lastName),
+                            //italics:true
                           }),
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text:this.camelCaseText(data.personalDetails.lastName),
+                            text:' '+data.personalDetails.initials,
+                            //italics:true
                           })
+                          
                         ]
                       })
                       ],
@@ -291,6 +304,10 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
             ],
         }),
         new TableRow({
+          height: {
+            value: 10, // Adjust the value as needed
+            rule: docx.HeightRule.ATLEAST,
+          },
             children: [
                 new TableCell({
                     children: [
@@ -320,6 +337,10 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
             ],
         }),
         new TableRow({
+          height: {
+            value: 2, // Adjust the value as needed
+            rule: docx.HeightRule.AUTO,
+          },
           children: [
               new TableCell({
                   children: [
@@ -467,10 +488,10 @@ console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
     //         }),
     //     ],
     // }),
-
+  
     ],
 });
-
+ 
 
 if (gg.coursejsonDataEnglish.length === 0) {
   this.additionalRequirementsHeading="";
@@ -585,9 +606,14 @@ const dateString = `${year}-${month}-${day}`;
   },
     sections: [
       {
-        properties: {
+        properties: { 
           titlePage: true,
           page: {
+            margin: {
+              right: 1000,
+              bottom: 0,
+              left: 1000,
+          },
             pageNumbers: {
                 start: 1,
                 formatType: NumberFormat.DECIMAL,
@@ -598,14 +624,17 @@ const dateString = `${year}-${month}-${day}`;
             first: new Header({
                 children: [
                     new Paragraph({
+                      indent: {
+                        left: -400,
+                    },
                         children: [
                           new ImageRun({
-                            data: this.commonData.mainHeader,
+                            data: this.commonData.mainheader2,
                             transformation: {
-                                width: 650,
-                                height: 175,
+                                width: 717,
+                                height: 204.33,
                             },
-
+        
                         }),
                         ],
                     }),
@@ -632,22 +661,17 @@ const dateString = `${year}-${month}-${day}`;
                 children: [
                   new Paragraph({
                     children: [
-
+                      
                       new ImageRun({
-                        data: this.commonData.footer,
+                        data: this.commonData.footer2,
                         transformation: {
-                            width: 600,
-                            height: 50,
+                            width: 620,
+                            height: 33,
                         },
                     }),
-                      new TextRun({
-                        text: 'Examinations Division – The Open University of Sri Lanka.',
-                        font:"Monotype Corsiva"
-                      }),
-                      new Tab(),
                       new Tab(),
                       new TextRun({
-                        children: ["                                                                                            Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -658,23 +682,17 @@ const dateString = `${year}-${month}-${day}`;
                 children: [
                   new Paragraph({
                     children: [
-
+                      
                       new ImageRun({
-                        data: this.commonData.footer,
+                        data: this.commonData.footer2,
                         transformation: {
-                            width: 600,
-                            height: 50,
+                            width: 620,
+                            height: 33,
                         },
                     }),
-                      new TextRun({
-
-                        text: 'Examinations Division – The Open University of Sri Lanka.',
-                        font:"Monotype Corsiva"
-                      }),
-                      new Tab(),
                       new Tab(),
                       new TextRun({
-                        children: ["                                                                                            Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -682,7 +700,7 @@ const dateString = `${year}-${month}-${day}`;
                 ],
             }),
         },
-
+        
         children: [
           new Paragraph({
             spacing: {
@@ -705,6 +723,7 @@ const dateString = `${year}-${month}-${day}`;
                     text:"Date : "+dateString,
                     font:"Book Antiqua",
                     size:20,
+                    //italics:true
                 }),
             ],
         }),
@@ -716,6 +735,7 @@ const dateString = `${year}-${month}-${day}`;
           personalDetails,
 
           new Paragraph({
+            alignment: docx.AlignmentType.JUSTIFIED,
             spacing: {
               before: 250,
           },
@@ -729,11 +749,13 @@ const dateString = `${year}-${month}-${day}`;
                     text:this.camelCaseText(data.personalDetails.denotedByInitials)+' ',
                     font:"Book Antiqua",
                     size:22,
+                    //italics:true
                   }),
                   new TextRun({
                     text:this.camelCaseText(data.personalDetails.lastName),
                     font:"Book Antiqua",
                     size:22,
+                    //italics:true
                   }),
                   new TextRun({
                     text:" has obtained the following grades or exemptions in the under mentioned courses of the ",
@@ -744,47 +766,47 @@ const dateString = `${year}-${month}-${day}`;
                     text:this.camelCaseText(data.personalDetails.programmeTitle),
                     font:"Book Antiqua",
                     size:22,
-                    smallCaps: true,
+                    //italics:true
                   }),
                   new TextRun({
                     font:"Book Antiqua",
                     size:22,
                     text:", conducted by The Open University of Sri Lanka.",
-
+                
                   }),
             ],
         }),
 
-        new Paragraph({
-          spacing: {
-            before: 250,
-        },
-          children: [
-              new TextRun({
-                font:"Book Antiqua",
-                size:22,
-                  text:"Please note that the student has Yet to complete all the academic requirements for the award of the ",
-              }),
-              new TextRun({
-                text:"data.personalDetails.qualifications",
-                font:"Book Antiqua",
-                size:22,
-              }),
-              new TextRun({
-                text: "as at "+dateString,
-                font:"Book Antiqua",
-                size:22,
-              }),
-          ],
-      }),
-
+      //   new Paragraph({
+      //     spacing: {
+      //       before: 250,
+      //   },
+      //     children: [
+      //         new TextRun({
+      //           font:"Book Antiqua",
+      //           size:22,
+      //             text:"Please note that the student has Yet to complete all the academic requirements for the award of the ",
+      //         }),
+      //         new TextRun({
+      //           text:"data.personalDetails.qualifications",
+      //           font:"Book Antiqua",
+      //           size:22,
+      //         }),
+      //         new TextRun({
+      //           text: "as at "+dateString,
+      //           font:"Book Antiqua",
+      //           size:22,
+      //         }),
+      //     ],
+      // }),
+        
 
          //Show Academic Performance Details:
-         this.createSubHeadingSecond("Academic Performance Details:"),
+         this.createSubHeadingSecond("Academic Performance Details"),
          academicPerformanceDetails,
 
-
-
+         
+     
 
    //Show Key to Grades/Status and Grade Point Values:
    //this.createSubHeading("Key to Grades/Status, Grade Point Values and Mark Ranges:"),
@@ -816,10 +838,21 @@ new Paragraph({
   ],
   children: [
     new TextRun({
+      text:"30 Credits at Levels 03 & 04 of this programme have been exempted based on the Degree in ",
       font:"Book Antiqua",
-      size:20,
-      text: "30 Credits at Levels 03 & 04 of this programme have been exempted based on the Diploma in Medical Laboratory Technology offered by the Ministry of Health, Sri Lanka",
-    })
+      size:22,
+    }),
+    new TextRun({
+      text:this.camelCaseText(data.personalDetails.programmeTitle),
+      font:"Book Antiqua",
+      size:22,
+      //italics:true
+    }),
+    new TextRun({
+      text:" offered by the Ministry of Health, Sri Lanka",
+      font:"Book Antiqua",
+      size:22
+    }),
   ]
 }),
 
@@ -1015,17 +1048,19 @@ new Table({
             new TextRun({
               font:"Book Antiqua",
               size:22,
-              text: "This letter is issued at the request of "+this.camelCaseText(data.personalDetails.titleText)+"",
+              text: "This letter is issued at the request of "+this.camelCaseText(data.personalDetails.titleText)+'.'+""
             }),
             new TextRun({
               font:"Book Antiqua",
               size:22,
               text: " "+data.personalDetails.initials+"",
+              //italics:true
             }),
             new TextRun({
               font:"Book Antiqua",
               size:22,
               text: " "+ this.camelCaseText(data.personalDetails.lastName)+".",
+              //italics:true
             })
           ]
         }),
@@ -1067,8 +1102,8 @@ new Table({
             type: SectionType.CONTINUOUS,
         },
         children: [
-
-
+            
+           
         ],
     },
 ],
@@ -1109,7 +1144,7 @@ public createInstitutionHeader(
         type: TabStopType.RIGHT,
         position: 6500
       },
-
+     
     ],
     children: [
       new TextRun({
@@ -1180,7 +1215,7 @@ public createHeading(text: string): Paragraph {
         bold: true,
         size:24
       }),
-
+      
     ],
     heading: HeadingLevel.HEADING_2,
   });
@@ -1188,6 +1223,7 @@ public createHeading(text: string): Paragraph {
 
 public createSubHeading(text: string): Paragraph {
   return new Paragraph({
+    alignment: docx.AlignmentType.JUSTIFIED,
     spacing:{
       before:300,
       after:300
@@ -1204,10 +1240,10 @@ public createSubHeading(text: string): Paragraph {
         font:"Book Antiqua",
         size:24,
         allCaps: true,
-        text: "RESULTS OF "+text,
+        text: "RESULTS OF DEGREE OF "+text,
         bold: true
       }),
-
+      
     ]
   });
 }
@@ -1230,36 +1266,29 @@ public createSubHeadingSecond(text: string): Paragraph {
         text: text,
         bold: true
       }),
-
+      
     ]
   });
 }
 
-public createSkillList(skills: any[]): TableRow {
-  return new TableRow({
-    children: [
-      new docx.TableCell({
-        columnSpan:4,
-        children: [new docx.Paragraph("ggg")] }),
-    ],
-  })
-}
 
 
 generateGPATable(data: any) {
   const rows = [];
-
+  
   for (let i = 0; i < data.data.length; i++) {
     const item = data.data[i].value;
     const cells = [];
 for (let p = 0; p < item.length; p++) {
 const cell =new docx.TableCell({
+  verticalAlign: docx.VerticalAlign.CENTER,
   width: {
     size: 700,
     type: WidthType.DXA,
 },
   children: [
     new docx.Paragraph({
+      alignment: docx.AlignmentType.CENTER,
       children: [
         new TextRun({
           font:"Book Antiqua",
@@ -1268,7 +1297,7 @@ const cell =new docx.TableCell({
         }),
       ]
     })
-
+   
   ]
 })
 cells.push(cell);
@@ -1290,18 +1319,20 @@ cells.push(cell);
 
 generateEnglishGPATable(data: any) {
   const rows = [];
-
+  
   for (let i = 0; i < data.length; i++) {
     const item = data[i].value;
     const cells = [];
 for (let p = 0; p < item.length; p++) {
 const cell =new docx.TableCell({
+  verticalAlign: docx.VerticalAlign.CENTER,
   width: {
     size: 700,
     type: WidthType.DXA,
 },
   children: [
     new docx.Paragraph({
+      alignment: docx.AlignmentType.CENTER,
       children: [
         new TextRun({
           font:"Book Antiqua",
@@ -1426,6 +1457,7 @@ for (let j = 0; j < data.length; j++) {
   let rowCourse = new docx.TableRow({
     children: [
       new docx.TableCell({
+        verticalAlign: docx.VerticalAlign.CENTER,
       children: [
         new docx.Paragraph({
           children: [
@@ -1439,6 +1471,7 @@ for (let j = 0; j < data.length; j++) {
       ],
     }),
     new docx.TableCell({
+      
       children: [
         new docx.Paragraph({
           children: [
@@ -1452,8 +1485,10 @@ for (let j = 0; j < data.length; j++) {
       ],
     }),
     new docx.TableCell({
+      verticalAlign: docx.VerticalAlign.CENTER,
       children: [
         new docx.Paragraph({
+          alignment: docx.AlignmentType.CENTER,
           children: [
             new TextRun({
               font:"Book Antiqua",
@@ -1462,12 +1497,14 @@ for (let j = 0; j < data.length; j++) {
             }),
           ]
         })
-
+        
       ],
     }),
     new docx.TableCell({
+      verticalAlign: docx.VerticalAlign.CENTER,
       children: [
         new docx.Paragraph({
+          alignment: docx.AlignmentType.CENTER,
           children: [
             new TextRun({
               font:"Book Antiqua",
@@ -1478,8 +1515,8 @@ for (let j = 0; j < data.length; j++) {
         })
       ],
     })
-
-
+  
+  
   ],
   });
   rows.push(rowCourse);
