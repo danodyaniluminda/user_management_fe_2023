@@ -19,7 +19,7 @@ export const AppRoutes: Routes = [
         pathMatch: 'full'
       },
       {
-        path : 'transcript-type-and-results-status',
+        path : 'view-print-transcript-details',
         component : ViewPrintTranscriptDetailsComponent
       },
       {
