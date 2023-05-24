@@ -4,6 +4,7 @@ import { FullComponent } from './layouts/full/full.component';
 import { ViewPrintTranscriptDetailsComponent } from "./exam-management/transcript/print-transcript/view-print-transcript-details/view-print-transcript-details.component";
 import { VerifyTranscriptComponent } from "./exam-management/transcript/verify-transcript/verify-transcript.component";
 import { PaymentReconcilationComponent } from './finance-services/transcript/payment-reconcilation/payment-reconcilation.component';
+import {SidenavComponent} from "./layouts/full/sidenav/sidenav.component";
 
 export const AppRoutes: Routes = [
   {
@@ -26,7 +27,7 @@ export const AppRoutes: Routes = [
       {
         path : 'payment-reconcilation',
         component : PaymentReconcilationComponent
-      },
+      }
     ]
   }
 ];
