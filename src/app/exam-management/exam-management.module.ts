@@ -10,6 +10,10 @@ import {DemoMaterialModule} from "../demo-material-module";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {DataTablesModule} from "angular-datatables";
 import {ReactiveFormsModule} from "@angular/forms";
+import { TranscriptTypeComponent } from './master-data/transcript-type/transcript-type.component';
+import { ResultTypeComponent } from './master-data/result-type/result-type.component';
+import { DayQuotaAllocationComponent } from './master-data/day-quota-allocation/day-quota-allocation.component';
+import { TranscriptTypeAndResultTypeComponent } from './master-data/transcript-type-and-result-type/transcript-type-and-result-type.component';
 @NgModule({
   declarations: [
     VerifyTranscriptComponent,
@@ -17,7 +21,11 @@ import {ReactiveFormsModule} from "@angular/forms";
     ViewTranscriptRequestDetailsComponent,
     VerifyAndGenerateResultSheetComponent,
     ViewPrintTranscriptDetailsComponent,
-    PrinterComponent
+    PrinterComponent,
+    TranscriptTypeComponent,
+    ResultTypeComponent,
+    DayQuotaAllocationComponent,
+    TranscriptTypeAndResultTypeComponent
   ],
   imports: [
     DemoMaterialModule,
