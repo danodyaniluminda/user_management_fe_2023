@@ -1,10 +1,10 @@
 
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import {CommonModule, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { CommonModule, LocationStrategy, PathLocationStrategy, DatePipe } from '@angular/common';
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 
@@ -21,7 +21,8 @@ import {DataTablesModule} from "angular-datatables";
 import {QRCodeModule} from "angularx-qrcode";
 import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
-import {ExamManagementModule} from "./exam-management/exam-management.module";
+import { ExamManagementModule } from './exam-management/exam-management.module';
+import { FinanceServicesModule } from './finance-services/finance-services.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {ExamManagementModule} from "./exam-management/exam-management.module";
     NgxQRCodeModule,
     NgxMatSelectSearchModule,
     DemoMaterialModule,
-    ExamManagementModule
+    ExamManagementModule,
+    FinanceServicesModule
 
 
   ],
@@ -56,6 +58,7 @@ import {ExamManagementModule} from "./exam-management/exam-management.module";
       useClass: PathLocationStrategy
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {}
