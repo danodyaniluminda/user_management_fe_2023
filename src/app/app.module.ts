@@ -23,6 +23,7 @@ import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { ExamManagementModule } from './exam-management/exam-management.module';
 import { FinanceServicesModule } from './finance-services/finance-services.module';
+import { SidenavComponent } from './layouts/full/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { FinanceServicesModule } from './finance-services/finance-services.modul
     AppHeaderComponent,
     SpinnerComponent,
     AppSidebarComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,8 +51,6 @@ import { FinanceServicesModule } from './finance-services/finance-services.modul
     DemoMaterialModule,
     ExamManagementModule,
     FinanceServicesModule
-
-
   ],
   providers: [
     {

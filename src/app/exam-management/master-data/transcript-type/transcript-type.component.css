@@ -1,0 +1,52 @@
+th{
+  text-align: center;
+}
+.center-cell{
+  text-align: center;
+}
+#status-cell{
+  text-align: left;
+  padding-left: 50px;
+}
+#ttype{
+  width: 693px;
+}
+
+
+table {
+  width: 100%;
+}
+
+.example-card {
+  max-width: 1108px;
+}
+
+.mat-column-no {
+  flex: 0 0 15%;
+}
+
+.mat-column-id {
+  flex: 0 0 15%;
+}
+
+.mat-column-old_omis_id {
+  flex: 0 0 15%;
+}
+
+.mat-column-result_type {
+  flex: 0 0 15%;
+}
+
+mat-paginator {
+  color: black;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/*button*/
+/*{*/
+/*  pointer-events: none;*/
+/*}*/
+
