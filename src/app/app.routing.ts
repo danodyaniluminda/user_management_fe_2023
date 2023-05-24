@@ -5,6 +5,8 @@ import { ViewPrintTranscriptDetailsComponent } from "./exam-management/transcrip
 import { VerifyTranscriptComponent } from "./exam-management/transcript/verify-transcript/verify-transcript.component";
 import { PaymentReconcilationComponent } from './finance-services/transcript/payment-reconcilation/payment-reconcilation.component';
 import {SidenavComponent} from "./layouts/full/sidenav/sidenav.component";
+import {ResultTypeComponent} from "./exam-management/master-data/result-type/result-type.component";
+import {TranscriptTypeComponent} from "./exam-management/master-data/transcript-type/transcript-type.component";
 
 export const AppRoutes: Routes = [
   {
@@ -27,6 +29,14 @@ export const AppRoutes: Routes = [
       {
         path : 'payment-reconcilation',
         component : PaymentReconcilationComponent
+      },
+      {
+        path : 'add-result-type',
+        component : ResultTypeComponent
+      },
+      {
+        path : 'add-transcript-type',
+        component : TranscriptTypeComponent
       }
     ]
   }
