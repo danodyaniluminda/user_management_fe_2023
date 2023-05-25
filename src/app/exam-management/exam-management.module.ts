@@ -14,6 +14,8 @@ import { TranscriptTypeComponent } from './master-data/transcript-type/transcrip
 import { ResultTypeComponent } from './master-data/result-type/result-type.component';
 import { DayQuotaAllocationComponent } from './master-data/day-quota-allocation/day-quota-allocation.component';
 import { TranscriptTypeAndResultTypeComponent } from './master-data/transcript-type-and-result-type/transcript-type-and-result-type.component';
+import { ExamManagementRoutingModule } from './exam-management-routing.module';
+
 @NgModule({
   declarations: [
     VerifyTranscriptComponent,
@@ -28,6 +30,7 @@ import { TranscriptTypeAndResultTypeComponent } from './master-data/transcript-t
     TranscriptTypeAndResultTypeComponent
   ],
     imports: [
+      ExamManagementRoutingModule,
         DemoMaterialModule,
         CommonModule,
         NgxMatSelectSearchModule,
