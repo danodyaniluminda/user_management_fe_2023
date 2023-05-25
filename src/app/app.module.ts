@@ -1,11 +1,9 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CommonModule, LocationStrategy, PathLocationStrategy, DatePipe } from '@angular/common';
-import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -24,6 +22,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import { ExamManagementModule } from './exam-management/exam-management.module';
 import { FinanceServicesModule } from './finance-services/finance-services.module';
 import { SidenavComponent } from './layouts/full/sidenav/sidenav.component';
+import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   declarations: [
@@ -42,7 +41,7 @@ import { SidenavComponent } from './layouts/full/sidenav/sidenav.component';
     HttpClientModule,
     SharedModule,
     CommonModule,
-    RouterModule.forRoot(AppRoutes),
+    AppRoutingModule,
     ReactiveFormsModule,
     DataTablesModule,
     QRCodeModule,
