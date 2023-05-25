@@ -9,7 +9,13 @@ import { PrinterComponent } from './transcript/print-transcript/printer/printer.
 import {DemoMaterialModule} from "../demo-material-module";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {DataTablesModule} from "angular-datatables";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { TranscriptTypeComponent } from './master-data/transcript-type/transcript-type.component';
+import { ResultTypeComponent } from './master-data/result-type/result-type.component';
+import { DayQuotaAllocationComponent } from './master-data/day-quota-allocation/day-quota-allocation.component';
+import { TranscriptTypeAndResultTypeComponent } from './master-data/transcript-type-and-result-type/transcript-type-and-result-type.component';
+import { ExamManagementRoutingModule } from './exam-management-routing.module';
+
 @NgModule({
   declarations: [
     VerifyTranscriptComponent,
@@ -17,14 +23,20 @@ import {ReactiveFormsModule} from "@angular/forms";
     ViewTranscriptRequestDetailsComponent,
     VerifyAndGenerateResultSheetComponent,
     ViewPrintTranscriptDetailsComponent,
-    PrinterComponent
+    PrinterComponent,
+    TranscriptTypeComponent,
+    ResultTypeComponent,
+    DayQuotaAllocationComponent,
+    TranscriptTypeAndResultTypeComponent
   ],
-  imports: [
-    DemoMaterialModule,
-    CommonModule,
-    NgxMatSelectSearchModule,
-    DataTablesModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+      ExamManagementRoutingModule,
+        DemoMaterialModule,
+        CommonModule,
+        NgxMatSelectSearchModule,
+        DataTablesModule,
+        ReactiveFormsModule,
+        FormsModule
+    ]
 })
 export class ExamManagementModule { }

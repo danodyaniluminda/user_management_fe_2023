@@ -1,0 +1,139 @@
+<div >
+
+  <mat-card style="background-color: rgb(235, 237, 239)">
+    <mat-card-content>
+      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
+        Add New Result Type
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <br>
+  <br>
+
+  <div class="container">
+
+    <mat-card  class="example-card" style="background-color: rgb(235, 237, 239)">
+
+      <mat-card-content>
+        <form class="date-block" ></form>
+
+        <!-- <div class="row">
+          <label for="ttype" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Result Type &nbsp;&nbsp; :
+                </label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                  [(ngModel)]="resultStatusName"
+                  (input)="filterResultStatus($event)"
+                  type="text"
+                  id="ttype"
+                  name="ttype"
+                />&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+        </div> -->
+
+        <div>
+          <mat-form-field class="form-fields" appearance="outline"  style="width: 600px; margin-left: 10px;"  >
+            <mat-label>Result Type</mat-label>
+            <input (keyup)="showResultTypeError()" matInput type="text" placeholder="Result Type" [(ngModel)]="resultStatusName"
+                   (input)="filterResultStatus($event)"
+                   type="text"
+                   id="ttype"
+                   name="ttype">
+            <!-- <button matSuffix mat-icon-button aria-label="Search">
+              <mat-icon>search</mat-icon>
+            </button> -->
+          </mat-form-field> <br>
+          <label *ngIf="showResultTypeError()" class="text-danger"> &nbsp; Special characters and numbers are not allowed.</label>
+
+        </div>
+
+
+        <!-- &nbsp;&nbsp; -->
+        <!-- <br> -->
+
+        <div style="text-align: left;">
+          <button [disabled]="addButtonDisabled" (click)="addNewResultStatus()"  mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Add</button>
+          &nbsp;
+          <button  (click)="close()" mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Back</button>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <br>
+    <br>
+
+
+    <!-- <pre>{{resultStatuss|json}}</pre> -->
+    <div style="overflow-x: auto;">
+
+      <table
+        id="printTable"
+        mat-table
+        [dataSource]="resultsStatusDT"
+        class="example-container mat-elevation-z8"
+        matTableExporter #exporter="matTableExporter"
+        style="background-color: rgb(235, 237, 239)"
+        matSort
+      >
+
+
+
+        <ng-container matColumnDef="no">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+          <td mat-cell *matCellDef="let resultStatus ; let i= index"  [attr.data-index]="i"> {{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let resultStatus; let i= index"> {{ resultStatus.id }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="old_omis_id">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Old Omis Id</th>
+          <td mat-cell *matCellDef="let resultStatus ; let i= index"> {{ resultStatus.oldOmisId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="result_type">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Result Type</th>
+          <td mat-cell *matCellDef="let resultStatus; let i= index"> {{ resultStatus.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th style="font-weight: bold;" mat-header-cell  *matHeaderCellDef >Actions</th>
+          <td mat-cell *matCellDef="let resultStatus ;let i = index" >
+            <!-- <button class="center-cell" (click)="archive(resultStatus.id)" class="btn btn-danger">Delete</button> -->
+            <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" (click)="archive(resultStatus.id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row ; let i = index; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <br>
+
+      <table>
+        <tr *ngIf="!resultsStatusDT.data.length">
+          <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
+            No Records Available!
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator
+        style="background-color: rgb(235, 237, 239)"
+        #paginator
+        [pageSizeOptions]="[10, 15, 20]"
+        showFirstLastButtons
+        [hidden]="!resultsStatusDT.data.length">
+      </mat-paginator>
+
+      <br>
+      <br>
+
+    </div>
+
