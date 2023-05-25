@@ -1,22 +1,33 @@
-
 <br>
-<mat-card class="example-card" style="background-color: rgb(235, 237, 239)">
-  <div class="row ml-4" >
-    <form class="date-block" [formGroup]="form">
-      <div class="row ml-2">
-        <mat-card-content>
-          <div>
-            <mat-form-field class="form-fields" appearance="outline" >
+<div class="content">
+<!--  <mat-card class="example-container">-->
+    <br>
+    <div>
+      <form class="date-block" [formGroup]="form">
+        <mat-grid-list cols="2" rowHeight="60px" gutterSize="4px">
+          <mat-grid-tile>
+            <mat-form-field class="form-fields" appearance="outline">
               <mat-label>NIC or Reg number</mat-label>
               <input matInput type="text"  formControlName="nic" placeholder="NIC or Reg number">
               <button matSuffix mat-icon-button aria-label="Search">
                 <mat-icon>search</mat-icon>
               </button>
             </mat-form-field>
-          </div>
+          </mat-grid-tile>
 
-          <div>
-            <mat-form-field appearance="outline" class="form-fields" >
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
+              <mat-label>Select Status</mat-label>
+              <mat-select
+                formControlName="status">
+                <mat-option >Select All</mat-option>
+                <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.status}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
               <mat-label>Search By Date Range</mat-label>
               <mat-date-range-input [rangePicker]="picker">
                 <input (dateChange)="onDateChange()" formControlName="fromDate" matStartDate matInput
@@ -27,10 +38,23 @@
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
-          </div>
-          <div>
+          </mat-grid-tile>
 
-            <mat-form-field *ngIf="showSelect" appearance="outline" class="form-fields" style="width: 1000px">
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
+              <mat-label>Select Transcript Type</mat-label>
+              <mat-select
+                formControlName="transcriptType">
+                <mat-option >Select All</mat-option>
+
+                <mat-option *ngFor="let transcriptType of transcriptTypes" [value]="transcriptType.id">
+                  {{transcriptType.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field *ngIf="showSelect" appearance="outline" class="form-fields">
               <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
                 <mat-spinner
                   color="primary"
@@ -50,66 +74,36 @@
                 <mat-option  *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
                   {{programme.name}}
                 </mat-option>
-
-
-
               </mat-select>
             </mat-form-field>
-          </div>
-        </mat-card-content>
+          </mat-grid-tile>
 
-        <!-- <div class="row ml-2"> -->
-        <mat-card-content >
-          <div>
-            <mat-form-field appearance="outline" class="form-fields" >
-              <mat-label>Select Status</mat-label>
-              <mat-select
-                formControlName="status">
-                <mat-option >Select All</mat-option>
-                <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.status}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field appearance="outline" class="form-fields" >
-              <mat-label>Select Transcript Type</mat-label>
-              <mat-select
-                formControlName="transcriptType">
-                <mat-option >Select All</mat-option>
-
-                <mat-option *ngFor="let transcriptType of transcriptTypes" [value]="transcriptType.id">
-                  {{transcriptType.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div>
-            <mat-form-field appearance="outline" class="form-fields" >
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
               <mat-label>Select Service Type</mat-label>
               <mat-select
                 formControlName = "service">
                 <mat-option >Select All</mat-option>
-
                 <mat-option *ngFor="let service of serviceTypes" [value]="service.id">{{service.name}}</mat-option>
               </mat-select>
             </mat-form-field>
-          </div>
+          </mat-grid-tile>
 
-        </mat-card-content>
-        <!-- </div> -->
-      </div>
+        </mat-grid-list>
+        <br>
+        <div class="row ml-4">
+          <button mat-raised-button color="primary" (click)="search()">Search</button>
+        </div>
+        <br>
+      </form>
+    </div>
+<!--  </mat-card>-->
+</div>
 
-      <div class="row ml-2">
-        <button mat-raised-button color="primary" (click)="search()">Search</button>
-      </div>
-    </form>
-  </div>
-</mat-card>
-<br>
 <!--<pre>{{form.value|json}}</pre>-->
-<mat-card>
+<mat-card *ngIf="showTable">
   <mat-card-content>
-    <div class="card" *ngIf="showTable">
+    <div class="card">
 
       <div class="table-responsive">
         <table datatable [dtOptions]="dtOptions" class="row-border hover">
