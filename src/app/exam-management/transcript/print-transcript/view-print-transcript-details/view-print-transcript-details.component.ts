@@ -56,7 +56,7 @@ export class ViewPrintTranscriptDetailsComponent implements OnInit {
     this.fetchAllProgrammes();
     this.fetchAllTranscriptTypes();
     this.fetchAllServiceTypes();
-    this.search();
+    // this.search();
 
     this.dtOptions = {
       pagingType: 'full_numbers',

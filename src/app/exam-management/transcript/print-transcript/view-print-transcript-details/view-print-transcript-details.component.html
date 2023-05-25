@@ -83,9 +83,9 @@
 </div>
 
   <br>
-<mat-card class="example-container">
+<mat-card class="example-container" *ngIf="showTable">
   <br>
-  <div class="example-table-container" *ngIf="showTable">
+  <div class="example-table-container" >
     <!-- <pre>{{transcripts|json}}</pre> -->
     <div class="table-responsive">
       <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
