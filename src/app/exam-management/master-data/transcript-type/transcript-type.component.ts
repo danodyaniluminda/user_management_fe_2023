@@ -310,9 +310,9 @@ export class TranscriptTypeComponent implements OnInit {
     window.location.reload();
   }
 
-
+// ./transcript-type-and-result-type
   close(){
-    this.router.navigate(['/transcript-type-and-results-status']);
+    this.router.navigate(['./transcript-type-and-result-type']);
   }
 
   programmeChange(target:any) {
