@@ -1,7 +1,7 @@
 <div class="content">
   <mat-card class="example-container">
     <br>
-    <div class="row ml-4">
+    <div class="form-content">
       <form class="date-block" [formGroup]="form">
         <mat-grid-list cols="2" rowHeight="60px" gutterSize="4px">
           <mat-grid-tile>
@@ -54,7 +54,7 @@
 
 
         <div>
-          <mat-form-field appearance="outline" class="form-fields" style="width: 1000px">
+          <mat-form-field appearance="outline" class="form-fields" style="width: 1185px">
             <mat-label>Select Programme</mat-label>
             <mat-select (click)="programmeChange()"
                         formControlName="programme">
@@ -85,7 +85,7 @@
   <br>
 <mat-card class="example-container" *ngIf="showTable">
   <br>
-  <div class="example-table-container" >
+  <div class="example-table-container">
     <!-- <pre>{{transcripts|json}}</pre> -->
     <div class="table-responsive">
       <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
