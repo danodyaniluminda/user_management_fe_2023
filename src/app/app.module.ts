@@ -23,6 +23,7 @@ import { ExamManagementModule } from './exam-management/exam-management.module';
 import { FinanceServicesModule } from './finance-services/finance-services.module';
 import { SidenavComponent } from './layouts/full/sidenav/sidenav.component';
 import {AppRoutingModule} from "./app-routing.module";
+import {SublevelMenuComponent} from "./layouts/full/sidenav/sublevel-menu.component";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {AppRoutingModule} from "./app-routing.module";
     SpinnerComponent,
     AppSidebarComponent,
     SidenavComponent,
+    SublevelMenuComponent,
   ],
   imports: [
     BrowserModule,
