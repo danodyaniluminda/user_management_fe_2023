@@ -4,19 +4,34 @@
   max-width: 1500px;
 }
 
-.example-card {
-  max-width: 1500px;
+/*.content {*/
+/*  margin-left: 10px;*/
+/*  margin-right: 10px;*/
+/*}*/
+
+.form-content{
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
-.example-table-container {
-  position: relative;
-  min-height: 200px;
-  max-height: 400px;
-  overflow: auto;
-}
+/*.example-card {*/
+/*  max-width: 1500px;*/
+/*}*/
+
+
+/*.example-table-container {*/
+/*  position: relative;*/
+/*  min-height: 200px;*/
+/*  max-height: 400px;*/
+/*  overflow: auto;*/
+/*} */
 
 table {
-  width: 100%;
+  width: 97%;
+  max-height: 500px;
+  overflow: auto;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .example-loading-shade {
@@ -52,26 +67,22 @@ table {
   padding: 0;
 }
 
-.form-fields {
-  width: 400px;
-  text-align: center;
+.example-field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
-.card-container {
-  /*  not needed styles to reflect it */
-  background: blue;
-  padding: 10px;
-  color: white;
-  width: 500px;
-
-  /* needed styles below */
-  display: flex;
-  justify-content: space-between;
+.form-fields {
+  width: 800px;
 }
 
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  mat-select{
+  mat-select,mat-grid-list{
     width: 100px;
+
   }
 }
+
+

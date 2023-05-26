@@ -1,0 +1,51 @@
+.example-card {
+  background-color: #ffffff;
+  max-width: 1500px;
+}
+
+mat-card-content {
+  font-weight: bolder;
+  font-size: 120px;
+  text-align: left;
+}
+
+table {
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.mat-column-nic {
+  flex: 0 0 15%;
+}
+
+.mat-column-applicationId {
+  flex: 0 0 15%;
+}
+
+.mat-column-status {
+  flex: 0 0 15%;
+}
+
+.mat-column-paymentMethod {
+  flex: 0 0 15%;
+}
+
+mat-paginator {
+  color: black;
+  background-color: #ffffff;
+}
+
+.export-container {
+  margin-left: 10px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+
+@media (max-width: 600px) {
+  .example-card {
+    min-width:17rem;
+  }
+}

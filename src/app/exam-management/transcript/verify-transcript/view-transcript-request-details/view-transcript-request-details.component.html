@@ -1,8 +1,9 @@
-<br>
+
 <div class="content">
-<!--  <mat-card class="example-container">-->
+  <mat-card class="example-container">
     <br>
-    <div>
+    <div class="form-content">
+      <br>
       <form class="date-block" [formGroup]="form">
         <mat-grid-list cols="2" rowHeight="60px" gutterSize="4px">
           <mat-grid-tile>
@@ -91,26 +92,26 @@
 
         </mat-grid-list>
         <br>
-        <div class="row ml-4">
+        <div class="row ml-1">
           <button mat-raised-button color="primary" (click)="search()">Search</button>
         </div>
         <br>
       </form>
     </div>
-<!--  </mat-card>-->
+  </mat-card>
 </div>
 
 <!--<pre>{{form.value|json}}</pre>-->
 <mat-card *ngIf="showTable">
-  <mat-card-content>
-    <div class="card">
+  <br>
+    <div class="example-table-container">
 
       <div class="table-responsive">
-        <table datatable [dtOptions]="dtOptions" class="row-border hover">
+        <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
           <thead>
           <tr>
             <th>Programme Name</th>
-            <th>Service Type</th>
+            <th style="width: 15%;">Service Type</th>
             <th>Transcript Type</th>
             <th>Date Applied</th>
             <th>Reg No</th>
@@ -121,7 +122,7 @@
           <tbody>
           <tr *ngFor="let transcript of transcripts">
             <td>{{ transcript.programmeName }}</td>
-            <td>{{ transcript.serviceType }}</td>
+            <td style="width: 15%;">{{ transcript.serviceType }}</td>
             <td>{{ transcript.transcriptType }}</td>
             <td>{{ transcript.dateApplied }}</td>
             <td>{{ transcript.regNo }}</td>
@@ -136,7 +137,6 @@
       </div>
 
     </div>
-  </mat-card-content>
 </mat-card>
 
 
