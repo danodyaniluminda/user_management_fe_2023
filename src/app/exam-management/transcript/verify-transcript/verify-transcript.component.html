@@ -1,7 +1,7 @@
 <mat-card >
   <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedTabIndex" (selectedIndexChange)="disabled($event)">
     <mat-tab label="View Transcript Request Details">
-      <exam-verify-and-generate-result-sheet (isDisabled)="addItem($event)"></exam-verify-and-generate-result-sheet>
+      <exam-view-transcript-request-details (isDisabled)="addItem($event)"></exam-view-transcript-request-details>
     </mat-tab>
     <mat-tab label="Verify and generate Result sheet" [disabled]="verifyTabDisabled">
 <!--      <app-verify-and-generate-result-sheet (changeTab)="changeIndex()" *ngIf="!verifyTabDisabled"></app-verify-and-generate-result-sheet>-->

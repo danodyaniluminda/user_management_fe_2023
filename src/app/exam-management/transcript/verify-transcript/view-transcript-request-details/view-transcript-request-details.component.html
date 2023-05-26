@@ -1,1 +1,148 @@
-<p>view-transcript-request-details works!</p>
+<br>
+<div class="content">
+<!--  <mat-card class="example-container">-->
+    <br>
+    <div>
+      <form class="date-block" [formGroup]="form">
+        <mat-grid-list cols="2" rowHeight="60px" gutterSize="4px">
+          <mat-grid-tile>
+            <mat-form-field class="form-fields" appearance="outline">
+              <mat-label>NIC or Reg number</mat-label>
+              <input matInput type="text"  formControlName="nic" placeholder="NIC or Reg number">
+              <button matSuffix mat-icon-button aria-label="Search">
+                <mat-icon>search</mat-icon>
+              </button>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
+              <mat-label>Select Status</mat-label>
+              <mat-select
+                formControlName="status">
+                <mat-option >Select All</mat-option>
+                <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.status}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
+              <mat-label>Search By Date Range</mat-label>
+              <mat-date-range-input [rangePicker]="picker">
+                <input (dateChange)="onDateChange()" formControlName="fromDate" matStartDate matInput
+                       placeholder="Start date">
+                <input (dateChange)="onDateChange()" formControlName="toDate" matEndDate matInput
+                       placeholder="End date">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
+              <mat-label>Select Transcript Type</mat-label>
+              <mat-select
+                formControlName="transcriptType">
+                <mat-option >Select All</mat-option>
+
+                <mat-option *ngFor="let transcriptType of transcriptTypes" [value]="transcriptType.id">
+                  {{transcriptType.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field *ngIf="showSelect" appearance="outline" class="form-fields">
+              <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
+                <mat-spinner
+                  color="primary"
+                  mode="indeterminate">
+                </mat-spinner>
+              </mat-card>
+              <mat-label  >Select Programme</mat-label>
+              <mat-select *ngIf="showSelect"  (click)="programmeChange()" #singleSelect
+                          formControlName="programme">
+
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="programmeFilterCtrl"  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
+                    <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option >Select All</mat-option>
+                <mat-option  *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
+                  {{programme.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field appearance="outline" class="form-fields">
+              <mat-label>Select Service Type</mat-label>
+              <mat-select
+                formControlName = "service">
+                <mat-option >Select All</mat-option>
+                <mat-option *ngFor="let service of serviceTypes" [value]="service.id">{{service.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-grid-tile>
+
+        </mat-grid-list>
+        <br>
+        <div class="row ml-4">
+          <button mat-raised-button color="primary" (click)="search()">Search</button>
+        </div>
+        <br>
+      </form>
+    </div>
+<!--  </mat-card>-->
+</div>
+
+<!--<pre>{{form.value|json}}</pre>-->
+<mat-card *ngIf="showTable">
+  <mat-card-content>
+    <div class="card">
+
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="row-border hover">
+          <thead>
+          <tr>
+            <th>Programme Name</th>
+            <th>Service Type</th>
+            <th>Transcript Type</th>
+            <th>Date Applied</th>
+            <th>Reg No</th>
+            <th>NIC/Passport</th>
+            <th>Verify</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let transcript of transcripts">
+            <td>{{ transcript.programmeName }}</td>
+            <td>{{ transcript.serviceType }}</td>
+            <td>{{ transcript.transcriptType }}</td>
+            <td>{{ transcript.dateApplied }}</td>
+            <td>{{ transcript.regNo }}</td>
+            <td>{{ transcript.nic }}</td>
+            <td>
+              <!--                  <pre>{{!transcript.status?.includes('Payment verified')}} </pre><pre>  {{!transcript.status?.includes('Results not verified')}}</pre>-->
+              <button [disabled]="!transcript.status?.includes('Payment verified') && !transcript.status?.includes('Results not verified')" mat-raised-button color="primary" type="submit" (click)="VerifyTranscript(transcript.id,transcript.regNo)">Verify</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+
+
