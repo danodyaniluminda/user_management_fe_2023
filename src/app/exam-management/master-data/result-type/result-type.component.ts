@@ -28,7 +28,7 @@ export class ResultTypeComponent implements OnInit {
 
   addButtonDisabled :boolean=true;
 
-  displayedColumns = ['no', 'id', 'old_omis_id', 'result_type', 'delete']
+  displayedColumns = ['id', 'old_omis_id', 'result_type', 'delete']
 
   @ViewChild('paginator') paginator!: MatPaginator;
 
@@ -152,7 +152,7 @@ export class ResultTypeComponent implements OnInit {
 
 
   close(){
-    this.router.navigate(['/transcript-type-and-results-status']);
+    this.router.navigate(['master-data/transcript-type-and-result-type']);
   }
 
   camelCaseText(word:string): string {
