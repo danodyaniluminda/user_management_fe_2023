@@ -1,6 +1,6 @@
-<div >
+<div class="content">
 
-  <mat-card style="background-color: rgb(235, 237, 239)">
+  <mat-card  class="example-container" style="background-color: rgb(235, 237, 239)">
     <mat-card-content>
       <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
         Add New Transcript Type
@@ -12,8 +12,9 @@
   <br>
   <br>
 
+  <mat-card  class="example-container" style="background-color: rgb(235, 237, 239)">
   <div class="container">
-    <mat-card  class="example-card" style="background-color: rgb(235, 237, 239)">
+
       <mat-card-content>
         <form class="date-block" ></form>
 
@@ -62,7 +63,7 @@
             <input (keyup)="showTranscriptNameError()" matInput type="text" placeholder="Transcript Name" [(ngModel)]="transcriptName"
                    *ngIf="isShowSpecificField || isShowNormal"
                    (input)="filterTranscriptType($event)"
-                   type="text"
+
                    id="ttype"
                    name="ttypem">
             <!--        pattern="/[A-Z]{5}\d{4}[A-Z]{1}/i">-->
@@ -133,12 +134,20 @@
         </div>
 
       </mat-card-content>
-    </mat-card>
+  </div>
+  </mat-card>
+</div>
 
-    <br>
-    <br>
+<br>
 
+<mat-card class="example-container" >
+  <br>
+  <div class="example-table-container" >
+    <!-- <pre>{{transcripts|json}}</pre> -->
+    <div class="table-responsive">
 
+      <br>
+      <br>
     <!-- <pre>{{transcriptType|json}}</pre> -->
     <div style="overflow-x: auto;">
 
@@ -235,6 +244,13 @@
         </tr>
       </table>
 
+    </div>
+    </div>
+  </div>
+</mat-card>
+<br>
+
+<mat-card class="example-container" >
       <mat-paginator
         style="background-color: rgb(235, 237, 239)"
         #paginator
@@ -242,9 +258,7 @@
         showFirstLastButtons
         [hidden]="!transcriptTypeDT.data.length">
       </mat-paginator>
+</mat-card>
 
-      <br>
-      <br>
 
-    </div>
-  </div>
+
