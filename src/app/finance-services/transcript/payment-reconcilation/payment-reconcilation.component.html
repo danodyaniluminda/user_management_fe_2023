@@ -1,59 +1,35 @@
 
-
-<mat-card class="example-card" style="background-color: rgb(235, 237, 239)" >
-  <mat-card-content>
-    <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
-      Payment Reconciliation
-    </div>
-  </mat-card-content>
-</mat-card>
-
-
-
-<br>
-<br>
-<div class="container">
-
-
-          <!-- <div style="text-align: right;">
-             <button class="btn btn-primary" type="submit">
-               Apply & pay later
-             </button>
-              &nbsp;<button class="btn btn-primary" type="submit" >
-              Apply
-            </button>
-          </div> -->
-
-<mat-card  class="example-card" style="background-color: rgb(235, 237, 239)">
+<div>
+  <mat-card class="example-card">
     <mat-card-content>
-      <form class="date-block" [formGroup]="filterDateForm">
-        <mat-form-field>
-          <mat-label>Search By Date Range</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
-            <input (dateChange)="onDateChange()" formControlName="fromDate" matStartDate matInput placeholder="Start date">
-            <input (dateChange)="onDateChange()" formControlName="toDate" matEndDate matInput placeholder="End date">
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-      </form>
+        Payment Reconciliation
     </mat-card-content>
+  </mat-card>
 
-    <div style="text-align: left;">
-      <button (click)="applyFilter()" class="btn btn-primary">Search</button>
-      &nbsp;
-      <button class="btn btn-primary" onclick="window.location.reload()">Refresh</button>
-    </div>
+    <mat-card  class="example-card">
+      <mat-card-content>
+        <form class="date-block" [formGroup]="filterDateForm">
+          <mat-form-field>
+            <mat-label>Search By Date Range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input (dateChange)="onDateChange()" formControlName="fromDate" matStartDate matInput placeholder="Start date">
+              <input (dateChange)="onDateChange()" formControlName="toDate" matEndDate matInput placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
 
-</mat-card>
-    <br>
-    <br>
-
-
-<!-- <pre>{{AllVouchers|json}}</pre> -->
-<div style="overflow-x: auto;">
-      <table id="printTable" mat-table [dataSource]="vouchers" class="example-container mat-elevation-z8" matTableExporter #exporter="matTableExporter" style="background-color: rgb(235, 237, 239)" matSort>
-
+      <div style="text-align: left;">
+        <button (click)="applyFilter()" class="btn btn-primary">Search</button>        &nbsp;
+        <button class="btn btn-primary" onclick="window.location.reload()">Refresh</button>
+      </div>
+    </mat-card>
+    <!-- <pre>{{AllVouchers|json}}</pre> -->
+  <mat-card class="example-card">
+    <div style="overflow-x: auto;">
+      <table id="printTable" mat-table [dataSource]="vouchers" class="example-container mat-elevation-z8" matTableExporter #exporter="matTableExporter" matSort>
 
         <ng-container matColumnDef="applicationId">
           <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Application Id</th>
@@ -102,34 +78,30 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row ; let i = index; columns: displayedColumns;"></tr>
       </table>
-<!-- <br> -->
 
       <table>
         <tr *ngIf="!vouchers.data.length">
           <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
-          <B>No Records Available!</B>
+            <B>No Records Available!</B>
           </td>
         </tr>
       </table>
 
       <mat-paginator
-      style="background-color: rgb(235, 237, 239)"
-      #paginator
-      [pageSizeOptions]="[10, 15, 20]"
-      showFirstLastButtons
-      [hidden]="!vouchers.data.length">
-    </mat-paginator>
+        #paginator
+        [pageSizeOptions]="[10, 15, 20]"
+        showFirstLastButtons
+        [hidden]="!vouchers.data.length">
+      </mat-paginator>
+    </div>
+  </mat-card>
 
-    <br>
-    <br>
-
-
-        <div class="export-container" style="text-align: right;">
-          &nbsp;<button type="submit" class="btn btn-primary" (click)="exportTable()" [disabled]="!vouchers.data.length">
-            Export Pdf
-          </button>
-        </div>
+  <div class="export-container">
+    &nbsp;<button type="submit" class="btn btn-primary" (click)="exportTable()" [disabled]="!vouchers.data.length">
+    Export Pdf
+  </button>
+  </div>
 </div>
-</div>
+
 
 
