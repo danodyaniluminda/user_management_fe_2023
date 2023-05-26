@@ -312,7 +312,7 @@ export class TranscriptTypeComponent implements OnInit {
 
 // ./transcript-type-and-result-type
   close(){
-    this.router.navigate(['./transcript-type-and-result-type']);
+    this.router.navigate(['master-data/transcript-type-and-result-type']);
   }
 
   programmeChange(target:any) {
