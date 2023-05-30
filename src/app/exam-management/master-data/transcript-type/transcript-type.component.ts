@@ -226,7 +226,7 @@ export class TranscriptTypeComponent implements OnInit {
     if(!touched){
       return false;
     }
-    let pattern: RegExp = /^[a-zA-Z]+$/;
+    let pattern: RegExp = /^[a-zA-Z ]+$/;
     let patternMatch = pattern.test(this.transcriptName);
     if(patternMatch==true){
       this.addButtonDisabled=false;
