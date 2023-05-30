@@ -5,8 +5,10 @@
 }
 
 .content {
-  margin-left: 10px;
-  margin-right: 10px;
+  font-weight: bolder;
+  font-size: 20px;
+  text-align: left;
+  margin-left: 15px;
 }
 
 .form-content{
@@ -25,6 +27,14 @@
 /*  max-height: 400px;*/
 /*  overflow: auto;*/
 /*} */
+
+mat-form-field {
+  font-size: 13px;
+}
+
+mat-label {
+  font-weight: bolder;
+}
 
   table {
   width: 97%;
