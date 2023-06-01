@@ -46,7 +46,7 @@ updateVoucherByAdmin(selectedvoucher:any):Observable<any>{
             observable.complete();
           }else{
             // alert(result);
-            Swal.fire('Success...','Record Updated Successfully', 'success').
+            Swal.fire('Success!','Record Updated Successfully.', 'success').
             then((result) => {
               if(result){
                 // window.location.reload();

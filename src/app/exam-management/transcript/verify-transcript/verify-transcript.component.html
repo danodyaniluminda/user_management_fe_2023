@@ -1,23 +1,35 @@
-<mat-card >
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">Transcript</li>
+      <li class="breadcrumb-item active" aria-current="page">Verify Transcript</li>
+    </ol>
+  </nav>
+
+</mat-card>
+
+<mat-card>
+
   <mat-tab-group mat-align-tabs="center" [selectedIndex]="selectedTabIndex" (selectedIndexChange)="disabled($event)">
     <mat-tab label="View Transcript Request Details">
       <exam-view-transcript-request-details (isDisabled)="addItem($event)"></exam-view-transcript-request-details>
     </mat-tab>
     <mat-tab label="Verify and generate Result sheet" [disabled]="verifyTabDisabled">
-<!--      <app-verify-and-generate-result-sheet (changeTab)="changeIndex()" *ngIf="!verifyTabDisabled"></app-verify-and-generate-result-sheet>-->
+      <!--      <app-verify-and-generate-result-sheet (changeTab)="changeIndex()" *ngIf="!verifyTabDisabled"></app-verify-and-generate-result-sheet>-->
     </mat-tab>
-<!--    <mat-tab label="Print transcript">-->
-<!--      <exam-print-transcript></exam-print-transcript>-->
-<!--    </mat-tab>-->
-<!--    <mat-tab label="Reports">-->
-<!--&lt;!&ndash;      <app-reports></app-reports>&ndash;&gt;-->
-<!--    </mat-tab>-->
-<!--    <mat-tab label="Printers">-->
-<!--&lt;!&ndash;      <app-printer></app-printer>&ndash;&gt;-->
-<!--    </mat-tab>-->
-<!--    <mat-tab label="Printers2">-->
-<!--&lt;!&ndash;      <app-printer2></app-printer2>&ndash;&gt;-->
-<!--    </mat-tab>-->
+    <!--    <mat-tab label="Print transcript">-->
+    <!--      <exam-print-transcript></exam-print-transcript>-->
+    <!--    </mat-tab>-->
+    <!--    <mat-tab label="Reports">-->
+    <!--&lt;!&ndash;      <app-reports></app-reports>&ndash;&gt;-->
+    <!--    </mat-tab>-->
+    <!--    <mat-tab label="Printers">-->
+    <!--&lt;!&ndash;      <app-printer></app-printer>&ndash;&gt;-->
+    <!--    </mat-tab>-->
+    <!--    <mat-tab label="Printers2">-->
+    <!--&lt;!&ndash;      <app-printer2></app-printer2>&ndash;&gt;-->
+    <!--    </mat-tab>-->
   </mat-tab-group>
 
 </mat-card>
