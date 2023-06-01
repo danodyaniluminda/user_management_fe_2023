@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "material": {
-      "root": "e2e",
+      "root": "",
       "sourceRoot": "src",
       "projectType": "application",
       "architect": {

@@ -1,88 +1,64 @@
 
+<div>
 
-<mat-card class="example-card" style="background-color: rgb(235, 237, 239)" >
-  <mat-card-content>
-    <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
-      Payment Reconciliation
-    </div>
-  </mat-card-content>
-</mat-card>
+  <div class="content">
+    Payment Reconciliation - OUSL
+  </div>
+  <br>
 
+    <mat-card  class="example-card">
+      <mat-card-content>
+        <form class="date-block" [formGroup]="filterDateForm">
+          <mat-form-field>
+            <mat-label>Search By Date Range</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input (dateChange)="onDateChange()" formControlName="fromDate" matStartDate matInput placeholder="Start date">
+              <input (dateChange)="onDateChange()" formControlName="toDate" matEndDate matInput placeholder="End date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </form>
 
-
-<br>
-<br>
-<div class="container">
-
-
-          <!-- <div style="text-align: right;">
-             <button class="btn btn-primary" type="submit">
-               Apply & pay later
-             </button>
-              &nbsp;<button class="btn btn-primary" type="submit" >
-              Apply
-            </button>
-          </div> -->
-
-<mat-card  class="example-card" style="background-color: rgb(235, 237, 239)">
-    <mat-card-content>
-      <form class="date-block" [formGroup]="filterDateForm">
-        <mat-form-field>
-          <mat-label>Search By Date Range</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
-            <input (dateChange)="onDateChange()" formControlName="fromDate" matStartDate matInput placeholder="Start date">
-            <input (dateChange)="onDateChange()" formControlName="toDate" matEndDate matInput placeholder="End date">
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-
-    <div style="text-align: left;">
-      <button (click)="applyFilter()" class="btn btn-primary">Search</button>
-      &nbsp;
-      <button class="btn btn-primary" onclick="window.location.reload()">Refresh</button>
-    </div>
-
-</mat-card>
-    <br>
-    <br>
-
-
-<!-- <pre>{{AllVouchers|json}}</pre> -->
-<div style="overflow-x: auto;">
-      <table id="printTable" mat-table [dataSource]="vouchers" class="example-container mat-elevation-z8" matTableExporter #exporter="matTableExporter" style="background-color: rgb(235, 237, 239)" matSort>
-
+        <div class="export-container">
+          <button (click)="applyFilter()" mat-raised-button color="primary">Search</button>        &nbsp;
+          <button mat-raised-button color="primary" onclick="window.location.reload()">Refresh</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <!-- <pre>{{AllVouchers|json}}</pre> -->
+  <mat-card class="example-card">
+    <div style="overflow-x: auto;">
+      <table id="printTable" mat-table [dataSource]="vouchers" class="example-container mat-elevation-z8" matTableExporter #exporter="matTableExporter" matSort>
 
         <ng-container matColumnDef="applicationId">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Application Id</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Application Id</th>
           <td mat-cell *matCellDef="let row; let i = index"> {{row.applicationId}} </td>
         </ng-container>
 
         <ng-container matColumnDef="nic">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>NIC</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>NIC</th>
           <td mat-cell *matCellDef="let row; let i = index"> {{row.nic}} </td>
         </ng-container>
 
         <ng-container matColumnDef="dateApplied">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Date Applied</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Applied</th>
           <td mat-cell *matCellDef="let row; let i = index"> {{row.dateApplied | date: 'dd/MM/yyyy'}} </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Status</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Voucher Status</th>
           <td mat-cell *matCellDef="let row; let i = index"><span *ngIf="row.status==false">Unpaid</span> <span
             *ngIf="row.status==true">Paid</span></td>
         </ng-container>
 
         <ng-container matColumnDef="dueAmount">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Due Amount</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Amount</th>
           <td mat-cell *matCellDef="let row; let i = index">Rs.{{row.dueAmount}}.00 </td>
         </ng-container>
 
         <ng-container matColumnDef="paymentMethod">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Payment Method</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment Method</th>
           <td mat-cell *matCellDef="let row; let i = index">
             <select class="form-select" style="height: 28px;"  #paytype (change)="onPaymentTypeChange(row,paytype.value,i)">
               <option selected disabled>Select Payment Type</option>
@@ -93,43 +69,40 @@
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th style="font-weight: bold;" mat-header-cell  *matHeaderCellDef >Actions</th>
+          <th mat-header-cell  *matHeaderCellDef >Actions</th>
           <td mat-cell *matCellDef="let row; let i = index" >
-            <button class="btn btn-primary" type="submit" (click)="updateVoucher(row.applicationId,this.vouchersPaymentTypes[row])" [disabled]="i==val?false:true">Save</button>
+            <button mat-raised-button color="primary" type="submit" (click)="updateVoucher(row.applicationId,this.vouchersPaymentTypes[row])" [disabled]="i==val?false:true">Save</button>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row ; let i = index; columns: displayedColumns;"></tr>
       </table>
-<!-- <br> -->
+      <br>
 
       <table>
         <tr *ngIf="!vouchers.data.length">
           <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
-          <B>No Records Available!</B>
+            <B>No records available!</B>
           </td>
         </tr>
       </table>
 
       <mat-paginator
-      style="background-color: rgb(235, 237, 239)"
-      #paginator
-      [pageSizeOptions]="[10, 15, 20]"
-      showFirstLastButtons
-      [hidden]="!vouchers.data.length">
-    </mat-paginator>
+        #paginator
+        [pageSizeOptions]="[10, 15, 20]"
+        showFirstLastButtons
+        [hidden]="!vouchers.data.length">
+      </mat-paginator>
+    </div>
+  </mat-card>
 
-    <br>
-    <br>
-
-
-        <div class="export-container" style="text-align: right;">
-          &nbsp;<button type="submit" class="btn btn-primary" (click)="exportTable()" [disabled]="!vouchers.data.length">
-            Export Pdf
-          </button>
-        </div>
+  <div class="export-container">
+    &nbsp;<button type="submit" mat-raised-button color="primary" (click)="exportTable()" [disabled]="!vouchers.data.length">
+    Export Pdf
+  </button>
+  </div>
 </div>
-</div>
+
 
 

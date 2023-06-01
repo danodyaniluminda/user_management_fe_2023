@@ -1,1 +1,264 @@
-<p>transcript-type works!</p>
+<div class="content">
+
+  <mat-card  class="example-container" >
+    <mat-card-content>
+      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
+        Add New Transcript Type
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+  <br>
+  <br>
+
+  <mat-card  class="example-container" >
+  <div class="container">
+
+      <mat-card-content>
+        <form class="date-block" ></form>
+
+
+        <label for="ttype" style="margin-left: 5px;"> &nbsp;Transcript Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input
+          [(ngModel)]="transcriptType"
+          type="radio"
+          id="ns"
+          name="ser"
+          value="Normal"
+          (click)="isNormal()"
+
+        />
+        &nbsp; <label for="ns" class="radio-label">Normal</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+        [(ngModel)]="transcriptType"
+        type="radio"
+        id="ods"
+        name="ser"
+        value="Specific"
+        (click)="isSpecific()"
+      />
+        &nbsp; <label for="ods" class="radio-label">Specific</label> <br />
+        <br />
+
+
+
+        <!-- <pre>{{programmes|json}}</pre> -->
+        <!-- <div class="row">
+          <label class="form-select col-md-1.99" *ngIf="isShowSpecificField || isShowNormal" for="ttype"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transcript Name &nbsp;&nbsp; :
+              </label>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                [(ngModel)]="transcriptName"
+                *ngIf="isShowSpecificField || isShowNormal"
+                (input)="filterTranscriptType($event)"
+                type="text"
+                id="ttype"
+                name="ttypem"/>
+        </div> -->
+        <!-- <br> -->
+        <div>
+          <mat-form-field style="text-transform: uppercase;"class="form-fields" appearance="outline" *ngIf="isShowSpecificField || isShowNormal" style="width: 600px; margin-left: 5px;" >
+            <mat-label>Transcript Name</mat-label>
+            <input (keyup)="showTranscriptNameError()" matInput type="text" placeholder="Transcript Name" [(ngModel)]="transcriptName"
+                   *ngIf="isShowSpecificField || isShowNormal"
+                   (input)="filterTranscriptType($event)"
+
+                   id="ttype"
+                   name="ttypem">
+            <!--        pattern="/[A-Z]{5}\d{4}[A-Z]{1}/i">-->
+
+            <!--        pattern('^(?=.*[a-zA-Z])[a-zA-Z0-9]+$')-->
+
+            <!-- <button matSuffix mat-icon-button aria-label="Search">
+              <mat-icon>search</mat-icon>
+            </button> -->
+          </mat-form-field> <br>
+          <label *ngIf="showTranscriptNameError()" class="text-danger"> &nbsp; Special characters and numbers are not allowed.</label>
+        </div>
+
+
+        <!-- <br> -->
+        <div *ngIf="isShowSpecificField" class="row">
+
+
+          <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
+            <mat-label> Select Programme</mat-label>
+            <mat-select  [(ngModel)]="programmeId"  (click)="programmeChange($event.target)"
+            >
+              <mat-option>
+                <ngx-mat-select-search [formControl]="programmeFilterCtrl"  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
+                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option >Select All</mat-option>
+
+              <mat-option *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
+                {{programme.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+
+
+        </div>
+        <!-- &nbsp;<input
+          *ngIf="isShowSpecificField && isShowNormal"
+          (input)="filterTranscriptType($event)"
+          type="text"
+          id="ttype"
+          name="ttypem"
+        />&nbsp;&nbsp; -->
+        <!-- <br> -->
+
+        <!-- <div>
+          <mat-form-field appearance="outline" class="form-fields">
+            <mat-label>Select Programme</mat-label>
+            <mat-select
+              formControlName="programme">
+              <mat-option *ngFor="let programme of programmes" [value]="programme.id">
+                {{programme.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        </div> -->
+
+        <!-- <button type="submit" class="btn btn-primary" (click)="exportTable()" [disabled]="!vouchers.data.length"></button> -->
+        <br>
+        <div>
+          <button [disabled]="addButtonDisabled" (click)="addNewTranscriptType()" type="button" mat-raised-button color="primary" style="width: 75px;margin-left: 5px;">Add</button>
+          &nbsp;
+          <button [disabled]="addButtonDisabled" (click)="cancel()" type="button" mat-raised-button color="primary">Cancel</button>
+          &nbsp;
+          <button  (click)="close()" type="button" mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Back</button>
+        </div>
+
+      </mat-card-content>
+  </div>
+  </mat-card>
+</div>
+
+<br>
+
+<mat-card class="example-container" >
+  <br>
+  <div class="example-table-container" >
+    <!-- <pre>{{transcripts|json}}</pre> -->
+    <div class="table-responsive">
+
+      <br>
+      <br>
+    <!-- <pre>{{transcriptType|json}}</pre> -->
+    <div style="overflow-x: auto;">
+
+      <table
+        id="printTable"
+        mat-table
+        [dataSource]="transcriptTypeDT"
+        class="example-container mat-elevation-z8"
+        matTableExporter #exporter="matTableExporter"
+        style="background-color: #ffffff;"
+        matSort
+        *ngIf="isShowSpecificField || isShowNormal || true"
+      >
+
+        <ng-container matColumnDef="id">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.id }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transcript_type_id">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Type</th>
+          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.type }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transcript_name">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Name</th>
+          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="programme_name">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Programme Name</th>
+          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ getProgrammeName(transcriptType.id) }} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="paymentMethod">
+          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Payment Method</th>
+          <td mat-cell *matCellDef="let row; let i = index">
+            <select class="form-select" style="height: 28px;"  #paytype (change)="onPaymentTypeChange(row,paytype.value,i)">
+              <option selected disabled>Select Payment Type</option>
+              <option value="1">Online</option>
+              <option value="3">Shroff Counter</option>
+            </select>
+          </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="delete">
+          <th style="font-weight: bold;" mat-header-cell  *matHeaderCellDef >Actions</th>
+          <td mat-cell *matCellDef="let transcriptType; let i = index" >
+            <!-- <button class="center-cell" (click)="archive(transcriptType.id)" class="btn btn-danger">Delete</button> -->
+            <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" (click)="archive(transcriptType.id)">
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row ; let i = index; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <br>
+
+      <!-- <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Transcript Type</th>
+          <th scope="col">Transcript Name</th>
+          <th scope="col">Programme Name</th>
+          <th scope="col">Delete</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transcriptType of transcriptTypes">
+          <td class="center-cell">{{ transcriptType.id }}</td>
+          <td id="status-cell">{{ transcriptType.type }}</td>
+          <td id="status-cell">{{ transcriptType.name }}</td>
+          <td id="status-cell">{{ getProgrammeName(transcriptType.id) }}</td>
+          <td class="center-cell"><button  (click)="archive(transcriptType.id)" class="btn btn-danger"> <mat-icon>delete</mat-icon></button></td>
+
+        </tr>
+      </tbody> -->
+      <!-- </table> -->
+
+      <!-- <br> -->
+
+      <table>
+        <tr *ngIf="!transcriptTypeDT.data.length">
+          <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
+            No Records Available!
+          </td>
+        </tr>
+      </table>
+
+    </div>
+    </div>
+  </div>
+</mat-card>
+<br>
+
+<mat-card class="example-container" >
+      <mat-paginator
+        style="background-color: #ffffff;"
+        #paginator
+        [pageSizeOptions]="[10, 15, 20]"
+        showFirstLastButtons
+        [hidden]="!transcriptTypeDT.data.length">
+      </mat-paginator>
+</mat-card>
+
+
+

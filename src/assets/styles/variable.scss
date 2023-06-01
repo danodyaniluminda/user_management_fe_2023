@@ -14,10 +14,10 @@ $headingfont: 'Poppins', sans-serif;
 
 /*Material Theme Colors*/
 
-$primary: mat-palette($mat-blue, 600);
+$danger: mat-palette($mat-red, 600);
 $accent: mat-palette($mat-indigo, 500);
 $warn: mat-palette($mat-pink, 500);
-$theme: mat-light-theme($primary, $accent, $warn);
+$theme: mat-light-theme($danger, $accent, $warn);
 $background: map-get($theme, background);
 $foreground: map-get($theme, foreground);
 
@@ -51,6 +51,7 @@ $font-16: 16px;
 
 $light-text: #a6b7bf;
 $themecolor: #1e88e5;
+//Dashboard button color
 $themecolor-alt: #26c6da;
 $themecolor-dark: #028ee1;
 

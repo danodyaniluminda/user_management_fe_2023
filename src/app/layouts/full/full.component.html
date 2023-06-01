@@ -44,7 +44,8 @@
         <!-- ============================================================== -->
         <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"  >
 
-                <app-sidebar></app-sidebar>
+<!--                <app-sidebar></app-sidebar>-->
+          <app-sidenav (onToggleSideNav)="onToggleSideNav($event)" ></app-sidenav>
 
 
         </mat-sidenav>
@@ -57,7 +58,7 @@
         <!-- ============================================================== -->
         <mat-sidenav-content class="page-wrapper">
 
-                <div class="page-content">
+                <div class="page-content" >
 
                         <router-outlet><app-spinner></app-spinner></router-outlet>
 
