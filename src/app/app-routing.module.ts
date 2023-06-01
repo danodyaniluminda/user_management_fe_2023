@@ -8,6 +8,7 @@ import {VerifyTranscriptComponent} from "./exam-management/transcript/verify-tra
 import {
   PaymentReconcilationComponent
 } from "./finance-services/transcript/payment-reconcilation/payment-reconcilation.component";
+import {NotFoundComponent} from "./layouts/error/not-found/not-found.component";
 
 const routes: Routes = [
   // {
@@ -31,9 +32,15 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
-      { path: 'finance-services', loadChildren: () => import('./finance-services/finance-services.module').then(m => m.FinanceServicesModule) }
+      { path: 'finance-services', loadChildren: () => import('./finance-services/finance-services.module').then(m => m.FinanceServicesModule) },
+      { path: 'user-management', loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule) },
+      {
+        path:'**',
+        component:NotFoundComponent
+      }
     ]
   },
+
 ];
 
 @NgModule({

@@ -1,11 +1,25 @@
-<div class="content">
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">Transcript</li>
+      <li class="breadcrumb-item active" aria-current="page">Print Transcript</li>
+    </ol>
+  </nav>
+
+</mat-card>
+  <div class="content">
+    Print Transcript
+  </div>
+  <br>
+
   <mat-card class="example-container">
     <br>
     <div class="form-content">
       <form class="date-block" [formGroup]="form">
-        <mat-grid-list cols="2" rowHeight="60px" gutterSize="4px">
+        <mat-grid-list cols="2" rowHeight="4rem" gutterSize="4px">
           <mat-grid-tile>
-            <mat-form-field class="form-fields" appearance="outline" >
+            <mat-form-field class="form-fields" appearance="outline">
               <mat-label>NIC or Reg number</mat-label>
               <input matInput type="text" formControlName="nic" placeholder="NIC or Reg number">
               <button matSuffix mat-icon-button aria-label="Search">
@@ -52,9 +66,8 @@
           </mat-grid-tile>
         </mat-grid-list>
 
-
         <div>
-          <mat-form-field appearance="outline" class="form-fields" style="width: 1185px">
+          <mat-form-field appearance="outline" class="form-fields" style="width: 1205px">
             <mat-label>Select Programme</mat-label>
             <mat-select (click)="programmeChange()"
                         formControlName="programme">
@@ -80,7 +93,7 @@
     </div>
     <br>
   </mat-card>
-</div>
+
 
   <br>
 <mat-card class="example-container" *ngIf="showTable">
