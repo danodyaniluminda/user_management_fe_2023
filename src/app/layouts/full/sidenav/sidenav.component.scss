@@ -6,10 +6,10 @@
   position: absolute;
   z-index: 1;
   top: 0;
-  width: 100px;
   height: 90vh;
   box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
   overflow-x: hidden;
+
 }
 
 .sidenav-collapsed {
@@ -18,43 +18,48 @@
 
 .sidenav-nav {
   list-style: none;
-  padding: 0.938rem;
+  padding-top: 0.938rem;
   margin: 0;
+  margin-left: -2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 16px;
   cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   .sidenav-nav-item {
     width: 90%;
-    margin-bottom: 0.625rem;
+    margin-bottom: 0.0rem;
 
     .sidenav-nav-link {
-      padding-left: 1rem;
+      padding-left: 0.1rem;
       display: flex;
       align-items: center;
-      height: 2rem;
+      height: 2.5rem;
       color: $headingtext;
       text-decoration: none;
-      border-radius: 0.625rem;
+      border-radius: 0.0rem;
       transition: all .3s ease;
+      margin-top: 15px;
+
 
       .sidenav-link-icon {
         font-size: 22px;
         width: 2rem;
         min-width: 2rem;
         margin: 0 0.5rem;
-        text-align: center;
+        text-align: start;
       }
 
       .sidenav-link-text {
-        margin-left: 1.5rem;
+        margin-left: 5px;
       }
     }
 
     .sidenav-nav-link:hover {
       width: 100%;
-      background-color: $themecolor-dark;
+      background-color: $themecolor;
       color: #000;
       .menu-collapse-icon {
         color: #000;
@@ -68,12 +73,12 @@
   .menu-collapse-icon,
   .sidenav-link-icon,
   .sidenav-link-text {
-    color: #000;
+    color: $themecolor-dark;
   }
 }
 
 .active-sublevel {
-  color: #f3f3f3 !important;
+  color: $themecolor-dark !important;
   // opacity: 1 !important;
 }
 
@@ -88,13 +93,14 @@
 
 .sublevel-nav {
   list-style: none;
-  margin-left: 10px;
-
+  margin-top: -5px;
   .sublevel-nav-item {
     .sublevel-nav-link {
-      display: flex;
-      align-items: center;
-      height: 3rem;
+      display: flow;
+      align-items: start;
+      height: 1.1rem;
+      margin-left: 0px;
+      margin-top: 0;
       color: $bodytext;
       text-decoration: none;
       border-radius: 0.625rem;
@@ -102,19 +108,20 @@
 
       .sublevel-link-icon {
         font-size: 4px;
-        width: 1rem;
-        min-width: 2rem;
+        width: 3rem;
+        min-width: 1rem;
         margin: 0 0.5rem;
         text-align: center;
       }
 
       .sublevel-link-text {
         margin-left: 0.1rem;
+        font-size: 15px;
       }
     }
 
     .sublevel-nav-link:hover {
-      color: #f3f3f3;
+      color: $themecolor;
     }
   }
 }
@@ -124,7 +131,7 @@
 .scrollwrap {
   overflow-y: auto;
   visibility: hidden;
-  height: calc(100% - 3.65rem);
+  height: calc(100%);
 }
 
 .sidenav-nav,

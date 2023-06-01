@@ -1,70 +1,76 @@
-import { INavbarData } from "./helper";
+import {INavbarData} from "./helper";
 
 export const navbarData: INavbarData[] = [
-    {
-        routeLink: 'products',
-        icon: 'alarm',
-        label: 'Products',
+  {
+    routeLink: 'exam',
+    icon: 'alarm',
+    label: 'Exam management',
+    items: [
+      {
+        routeLink: '/exam/transcript',
+        label: 'Transcript',
         items: [
-            {
-                routeLink: 'products/level1.1',
-                label: 'Level 1.1',
-                items: [
-                    {
-                        routeLink: 'products/level2.1',
-                        label: 'Level 2.1',
-                    },
-                    {
-                        routeLink: 'products/level2.2',
-                        label: 'Level 2.2',
-                        items: [
-                            {
-                                routeLink: '/exam/transcript/verify-transcript',
-                                label: 'Level 3.1'
-                            },
-                            {
-                                routeLink: 'products/level3.2',
-                                label: 'Level 3.2'
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                routeLink: 'products/level1.2',
-                label: 'Level 1.2',
-            }
+          {
+            routeLink: '/exam/transcript/verify-transcript',
+            label: 'Verify transcript',
+          },
+          {
+            routeLink: '/exam/transcript/print-transcript',
+            label: 'Print transcript',
+          },
         ]
-    },
-    {
-        routeLink: 'coupens',
-        icon: 'book',
-        label: 'Coupens',
+      },
+      {
+        routeLink: '/exam/master-data',
+        label: 'Master data',
         items: [
-            {
-                routeLink: 'coupens/list',
-                label: 'List Coupens'
-            },
-            {
-                routeLink: 'coupens/create',
-                label: 'Create Coupens'
-            }
+          {
+            routeLink: '/exam/master-data/day-quota-allocation',
+            label: 'Day quota Allocation',
+          },
+          {
+            routeLink: '/exam/master-data/result-type',
+            label: 'Result type',
+          },
+          {
+            routeLink: '/exam/master-data/transcript-type',
+            label: 'Transcript type',
+          },
+          {
+            routeLink: '/exam/master-data/transcript-type-and-result-type',
+            label: 'Transcript type and result type',
+          },
         ]
-    },
-    {
-        routeLink: 'settings',
-        icon: 'book',
-        label: 'Settings',
-        expanded: false,
+      }
+    ]
+  },
+  {
+    routeLink: 'user-management',
+    icon: 'man',
+    label: 'User management',
+    items: [
+      {
+        routeLink: '/user-management/master-data',
+        label: 'Master data',
         items: [
-            {
-                routeLink: 'settings/profile',
-                label: 'Profile'
-            },
-            {
-                routeLink: 'settings/customize',
-                label: 'Customize'
-            }
+          {
+            routeLink: '/user-management/master-data/role-management',
+            label: 'Role management',
+          },
+          {
+            routeLink: '/user-management/master-data/route-management',
+            label: 'Route management',
+          },
+          {
+            routeLink: '/user-management/master-data/user-role-management',
+            label: 'User role management',
+          },
+          {
+            routeLink: '/user-management/master-data/role-route-management',
+            label: 'Role route management',
+          },
         ]
-    },
+      }
+    ]
+  },
 ];
