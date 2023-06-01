@@ -8,7 +8,7 @@ export interface INavbarData {
     items?: INavbarData[];
 }
 
-export const fadeInOut = trigger('fadeInOut', [
+export const fadeInOut = trigger( 'fadeInOut', [
     transition(':enter', [
       style({opacity: 0}),
       animate('350ms',

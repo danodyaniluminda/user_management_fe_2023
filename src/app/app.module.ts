@@ -24,6 +24,9 @@ import { FinanceServicesModule } from './finance-services/finance-services.modul
 import { SidenavComponent } from './layouts/full/sidenav/sidenav.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {SublevelMenuComponent} from "./layouts/full/sidenav/sublevel-menu.component";
+import { NotFoundComponent } from './layouts/error/not-found/not-found.component';
+import { SamplePipe } from './layouts/error/sample.pipe';
+import { UserManagementModule } from './user-management/user-management.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,8 @@ import {SublevelMenuComponent} from "./layouts/full/sidenav/sublevel-menu.compon
     AppSidebarComponent,
     SidenavComponent,
     SublevelMenuComponent,
+    NotFoundComponent,
+    SamplePipe,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,8 @@ import {SublevelMenuComponent} from "./layouts/full/sidenav/sublevel-menu.compon
     NgxMatSelectSearchModule,
     DemoMaterialModule,
     ExamManagementModule,
-    FinanceServicesModule
+    FinanceServicesModule,
+    UserManagementModule
   ],
   providers: [
     {

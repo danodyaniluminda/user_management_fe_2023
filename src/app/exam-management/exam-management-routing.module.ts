@@ -10,6 +10,7 @@ import {TranscriptTypeComponent} from "./master-data/transcript-type/transcript-
 import {
   TranscriptTypeAndResultTypeComponent
 } from "./master-data/transcript-type-and-result-type/transcript-type-and-result-type.component";
+import {ExamGuardService} from "../shared/_services/ValidatePrivileges";
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'verify-transcript',
-        component: VerifyTranscriptComponent
+        component: VerifyTranscriptComponent,
       },
     ]
   },
@@ -30,7 +31,7 @@ const routes: Routes = [
     children:[
       {
         path:'day-quota-allocation',
-        component:DayQuotaAllocationComponent
+        component:DayQuotaAllocationComponent,
       },
       {
         path:'result-type',
