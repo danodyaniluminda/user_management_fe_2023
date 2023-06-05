@@ -1,1 +1,145 @@
-<p>day-quota-allocation works!</p>
+<div class="card">
+  <h5 class="card-header"> <u>Day Quota Allocation</u> </h5>
+  <div class="card-body">
+
+    <div class="container" id="htmlData"></div>
+
+    <label for="ttype">Service Type &nbsp;&nbsp;: </label>
+    &nbsp;&nbsp;
+
+    <input (change)="changeServiceType($event.target)" type="radio" id="ns" name="ser" value="normal" />
+
+    &nbsp;<label for="ods" value=1>Normal Service </label>
+
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+    <input  (change)="changeServiceType($event.target)" [checked]="true" type="radio" id="ods" name="ser" value="express"/>
+
+    &nbsp;<label>Express Service</label> <br />
+    <br />
+
+    <label for="ttype">programme &nbsp;: </label>&nbsp;&nbsp;
+    <mat-autocomplete #autoProgramme="matAutocomplete" [class]="'blue-bg'">
+      <mat-option *ngFor="let filteredProgramme of filteredProgrammes" [value]="filteredProgramme.name">
+        {{ filteredProgramme.id }} - {{ filteredProgramme.name }}
+      </mat-option>
+    </mat-autocomplete>
+    <input type="text" id="rtype" [(ngModel)]="programmeInput" (input)="filterProgramme()"
+      [matAutocomplete]="autoProgramme" name="ttypem" value="filteredProgramme.id">&nbsp;&nbsp;&nbsp;
+    <button mat-raised-button color="primary" *ngIf="showExpressTable || showNormalTable"
+      (click)="search()">Search</button>
+
+
+    <br><br>
+
+    <div *ngIf="showTable">
+
+
+
+      <div id="normal-service" *ngIf="showNormalTable">
+        <table mat-table [dataSource]="dataSource2" class="example-container mat-elevation-z8" matSort>
+
+          <ng-container matColumnDef="programmeName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Programme </th>
+            <td mat-cell *matCellDef="let element">{{element.programme.name}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="quota">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>
+            <td mat-cell *matCellDef="let element"> <input type="text" id="ttype2"
+ style="height: 28px;"(input)="normal_quota()"
+             value="{{element.normal_quota}}"></td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row">
+            <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">
+              <option selected disabled>Select Status Type</option>
+              <option value="true">Active</option>
+              <option value="false">Deactive</option>
+            </select>
+          </td>
+          </ng-container>
+
+          <ng-container matColumnDef="verify">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>
+            <td mat-cell *matCellDef="let row" >
+              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateProgramme(row.programmeId,this.programmequotas[row])">Save</button>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <br>
+        <div id="paginator-card2">
+          <mat-card>
+            <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+          </mat-card>
+        </div>
+
+      </div>
+
+
+
+      <div id="express-service" *ngIf="showExpressTable">
+
+        <table mat-table [dataSource]="dataSource1" class="example-container mat-elevation-z8" matSort>
+
+          <ng-container matColumnDef="programmeName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Programme </th>
+            <td mat-cell *matCellDef="let element">{{element.programme.name}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="quota" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>
+            <td mat-cell *matCellDef="let element"> <input type="text" id="ttype"  (input)="one_day_quota()"
+               name="ttypem" value="{{element.one_day_quota}}">
+              </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let row">
+              <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">
+                <option selected disabled>Select Status Type</option>
+                <option value="true">Active</option>
+                <option value="false">Deactive</option>
+              </select>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="verify">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>
+            <td mat-cell *matCellDef="let row" >
+              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateProgramme(row.programmeId,this.programmequotas[row])">Save</button>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <br>
+        <div id="paginator-card">
+          <mat-card>
+            <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+
+
+</div>
