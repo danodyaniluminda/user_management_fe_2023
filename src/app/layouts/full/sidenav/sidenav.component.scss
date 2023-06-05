@@ -36,12 +36,12 @@
       padding-left: 0.1rem;
       display: flex;
       align-items: center;
-      height: 2.5rem;
+      height: 3.5rem;
       color: $headingtext;
       text-decoration: none;
-      border-radius: 0.0rem;
+      border-radius: 0.5rem;
       transition: all .3s ease;
-      margin-top: 15px;
+      margin-top: 5px;
 
 
       .sidenav-link-icon {
@@ -60,7 +60,7 @@
 
     .sidenav-nav-link:hover {
       width: 100%;
-      background-color: $themecolor;
+      background-color: $themecolor-alt;
       color: #000;
       .menu-collapse-icon {
         color: #000;
