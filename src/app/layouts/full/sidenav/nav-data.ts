@@ -38,7 +38,7 @@ export const navbarData: INavbarData[] = [
           },
           {
             routeLink: '/exam/master-data/transcript-type-and-result-type',
-            label: 'Transcript type and result type',
+            label: 'Transcript type & result type',
           },
         ]
       }
