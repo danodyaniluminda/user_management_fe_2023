@@ -5,20 +5,68 @@ width: 400px;
 #rtype{
   width: 400px;
   }
+.center {
+  text-align: center;
+  font-weight: bolder;
+  font-size: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.example-container {
+  position: relative;
+  max-width: 1500px;
+}
+
+mat-form-field {
+  font-size: 13px;
+}
+
+mat-label {
+  font-weight: bolder;
+}
+
+.content {
+  font-weight: bolder;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 20px;
+  text-align: left;
+  margin-left: 15px;
+}
 
 
 #table-div{
-  margin-top:  100px;
-  margin-left: 100px;
+  /*margin-top:  100px;*/
+  width: 97%;
+  max-height: 500px;
+  overflow: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+
+
   /*table-layout: fixed;*/
 }
+
+.form-fields {
+  width: 800px;
+}
+
+#printTable{
+  margin-left: 5%;
+  width: 90%;
+}
 #paginator-card{
-  margin-top: 10px;
+  margin-left: 5%;
+  width:90%;
   /*box-shadow: 0px 0px 10px 0px #9b9b9b,
   0 1px 1px 0 #9b9b9b,
   0 1px 3px 0 #9b9b9b;
   border-radius: 0px !important;*/
-  margin-right: 0px;
-  margin-left: 0px;
-  width:100%;
+}
+
+mat-form-field {
+  font-size: 13px;
+}
+
+mat-label {
+  font-weight: bolder;
 }
