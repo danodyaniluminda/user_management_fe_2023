@@ -6,7 +6,7 @@
   position: absolute;
   z-index: 1;
   top: 0;
-  height: 90vh;
+  height: 91vh;
   box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
   overflow-x: hidden;
 
@@ -20,7 +20,7 @@
   list-style: none;
   padding-top: 0.938rem;
   margin: 0;
-  margin-left: -2rem;
+  margin-left: -3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -48,12 +48,13 @@
         font-size: 22px;
         width: 2rem;
         min-width: 2rem;
-        margin: 0 0.5rem;
+        margin: 0.5rem;
         text-align: start;
       }
 
       .sidenav-link-text {
         margin-left: 5px;
+        font-size: 17px;
       }
     }
 
@@ -93,7 +94,7 @@
 
 .sublevel-nav {
   list-style: none;
-  margin-top: -5px;
+  margin-top: 5px;
   .sublevel-nav-item {
     .sublevel-nav-link {
       display: flow;
@@ -115,8 +116,12 @@
       }
 
       .sublevel-link-text {
-        margin-left: 0.1rem;
-        font-size: 15px;
+        margin-left: -3.6rem;
+        font-size: 14px;
+      }
+      .sublevel1-link-text{
+        font-size: 17px;
+        margin-left: -1.5rem;
       }
     }
 
