@@ -1,0 +1,24 @@
+#ttype{
+  width: 400px;
+  }
+
+#rtype{
+    width: 400px;
+    }
+table {
+      width: 90%;
+    }
+.mat-column-programmeId {
+      flex: 0 0 15%;
+    }
+
+.mat-column-quota {
+      flex: 0 0 5%;
+    }
+.mat-column-status {
+      flex: 0 0 10%;
+    }
+.mat-column-verify {
+      flex: 0 0 15%;
+
+    }

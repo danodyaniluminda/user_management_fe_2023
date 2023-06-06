@@ -189,6 +189,10 @@ async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistratio
     result['transcriptDetails'] = {
       "transcriptId": transcriptId
     };
+    const randomKey = this.generateRandomKey();
+    result['randomKeyDetails'] = {
+      "randomKey": randomKey
+    };
     console.log('resulty of transcript:', result);
       this.saveTranscriptData(result);
       this.search();
@@ -197,6 +201,18 @@ async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistratio
   } catch (error) {
     console.error('Error retrieving transcript:', error);
   }
+}
+
+generateRandomKey(): string {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let key = '';
+
+  for (let i = 0; i < 10; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    key += characters.charAt(randomIndex);
+  }
+
+  return key;
 }
 
 
