@@ -4,6 +4,10 @@
   max-width: 1500px;
 }
 
+.breadcrumb{
+  background-color: #ffffff;
+}
+
 /*.content {*/
 /*  margin-left: 10px;*/
 /*  margin-right: 10px;*/
