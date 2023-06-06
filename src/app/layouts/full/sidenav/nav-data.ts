@@ -3,7 +3,7 @@ import {INavbarData} from "./helper";
 export const navbarData: INavbarData[] = [
   {
     routeLink: 'exam',
-    icon: 'alarm',
+    icon: 'school',
     label: 'Exam management',
     items: [
       {
@@ -38,7 +38,7 @@ export const navbarData: INavbarData[] = [
           },
           {
             routeLink: '/exam/master-data/transcript-type-and-result-type',
-            label: 'Transcript type and result type',
+            label: 'Transcript type & result type',
           },
         ]
       }
@@ -46,7 +46,7 @@ export const navbarData: INavbarData[] = [
   },
   {
     routeLink: 'user-management',
-    icon: 'man',
+    icon: 'group',
     label: 'User management',
     items: [
       {

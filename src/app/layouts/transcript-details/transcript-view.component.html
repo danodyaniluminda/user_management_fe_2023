@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Center the table horizontally */
+    body {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Set table width to 100% and make it responsive */
+    table {
+      width: 100%;
+      max-width: 800px;
+      border-collapse: collapse;
+    }
+
+    /* Set table borders and spacing */
+    td, th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    /* Apply styling to the image header */
+    .header-image {
+      width: 100%;
+      max-width: 150%;
+      height: auto;
+    }
+
+    /* Apply responsive styling for mobile devices */
+    @media screen and (max-width: 600px) {
+      table {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div style="display: flex; justify-content: center;">
+    <table>
+      <tr>
+        <th colspan="12">
+          <img src="assets/images/headerExam.png" alt="Header Image" class="header-image">
+        </th>
+      </tr>
+      <tr>
+        <th colspan="12">Student Information</th>
+     </tr>
+      <tr>
+        <td>Student Name:</td>
+        <td>{{studentDetails?.titleText}} {{studentDetails?.lastName}} {{studentDetails?.initials}}</td>
+      </tr>
+      <tr>
+        <td>Student Registration No</td>
+        <td>{{studentDetails?.registrationNumber}}</td>
+      </tr>
+      <tr>
+        <td>Medium:</td>
+        <td>{{studentDetails?.mediumText}}</td>
+      </tr>
+      <tr>
+        <td>Grade Point Average (GPA)</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Effective Date</td>
+        <td></td>
+      <tr>
+        <td>Final Award</td>
+        <td></td>
+      </tr>
+      <tr>
+        <th colspan="12">Academic Performance Details</th>
+     </tr>
+     <tr>
+      <td colspan="4">
+        <table>
+          <tr>
+            <th>Course Code</th>
+            <th>Course Title</th>
+            <th>Credit Rating</th>
+            <th>Grade</th>
+          </tr>
+          <ng-container *ngFor="let academicPerformanceDetail of academicPerformanceDetails; let i = index">
+            <tr>
+              <td colspan="12">Level 0{{ academicPerformanceDetail.level }}</td>
+            </tr>
+            <ng-container *ngFor="let courseDetail of academicPerformanceDetail.courseDetails">
+              <tr>
+                <td>{{ courseDetail.courseCode }}</td>
+                <td>{{ courseDetail.courseTitle }}</td>
+                <td>{{ courseDetail.courseCredit }}</td>
+                <td>{{ courseDetail.gradeGpValue }}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <!-- Add more rows as needed -->
+        </table>
+      </td>
+    </tr>
+    
+    </table>
+  </div>
+</body>
+</html>

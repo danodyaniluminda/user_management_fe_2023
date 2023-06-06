@@ -9,12 +9,17 @@ import {
   PaymentReconcilationComponent
 } from "./finance-services/transcript/payment-reconcilation/payment-reconcilation.component";
 import {NotFoundComponent} from "./layouts/error/not-found/not-found.component";
+import { TranscriptViewComponent } from './layouts/transcript-details/transcript-view.component';
 
 const routes: Routes = [
   // {
   //   path: 'customers',
   //   loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
   // },
+  {
+    path:'transcript-view',
+    component:TranscriptViewComponent
+  },
   {
     path: '',
     component: FullComponent,
