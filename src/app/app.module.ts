@@ -27,6 +27,7 @@ import {SublevelMenuComponent} from "./layouts/full/sidenav/sublevel-menu.compon
 import { NotFoundComponent } from './layouts/error/not-found/not-found.component';
 import { SamplePipe } from './layouts/error/sample.pipe';
 import { UserManagementModule } from './user-management/user-management.module';
+import { TranscriptViewComponent } from './layouts/transcript-details/transcript-view.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { UserManagementModule } from './user-management/user-management.module';
     SublevelMenuComponent,
     NotFoundComponent,
     SamplePipe,
+    TranscriptViewComponent
   ],
   imports: [
     BrowserModule,
