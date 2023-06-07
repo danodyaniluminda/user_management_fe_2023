@@ -11,7 +11,7 @@ const routes: Routes = [
 
   {
     path:'transcript',
-    canActivate:[ExamGuardService],
+    // canActivate:[ExamGuardService],
     children:[
       {
         path : 'payment-reconciliation',
