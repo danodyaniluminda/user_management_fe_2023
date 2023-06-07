@@ -165,12 +165,12 @@
 <!--  </mat-card>-->
 
 <br>
-<mat-card class="example-container" *ngIf="showTable">
+<mat-card class="example-container">
   <br>
 
 <!--     <pre>{{resultStatuses|json}}</pre>-->
     <div class="table-responsive">
-      <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
+      <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="showTable">
         <thead>
         <tr>
           <th>Id</th>
