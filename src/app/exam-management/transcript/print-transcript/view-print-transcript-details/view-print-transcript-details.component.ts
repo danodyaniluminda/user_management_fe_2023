@@ -191,7 +191,7 @@ async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistratio
     };
     const randomKey = this.generateRandomKey();
     result['randomKeyDetails'] = {
-      "key": randomKey
+      "randomKey": randomKey
     };
     console.log('resulty of transcript:', result);
       this.saveTranscriptData(result);

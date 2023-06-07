@@ -119,7 +119,7 @@ export class AddNewResultStatusService {
           observable.next((error['error'].message));
           Swal.fire('Error...','error', 'error');
           observable.complete();
-          location.reload();
+          window.location.reload();
         }));
     });
   }

@@ -13,14 +13,6 @@ import {MatTableDataSource} from "@angular/material/table";
 export class ResultTypeComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
-  transcripts: any[];
-
-  constructor(
-    private addNewResultStatusService:AddNewResultStatusService,
-    private router:Router
-  ) { }
-
-
   resultStatuses: any[] = [];
   // resultsStatusDT = new MatTableDataSource(this.resultStatuses);
   resultStatus: any[];
@@ -28,12 +20,21 @@ export class ResultTypeComponent implements OnInit {
 
   resultStatusName:string;
   resultStatusNo:string;
-  // showTable: Boolean = false;
+  showTable: Boolean = false;
   addButtonDisabled :boolean=true;
 
-  displayedColumns = ['id', 'old_omis_id', 'result_type', 'delete']
+  // transcripts: any[];
 
-  @ViewChild('paginator') paginator!: MatPaginator;
+  constructor(
+    private addNewResultStatusService:AddNewResultStatusService,
+    private router:Router
+  ) { }
+
+
+
+  // displayedColumns = ['id', 'old_omis_id', 'result_type', 'delete']
+
+  // @ViewChild('paginator') paginator!: MatPaginator;
 
   ngOnInit(): void {
     this.resultStatuses=[];
@@ -103,7 +104,7 @@ export class ResultTypeComponent implements OnInit {
   }
 
   search() {
-    // this.showTable=false;
+    this.showTable=false;
     this.addNewResultStatusService
       .searchResponseToAPI()
       .toPromise()
@@ -111,7 +112,7 @@ export class ResultTypeComponent implements OnInit {
         this.resultStatus = message;
         console.log("test",message);
 
-        // this.showTable = true;
+        this.showTable = true;
       });
   }
 

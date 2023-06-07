@@ -165,10 +165,10 @@
 <!--  </mat-card>-->
 
 <br>
-<mat-card class="example-container">
+<mat-card class="example-container" *ngIf="showTable">
   <br>
-  <div class="example-table-container">
-    <!-- <pre>{{transcripts|json}}</pre> -->
+
+<!--     <pre>{{resultStatuses|json}}</pre>-->
     <div class="table-responsive">
       <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
         <thead>
@@ -185,7 +185,7 @@
           <td>{{ resultStatus.oldOmisId }}</td>
           <td>{{ resultStatus.name }}</td>
           <td>
-            <!--            <button class="center-cell" (click)="archive(resultStatus.id)" class="btn btn-danger">Delete</button>-->
+            <!--<button class="center-cell" (click)="archive(resultStatus.id)" class="btn btn-danger">Delete</button>-->
             <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" (click)="archive(resultStatus.id)">
               <mat-icon>delete_forever</mat-icon>
             </button>
@@ -194,7 +194,7 @@
         </tbody>
       </table>
     </div>
-  </div>
+
 </mat-card>
 
 

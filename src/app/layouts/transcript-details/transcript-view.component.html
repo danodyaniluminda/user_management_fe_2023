@@ -49,15 +49,15 @@
      </tr>
       <tr>
         <td>Student Name:</td>
-        <td>{{studentDetails.titleText}} {{studentDetails.lastName}} {{studentDetails.initials}}</td>
+        <td>{{studentDetails?.titleText}} {{studentDetails?.lastName}} {{studentDetails?.initials}}</td>
       </tr>
       <tr>
         <td>Student Registration No</td>
-        <td>{{studentDetails.registrationNumber}}</td>
+        <td>{{studentDetails?.registrationNumber}}</td>
       </tr>
       <tr>
         <td>Medium:</td>
-        <td>{{studentDetails.mediumText}}</td>
+        <td>{{studentDetails?.mediumText}}</td>
       </tr>
       <tr>
         <td>Grade Point Average (GPA)</td>
@@ -95,15 +95,6 @@
               </tr>
             </ng-container>
           </ng-container>
-          <tr>
-            <td colspan="12">Level 1</td>
-          </tr>
-          <tr>
-            <td>MTH202</td>
-            <td>Calculus II</td>
-            <td>4</td>
-            <td>B+</td>
-          </tr>
           <!-- Add more rows as needed -->
         </table>
       </td>
