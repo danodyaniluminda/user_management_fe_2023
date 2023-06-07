@@ -32,13 +32,13 @@ th{
   flex: 0 0 15%;
 }
 
-mat-paginator {
-  color: black;
-}
+/*mat-paginator {*/
+/*  color: black;*/
+/*}*/
 
-[hidden] {
-  display: none !important;
-}
+/*[hidden] {*/
+/*  display: none !important;*/
+/*}*/
 
 /* Structure */
 .example-container {
