@@ -12,6 +12,9 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class ResultTypeComponent implements OnInit {
 
+  dtOptions: DataTables.Settings = {};
+  transcripts: any[];
+
   constructor(
     private addNewResultStatusService:AddNewResultStatusService,
     private router:Router
@@ -19,13 +22,13 @@ export class ResultTypeComponent implements OnInit {
 
 
   resultStatuses: any[] = [];
-  resultsStatusDT = new MatTableDataSource(this.resultStatuses);
+  // resultsStatusDT = new MatTableDataSource(this.resultStatuses);
   resultStatus: any[];
 
 
   resultStatusName:string;
   resultStatusNo:string;
-
+  // showTable: Boolean = false;
   addButtonDisabled :boolean=true;
 
   displayedColumns = ['id', 'old_omis_id', 'result_type', 'delete']
@@ -33,8 +36,15 @@ export class ResultTypeComponent implements OnInit {
   @ViewChild('paginator') paginator!: MatPaginator;
 
   ngOnInit(): void {
+    this.resultStatuses=[];
     this.fetchAllResultStatuss();
     this.search();
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      responsive: false,
+      paging: true,
+    };
 
   }
 
@@ -43,8 +53,8 @@ export class ResultTypeComponent implements OnInit {
       .toPromise()
       .then((result:any) => {
         this.resultStatuses = result;
-        this.resultsStatusDT = new MatTableDataSource(this.resultStatuses);
-        this.resultsStatusDT.paginator = this.paginator;
+        // this.resultsStatusDT = new MatTableDataSource(this.resultStatuses);
+        // this.resultsStatusDT.paginator = this.paginator;
         // console.log(this.resultStatuss);
       })
       .catch((exception:any) => {
@@ -104,6 +114,8 @@ export class ResultTypeComponent implements OnInit {
         // this.showTable = true;
       });
   }
+
+
 
   // archive(id:number){
   //   this.addNewResultStatusService.archiveResultStatus(id)
