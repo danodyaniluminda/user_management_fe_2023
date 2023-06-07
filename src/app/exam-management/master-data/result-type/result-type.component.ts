@@ -37,7 +37,6 @@ export class ResultTypeComponent implements OnInit {
   // @ViewChild('paginator') paginator!: MatPaginator;
 
   ngOnInit(): void {
-    this.resultStatuses=[];
     this.fetchAllResultStatuss();
     this.search();
 
@@ -111,7 +110,6 @@ export class ResultTypeComponent implements OnInit {
       .then((message: any) => {
         this.resultStatus = message;
         console.log("test",message);
-
         this.showTable = true;
       });
   }
