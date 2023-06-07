@@ -1,6 +1,7 @@
 import {INavbarData} from "./helper";
 
-export const navbarData: INavbarData[] = [
+export const navbarData: INavbarData[] =
+  [
   {
     routeLink: 'exam',
     icon: 'school',
