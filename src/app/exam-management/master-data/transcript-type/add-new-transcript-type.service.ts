@@ -89,7 +89,7 @@ export class AddNewTranscriptTypeService {
 
   searchResponseToAPI() : Observable<any> {
     // console.log(form.value);
-    let result = this.http.post(GENERATE_TRANSCRIPT_API + 'transcript_type/find_transcript_type', {
+    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'transcript_type/get_all_transcript_types', {
       responseType: 'json',
     });
 
