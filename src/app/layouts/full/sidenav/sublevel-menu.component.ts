@@ -21,7 +21,7 @@ import { fadeInOut, INavbarData } from './helper';
             [ngClass]="getActiveClass(item)"
           >
             <i class="sublevel-link-icon fa fa-circle"></i>
-            <span class="sublevel-link-text" @fadeInOut
+            <span class="sublevel1-link-text" @fadeInOut
                 *ngIf="collapsed">{{item.label}}</span>
             <i *ngIf="item.items && collapsed" class="menu-collapse-icon"
               [ngClass]="!item.expanded ? 'fal fa-angle-right' : 'fal fa-angle-down'"
@@ -101,5 +101,7 @@ export class SublevelMenuComponent implements OnInit {
       ? 'active-sublevel'
       : '';
   }
+
+
 
 }

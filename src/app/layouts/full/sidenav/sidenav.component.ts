@@ -3,11 +3,17 @@ import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/
 import { Router } from '@angular/router';
 import { fadeInOut, INavbarData } from './helper';
 import { navbarData } from './nav-data';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {environment} from "../../../../environments/environment";
 
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
 }
+
+const GENERATE_TRANSCRIPT_API = environment.base_url_user_mgt + '/api/user_management/menu/';
+
 
 @Component({
   selector: 'app-sidenav',
@@ -33,13 +39,15 @@ export class SidenavComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   collapsed = true;
   screenWidth = 0;
-  navData = navbarData;
+  navData : INavbarData[];
   multiple: boolean = false;
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, private http:HttpClient) {
+    http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'getMenu').subscribe((res)=>this.navData = res);
+  }
 
   ngOnInit(): void {
-      // this.screenWidth = window.innerWidth;
+
   }
 
   handleClick(item: INavbarData): void {
@@ -50,7 +58,7 @@ export class SidenavComponent implements OnInit {
   getActiveClass(data: INavbarData): string {
     return this.router.url.includes(data.routeLink) ? 'active' : '';
   }
-
+  
   shrinkItems(item: INavbarData): void {
     if (!this.multiple) {
       for(let modelItem of this.navData) {

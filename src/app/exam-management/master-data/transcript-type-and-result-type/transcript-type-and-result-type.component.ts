@@ -168,7 +168,7 @@ export class TranscriptTypeAndResultTypeComponent implements OnInit {
     }
     let filteredTranscriptEligibility = this.allTranscriptEligibility.filter((te: {tranType:{id:any}, resultType: {id:any}}) => te.tranType.id == this.selectedTranscriptTypeId && te.resultType.id == this.selectedResultTypeId);
     if(filteredTranscriptEligibility.length){
-      Swal.fire('Allready', 'Allready!', 'error');
+      Swal.fire('Already exists', 'Already exists!, Please enter the new record', 'error');
       return;
     }
     this.transcriptTypeAndResultTypeService
@@ -180,7 +180,7 @@ export class TranscriptTypeAndResultTypeComponent implements OnInit {
           this.fetchTranscriptEligibilityDetails();
           this.transcriptInput = "";
           this.resultInput = "";
-          Swal.fire('Thank you...', 'You submitted succesfully!', 'success');
+          Swal.fire('Thank you...', 'You submitted successfully!', 'success');
         }
       )
       .catch(

@@ -37,20 +37,14 @@ table {
   flex: 0 0 15%;
 }
 
-mat-paginator {
-  color: black;
-}
-
-[hidden] {
-  display: none !important;
-}
-
-/*button*/
-/*{*/
-/*  pointer-events: none;*/
+/*mat-paginator {*/
+/*  color: black;*/
 /*}*/
 
-/* Structure */
+/*[hidden] {*/
+/*  display: none !important;*/
+/*}*/
+
 .example-container {
   position: relative;
   max-width: 1500px;
@@ -62,17 +56,38 @@ mat-paginator {
   margin-right: auto;
 }
 
-/*.example-card {*/
-/*  max-width: 1500px;*/
-/*}*/
+table {
+  width: 97%;
+  max-height: 500px;
+  overflow: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
+.example-container {
+  position: relative;
+  max-width: 1500px;
+}
 
-/*.example-table-container {*/
-/*  position: relative;*/
-/*  min-height: 200px;*/
-/*  max-height: 400px;*/
-/*  overflow: auto;*/
-/*} */
+.content {
+  font-weight: bolder;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 20px;
+  text-align: left;
+  margin-left: 2px;
+}
+
+.form-content{
+  margin-left: 15px;
+  margin-right: 15px;
+}
+mat-form-field {
+  font-size: 13px;
+}
+
+mat-label {
+  font-weight: bolder;
+}
 
 table {
   width: 97%;
@@ -82,54 +97,58 @@ table {
   margin-right: 20px;
 }
 
-/*.example-loading-shade {*/
-/*  position: absolute;*/
-/*  top: 0;*/
-/*  left: 0;*/
-/*  bottom: 56px;*/
-/*  right: 0;*/
-/*  background: rgba(0, 0, 0, 0.15);*/
-/*  z-index: 1;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: center;*/
-/*}*/
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-/*.example-rate-limit-reached {*/
-/*  max-width: 360px;*/
-/*  text-align: center;*/
-/*}*/
+.example-rate-limit-reached {
+  max-width: 360px;
+  text-align: center;
+}
 
-/*!* Column Widths *!*/
-/*.mat-column-number,*/
-/*.mat-column-state {*/
-/*  max-width: 64px;*/
-/*}*/
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
 
-/*.mat-column-created {*/
-/*  max-width: 124px;*/
-/*}*/
+.mat-column-created {
+  max-width: 124px;
+}
+.example-field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 
-/*:host ::ng-deep .mat-form-field-wrapper {*/
-/*  margin-bottom: 3px !important;*/
-/*  padding: 0;*/
-/*}*/
+.form-fields {
+  width: 800px;
+}
 
-/*.example-field-row {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: space-around;*/
-/*}*/
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  mat-select,mat-grid-list{
+    width: 100px;
 
-/*.form-fields {*/
-/*  width: 800px;*/
-/*}*/
+  }
+}
+.example-table-container {
+  position: relative;
+  min-height: 200px;
+  /*max-height: 400px;*/
+  overflow: auto;
+}
 
-/*@media only screen and (max-width: 768px) {*/
-/*  !* For mobile phones: *!*/
-/*  mat-select,mat-grid-list{*/
-/*    width: 100px;*/
 
-/*  }*/
-/*}*/
+
+
 
