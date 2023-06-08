@@ -25,26 +25,36 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
-  updateProgramme(row:any) {
+  updateQuota(row:any) {
     let quota_id = row['id'];
     let programme_id = row['programme']['id'];
 
+    console.log("quota_id : " + quota_id);
+    console.log("programme_id : " + programme_id);
+
+
     if(this.servicetype=='express'){
-      let one_day_quota = 0;
+      let one_day_quota_value = 0;
       if(this.selectedOneDayQuotaValue==''){
-        one_day_quota = row['one_day_quota'];
+        one_day_quota_value = row['one_day_quota'];
       }else{
-        one_day_quota = Number(this.selectedOneDayQuotaValue);
+        one_day_quota_value = Number(this.selectedOneDayQuotaValue);
       }
-      console.log("one_day_quota : " + one_day_quota);
+      console.log("one_day_quota_value : " + one_day_quota_value);
     }else if(this.servicetype=='normal'){
-      let normal_quota = 0;
+      let normal_quota_value = 0;
       if(this.selectedNormalQuotaValue==''){
-        normal_quota = row['normal_quota'];
+        normal_quota_value = row['normal_quota'];
       }else{
-        normal_quota = Number(this.selectedNormalQuotaValue);
+        normal_quota_value = Number(this.selectedNormalQuotaValue);
       }
-      console.log("normal_quota : " + normal_quota);
+      console.log("normal_quota_value : " + normal_quota_value);
+      this.dayQuotaAllocationService
+        .updateQuotaValue(quota_id, normal_quota_value, programme_id, this.servicetype)
+        .toPromise()
+        .then((result: any) => {
+          console.log("Update normal quota value", result);
+        });
     }
 
   }
@@ -96,7 +106,7 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
   available_quota: any;
   element: any;
   one_day_quota: any;
-  normal_quota: any
+  normal_quota: any;
 
 
   form = new FormGroup({
@@ -121,13 +131,13 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-     this.dataSource1.paginator = this.paginator1;
-     // this.dataSource2.paginator = this.paginator2;
+     this.dataSource2.paginator = this.paginator1;
+     this.dataSource1.paginator = this.paginator;
   }
 //datasource1 is for express service
 
-   // @ViewChild('paginator1') paginator2!: MatPaginator;
-   @ViewChild('paginator2') paginator1!: MatPaginator;
+   @ViewChild('paginator1') paginator!: MatPaginator;
+   @ViewChild('paginator') paginator1!: MatPaginator;
 
   dataSource1 = new MatTableDataSource();
   dataSource2 = new MatTableDataSource();
@@ -211,7 +221,7 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
         console.log("allDayQuotaAllocation", result);
         this.dataSource1 = new MatTableDataSource(this.allDayQuotaAllocation);
         this.showTable = true;
-        // this.dataSource1.paginator = this.paginator1;
+        this.dataSource1.paginator = this.paginator;
         setTimeout(() => {
         }, 1000);
       });
@@ -239,7 +249,7 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
     });
     this.dataSource2 = new MatTableDataSource(this.filteredNormalQuotaAllocation);
     this.showTable = true;
-    // this.dataSource2.paginator = this.paginator2;
+     // this.dataSource2.paginator = this.paginator2;
     }
 else{
     this.filteredDayQuotaAllocation = this.allDayQuotaAllocation.filter((element:any) => {
@@ -247,7 +257,7 @@ else{
     });
     this.dataSource1 = new MatTableDataSource(this.filteredDayQuotaAllocation);
     this.showTable = true;
-     this.dataSource1.paginator = this.paginator1;
+    this.dataSource1.paginator = this.paginator;
 }
   }
 

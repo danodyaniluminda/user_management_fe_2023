@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { FormGroup } from '@angular/forms';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
+import {FormGroup} from '@angular/forms';
+import Swal from "sweetalert2";
 
 const GENERATE_TRANSCRIPT_API = environment.base_url + '/api/v1/transcript_admin/';
 
@@ -13,7 +14,9 @@ export class DayQuotaAllocationService {
   toPromise() {
     throw new Error('Method not implemented.');
   }
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+  }
 
   dtTrigger: Subject<any> = new Subject<any>();
 
@@ -51,10 +54,10 @@ export class DayQuotaAllocationService {
 
 //get search response from table
 
-  searchResponseToAPI() : Observable<any> {
+  searchResponseToAPI(): Observable<any> {
     console.log();
     let result = this.http.get(GENERATE_TRANSCRIPT_API + 'transcript_normal_quota/get_all_transcript_normal_quota');
-        return new Observable((observable) => {
+    return new Observable((observable) => {
       observable.next(
         result
           .toPromise()
@@ -72,24 +75,58 @@ export class DayQuotaAllocationService {
       );
     });
 
-}
+  }
 
 
-getNormalQuotaAllocations():Observable<any>{
-  let result = this.http.get(GENERATE_TRANSCRIPT_API+'transcript_normal_quota/get_all_transcript_normal_quota');
-  return new Observable(observable => {
-      observable.next(result.toPromise().then((result:any) => {
+  getNormalQuotaAllocations(): Observable<any> {
+    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'transcript_normal_quota/get_all_transcript_normal_quota');
+    return new Observable(observable => {
+      observable.next(result.toPromise().then((result: any) => {
 
-        console.log("Normal Quota  -",result);
+        console.log("Normal Quota  -", result);
         observable.next(result);
-          observable.complete();
+        observable.complete();
       })
-      .catch(error => {
+        .catch(error => {
           observable.next((error['error'].message));
           observable.complete();
-      }));
-  });
-}
+        }));
+    });
+  }
+
+  updateQuotaValue(quotaId: any, quotaValue: any, programmeId:any, quotaType:string): Observable<any> {
+
+    let quota_url = "";
+    if(quotaType = "normal"){
+      quota_url = GENERATE_TRANSCRIPT_API + "transcript_normal_quota/update_transcript_normal_quota_with_parameter";
+    }else if(quotaType = "express"){
+      quota_url = "";
+    }
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("quota_id", quotaId);
+    queryParams = queryParams.append("quota_value", quotaValue);
+    queryParams = queryParams.append("programme_id", programmeId);
+    let result = this.http.post(quota_url,null, { params:queryParams });
+    return new Observable(
+      observable => {
+        observable.next(
+          result.toPromise()
+            .then((result: any) => {
+              observable.next(result);
+              observable.complete();
+            })
+            .catch(
+              (error: any) => {
+                console.log(error);
+                observable.complete();
+              }
+            )
+        );
+      }
+    );
+
+  }
 
 }
 
