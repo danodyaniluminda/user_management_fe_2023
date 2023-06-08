@@ -97,32 +97,31 @@ export class DayQuotaAllocationService {
   updateQuotaValue(quotaId: any, quotaValue: any, programmeId:any, quotaType:string): Observable<any> {
 
     let quota_url = "";
-    if(quotaType = "normal"){
-      quota_url = GENERATE_TRANSCRIPT_API + "transcript_normal_quota/update_transcript_normal_quota_with_parameter";
-    }else if(quotaType = "express"){
-      quota_url = "";
+    if(quotaType == "normal"){
+      quota_url = GENERATE_TRANSCRIPT_API + "transcript_normal_quota/update_transcript_normal_quota";
+    }else if(quotaType == "express"){
+      quota_url = GENERATE_TRANSCRIPT_API +"transcript_one_day_quota/update_transcript_one_day_quota";
     }
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append("quota_id", quotaId);
     queryParams = queryParams.append("quota_value", quotaValue);
     queryParams = queryParams.append("programme_id", programmeId);
-    let result = this.http.post(quota_url,null, { params:queryParams });
+    let result = this.http.post(quota_url,null, { params:queryParams, responseType:'text' });
     return new Observable(
       observable => {
-        observable.next(
-          result.toPromise()
-            .then((result: any) => {
-              observable.next(result);
+        result.toPromise()
+          .then((result: any) => {
+            observable.next(result);
+            observable.complete();
+          })
+          .catch(
+            (error: any) => {
+              console.log(error);
+              observable.next("error : " + error.toString());
               observable.complete();
-            })
-            .catch(
-              (error: any) => {
-                console.log(error);
-                observable.complete();
-              }
-            )
-        );
+            }
+          )
       }
     );
 

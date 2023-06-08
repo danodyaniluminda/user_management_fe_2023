@@ -42,7 +42,6 @@
     <div *ngIf="showTable">
 
 
-
       <div id="normal-service" *ngIf="showNormalTable">
         <table mat-table [dataSource]="dataSource2" class="example-container mat-elevation-z8" matSort>
 
@@ -82,9 +81,9 @@
 
         </table>
         <br>
-     <div id="paginator-card1">
+     <div id="paginator-card">
        <mat-card>
-         <mat-paginator #paginator1 [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+         <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
         </mat-card>
       </div>
 
@@ -132,10 +131,10 @@
 
         </table>
         <br>
-        <div id="paginator-card">
-         <mat-card>
-           <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
-       </mat-card>
+<!--        <div id="paginator-card1">-->
+<!--         <mat-card>-->
+<!--           <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>-->
+<!--       </mat-card>-->
        </div>
       </div>
     </div>
@@ -146,4 +145,4 @@
   </div>
 
 
-</div>
+
