@@ -12,29 +12,39 @@ import {MatTableDataSource} from "@angular/material/table";
 })
 export class ResultTypeComponent implements OnInit {
 
+  dtOptions: DataTables.Settings = {};
+  resultStatuses: any[] = [];
+  // resultsStatusDT = new MatTableDataSource(this.resultStatuses);
+  resultStatus: any[];
+
+
+  resultStatusName:string;
+  resultStatusNo:string;
+  showTable: Boolean = false;
+  addButtonDisabled :boolean=true;
+
+  // transcripts: any[];
+
   constructor(
     private addNewResultStatusService:AddNewResultStatusService,
     private router:Router
   ) { }
 
 
-  resultStatuses: any[] = [];
-  resultsStatusDT = new MatTableDataSource(this.resultStatuses);
-  resultStatus: any[];
 
+  // displayedColumns = ['id', 'old_omis_id', 'result_type', 'delete']
 
-  resultStatusName:string;
-  resultStatusNo:string;
-
-  addButtonDisabled :boolean=true;
-
-  displayedColumns = ['id', 'old_omis_id', 'result_type', 'delete']
-
-  @ViewChild('paginator') paginator!: MatPaginator;
+  // @ViewChild('paginator') paginator!: MatPaginator;
 
   ngOnInit(): void {
     this.fetchAllResultStatuss();
     this.search();
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      responsive: false,
+      paging: true,
+    };
 
   }
 
@@ -43,8 +53,8 @@ export class ResultTypeComponent implements OnInit {
       .toPromise()
       .then((result:any) => {
         this.resultStatuses = result;
-        this.resultsStatusDT = new MatTableDataSource(this.resultStatuses);
-        this.resultsStatusDT.paginator = this.paginator;
+        // this.resultsStatusDT = new MatTableDataSource(this.resultStatuses);
+        // this.resultsStatusDT.paginator = this.paginator;
         // console.log(this.resultStatuss);
       })
       .catch((exception:any) => {
@@ -93,17 +103,18 @@ export class ResultTypeComponent implements OnInit {
   }
 
   search() {
-    // this.showTable=false;
+    this.showTable=false;
     this.addNewResultStatusService
       .searchResponseToAPI()
       .toPromise()
       .then((message: any) => {
         this.resultStatus = message;
         console.log("test",message);
-
-        // this.showTable = true;
+        this.showTable = true;
       });
   }
+
+
 
   // archive(id:number){
   //   this.addNewResultStatusService.archiveResultStatus(id)

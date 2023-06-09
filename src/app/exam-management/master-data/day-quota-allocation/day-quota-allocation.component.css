@@ -1,15 +1,22 @@
 #ttype{
-  width: 400px;
+  width: 300px;
   }
+#ttype2{
+  width: 200px;
+}
+#ttype3{
+  width: 200px;
+}
+
 
 #rtype{
     width: 400px;
     }
 table {
-      width: 90%;
+      width: 100%;
     }
 .mat-column-programmeId {
-      flex: 0 0 15%;
+      flex: 0 0 10%;
     }
 
 .mat-column-quota {
