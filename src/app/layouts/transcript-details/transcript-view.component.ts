@@ -20,7 +20,7 @@ export class TranscriptViewComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
       this.id = params.get('id');
-      console.log(this.id); // Output: zsShP6CHWR
+      //console.log(this.id); // Output: zsShP6CHWR
     });
     this.getTranscriptTable(this.id);
   }
@@ -33,9 +33,9 @@ export class TranscriptViewComponent implements OnInit {
         this.transcriptDetails = result; // Assign the retrieved string value to a variable
         this.studentDetails = this.transcriptDetails.personalDetails;
         this.academicPerformanceDetails = this.transcriptDetails.academicPerformanceDetails;
-        console.log('transcriptDetails get value:', this.transcriptDetails);
-        console.log('studentDetails get value:', this.studentDetails);
-        console.log('academicPerformanceDetails get value:', this.academicPerformanceDetails);
+        //console.log('transcriptDetails get value:', this.transcriptDetails);
+        //console.log('studentDetails get value:', this.studentDetails);
+        //console.log('academicPerformanceDetails get value:', this.academicPerformanceDetails);
         return this.transcriptDetails; // Return the retrieved string value
       });
   }
