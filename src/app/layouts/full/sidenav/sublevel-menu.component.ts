@@ -23,7 +23,7 @@ import {PermissionService} from "../../../shared/services/permission.service";
           >
 <!--            {{item|json}}-->
 <!--            <i class="sublevel-link-icon fa fa-circle"></i>-->
-            <mat-icon class="sublevel-link-icon">{{item.icon}}</mat-icon>
+<!--            <mat-icon class="sublevel-link-icon">{{item.icon}}</mat-icon>-->
 <!--            <mat-icon>{{ item.icon }}</mat-icon>-->
 <!--            <mat-icon class="sublevel-link-icon">fiber_manual_record</mat-icon>-->
 
