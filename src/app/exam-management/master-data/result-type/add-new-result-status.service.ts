@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import {FormGroup} from "@angular/forms";
 
 const GENERATE_STATUS_API = environment.base_url +'/api/v1/transcript_admin/';
 
@@ -73,7 +74,7 @@ export class AddNewResultStatusService {
 
   searchResponseToAPI() : Observable<any> {
     // console.log(form.value);
-    let result = this.http.post(GENERATE_STATUS_API + 'trancript_result_type/find_trancript_result_type', {
+    let result = this.http.get(GENERATE_STATUS_API + 'trancript_result_type/get_all_trancript_result_type', {
       responseType: 'json',
     });
 
@@ -119,7 +120,7 @@ export class AddNewResultStatusService {
           observable.next((error['error'].message));
           Swal.fire('Error...','error', 'error');
           observable.complete();
-          location.reload();
+          window.location.reload();
         }));
     });
   }
