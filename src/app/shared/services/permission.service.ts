@@ -13,7 +13,7 @@ export class PermissionService {
   constructor(private http :HttpClient) { }
 
   getPermission(): Observable<any> {
-    let result = this.http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'get_permissions', {params: new HttpParams().append("role_name", 'accountant')});
+    let result = this.http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'get_permissions', {params: new HttpParams().append("role_name", 'admin')});
     return new Observable(observable => {
       observable.next(result.toPromise().then((result: any) => {
         observable.next(result);
