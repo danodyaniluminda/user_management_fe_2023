@@ -10,12 +10,12 @@ export const navbarData: INavbarData[] =
         {
           "label": "Transcript",
           "routeLink": "finance-services/transcript",
-          "icon": 'account_balance',
+          "icon": 'description',
           "items": [
             {
               "label": "Payment reconciliation",
               "routeLink": "finance-services/transcript/payment-reconciliation",
-              "icon": "account_balance",
+              "icon": "payment",
               "items": []
             }
           ]
@@ -30,18 +30,18 @@ export const navbarData: INavbarData[] =
         {
           "label": "Transcript",
           "routeLink": "exam/transcript",
-          "icon": "",
+          "icon": "description",
           "items": [
             {
               "label": "Verify transcript",
               "routeLink": "/exam/transcript/verify-transcript",
-              "icon": "",
+              "icon": "verified_user",
               "items": []
             },
             {
               "label": "Print transcript",
               "routeLink": "/exam/transcript/print-transcript",
-              "icon": "",
+              "icon": "print",
               "items": []
             }
           ]
@@ -49,30 +49,30 @@ export const navbarData: INavbarData[] =
         {
           "label": "Master data",
           "routeLink": "/exam/master-data",
-          "icon": "",
+          "icon": "list",
           "items": [
             {
-              "label": "Day quota Allocation",
+              "label": "Day quota allocation",
               "routeLink": "/exam/master-data/day-quota-allocation",
-              "icon": "",
+              "icon": "today",
               "items": []
             },
             {
-              "label": "Transcript type & result type",
+              "label": "Merge transcript & result types",
               "routeLink": "/exam/master-data/transcript-type-and-result-type",
-              "icon": "",
+              "icon": "merge_type",
               "items": []
             },
             {
               "label": "Result type",
               "routeLink": "/exam/master-data/result-type",
-              "icon": "",
+              "icon": "playlist_add_check",
               "items": []
             },
             {
               "label": "Transcript type",
               "routeLink": "/exam/master-data/transcript-type",
-              "icon": "",
+              "icon": "note",
               "items": []
             }
           ]
@@ -87,30 +87,30 @@ export const navbarData: INavbarData[] =
         {
           "label": "Master data",
           "routeLink": "/user-management/master-data",
-          "icon": "",
+          "icon": "list",
           "items": [
             {
-              "label": "Role route management",
+              "label": "Merge role & route",
               "routeLink": "/user-management/master-data/role-route-management",
-              "icon": "",
+              "icon": "merge_type",
               "items": []
             },
             {
               "label": "User role management",
               "routeLink": "/user-management/master-data/user-role-management",
-              "icon": "",
+              "icon": "supervised_user_circle",
               "items": []
             },
             {
               "label": "Role management",
               "routeLink": "/user-management/master-data/role-management",
-              "icon": "",
+              "icon": "business",
               "items": []
             },
             {
               "label": "Route management",
               "routeLink": "/user-management/master-data/route-management",
-              "icon": "",
+              "icon": "directions",
               "items": []
             }
           ]

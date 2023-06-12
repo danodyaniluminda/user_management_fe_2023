@@ -15,16 +15,16 @@ import { fadeInOut, INavbarData } from './helper';
       class="sublevel-nav"
     >
       <li *ngFor="let item of data.items" class="sublevel-nav-item">
-          <a class="sublevel-nav-link"
+          <a class="sublevel1-nav-link"
           (click)="handleClick(item)"
             *ngIf="item.items && item.items.length > 0"
             [ngClass]="getActiveClass(item)"
           >
 <!--            {{item|json}}-->
 <!--            <i class="sublevel-link-icon fa fa-circle"></i>-->
-            <mat-icon class="sublevel-link-icon">fiber_manual_record</mat-icon>
+<!--            <mat-icon class="sublevel-link-icon">fiber_manual_record</mat-icon>-->
 
-<!--            <mat-icon>{{ item.icon }}</mat-icon>-->
+            <mat-icon class="sublevel1-link-icon">{{ item.icon }}</mat-icon>
             <span class="sublevel1-link-text" @fadeInOut
                 *ngIf="collapsed">{{item.label}}</span>
             <mat-icon *ngIf="item.items && collapsed" class="menu-collapse-icon">
@@ -37,7 +37,7 @@ import { fadeInOut, INavbarData } from './helper';
             routerLinkActive="active-sublevel"
             [routerLinkActiveOptions]="{exact: true}"
           >
-            <mat-icon class="sublevel-link-icon">fiber_manual_record</mat-icon>
+            <mat-icon class="sublevel-link-icon">{{ item.icon }}</mat-icon>
             <span class="sublevel-link-text" @fadeInOut
                *ngIf="collapsed">{{item.label}}</span>
           </a>
