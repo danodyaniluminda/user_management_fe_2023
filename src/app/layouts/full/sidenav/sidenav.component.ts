@@ -1,11 +1,12 @@
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
-import { Component, Output, EventEmitter, OnInit, HostListener } from '@angular/core';
+import {Component, Output, EventEmitter, OnInit, HostListener, AfterContentInit, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { fadeInOut, INavbarData } from './helper';
 import { navbarData } from './nav-data';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
+import {PermissionService} from "../../../shared/services/permission.service";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -41,16 +42,32 @@ export class SidenavComponent implements OnInit {
   screenWidth = 0;
   navData : INavbarData[]=navbarData;
   multiple: boolean = false;
+  private subItem: INavbarData[];
+  private rootLevel: INavbarData[];
+  private permissions: INavbarData[];
 
-  constructor(public router: Router, private http:HttpClient) {
-    // http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'getMenu').subscribe((res)=>this.navData = res);
+  constructor(public router: Router, private http:HttpClient,private sideNavService:PermissionService) {
+    // http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'getMenu').subscribe((res)=>this.rootLevel = res);
+    // this.http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'get_permissions', {params: new HttpParams().append("role_name", 'admin')}).subscribe((res) =>this.subItem = res);
   }
   ngOnInit(): void {
-
+    this.getPermissions();
   }
+
+  getPermissions() {
+    this.sideNavService
+      .getPermission()
+      .toPromise()
+      .then((res: any) => {
+        this.permissions = res;
+        this.handlePermissions(res,this.navData);
+      })
+  }
+
 
   handleClick(item: INavbarData): void {
     this.shrinkItems(item);
+    this.handlePermissions(this.permissions,item.items);
     item.expanded = !item.expanded
   }
 
@@ -63,6 +80,18 @@ export class SidenavComponent implements OnInit {
       for(let modelItem of this.navData) {
         if (item !== modelItem && modelItem.expanded) {
           modelItem.expanded = false;
+        }
+      }
+    }
+  }
+
+  handlePermissions(permissions: any, navData: any) {
+    for(let modelItem of navData) {
+      for (let item of Object.keys(permissions)){
+        // console.log(modelItem.routeLink)
+        // console.log(item,permissions[item].routeLink)
+        if (permissions[item].routeLink.toLowerCase()==modelItem.routeLink.toLowerCase()){
+          modelItem.hasPermission = true;
         }
       }
     }
