@@ -1,25 +1,31 @@
 <div class="card">
-  <h5 class="card-header"> <u>Day Quota Allocation</u> </h5>
+  <mat-card  class="example-container" >
+    <mat-card-content>
+      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
+        Day Quota Allocation
+      </div>
+    </mat-card-content>
+  </mat-card>
   <div class="card-body">
 
     <div class="container" id="htmlData"></div>
 
-    <label for="ttype">Service Type &nbsp;&nbsp;: </label>
+    <label>Service Type &nbsp;&nbsp;: </label>
     &nbsp;&nbsp;
 
-    <input (change)="changeServiceType($event.target)" type="radio" id="ns" name="ser" value="normal" />
+    <input (change)="changeServiceType($event.target)" type="radio" id="ns" name="ser" value='normal' />
 
     &nbsp;<label for="ods" value=1>Normal Service </label>
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
-    <input  (change)="changeServiceType($event.target)" [checked]="true" type="radio" id="ods" name="ser" value="express"/>
+    <input  (change)="changeServiceType($event.target)" [checked]="true" type="radio" id="ods" name="ser" value='express'/>
 
     &nbsp;<label>Express Service</label> <br />
     <br />
 
-    <label for="ttype">programme &nbsp;: </label>&nbsp;&nbsp;
+    <label>programme &nbsp;: </label>&nbsp;&nbsp;
     <mat-autocomplete #autoProgramme="matAutocomplete" [class]="'blue-bg'">
       <mat-option *ngFor="let filteredProgramme of filteredProgrammes" [value]="filteredProgramme.name">
         {{ filteredProgramme.id }} - {{ filteredProgramme.name }}
@@ -36,7 +42,6 @@
     <div *ngIf="showTable">
 
 
-
       <div id="normal-service" *ngIf="showNormalTable">
         <table mat-table [dataSource]="dataSource2" class="example-container mat-elevation-z8" matSort>
 
@@ -47,10 +52,9 @@
 
           <ng-container matColumnDef="quota">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>
-            <td mat-cell *matCellDef="let element"> <input type="text" id="ttype2"
- style="height: 28px;"(input)="normal_quota()"
-             value="{{element.normal_quota}}"></td>
-          </ng-container>
+            <td mat-cell *matCellDef="let element"> <input type="number" id="ttype2"
+ style="height: 28px;" (input)="onQuotaInputChange($event.target,'normal')" value="{{element.normal_quota}}"></td>
+          </ng-container>t
 
 
           <ng-container matColumnDef="status">
@@ -67,7 +71,7 @@
           <ng-container matColumnDef="verify">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>
             <td mat-cell *matCellDef="let row" >
-              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateProgramme(row.programmeId,this.programmequotas[row])">Save</button>
+              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>
             </td>
           </ng-container>
 
@@ -77,11 +81,11 @@
 
         </table>
         <br>
-        <div id="paginator-card2">
-          <mat-card>
-            <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
-          </mat-card>
-        </div>
+     <div id="paginator-card">
+       <mat-card>
+         <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+        </mat-card>
+      </div>
 
       </div>
 
@@ -98,8 +102,7 @@
 
           <ng-container matColumnDef="quota" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>
-            <td mat-cell *matCellDef="let element"> <input type="text" id="ttype"  (input)="one_day_quota()"
-               name="ttypem" value="{{element.one_day_quota}}">
+            <td mat-cell *matCellDef="let element"> <input type="number" id="ttype3"  (input)="onQuotaInputChange($event.target,'express')"               name="ttypem" value="{{element.one_day_quota}}">
               </td>
           </ng-container>
 
@@ -118,7 +121,7 @@
           <ng-container matColumnDef="verify">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>
             <td mat-cell *matCellDef="let row" >
-              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateProgramme(row.programmeId,this.programmequotas[row])">Save</button>
+              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>
             </td>
           </ng-container>
 
@@ -128,11 +131,11 @@
 
         </table>
         <br>
-        <div id="paginator-card">
-          <mat-card>
-            <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
-          </mat-card>
-        </div>
+<!--        <div id="paginator-card1">-->
+<!--         <mat-card>-->
+<!--           <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>-->
+<!--       </mat-card>-->
+       </div>
       </div>
     </div>
 
@@ -142,4 +145,4 @@
   </div>
 
 
-</div>
+

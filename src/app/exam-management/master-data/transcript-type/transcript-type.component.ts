@@ -15,22 +15,22 @@ import {FormControl} from "@angular/forms";
 export class TranscriptTypeComponent implements OnInit {
 
   programmes: any;
-
+  dtOptions: DataTables.Settings = {};
   constructor(
     private addNewTranscriptTypeService:AddNewTranscriptTypeService,
     private router:Router
   ) { }
 
   transcriptTypes:any[] = [];
-  transcriptTypeDT = new MatTableDataSource(this.transcriptTypes);
+  // transcriptTypeDT = new MatTableDataSource(this.transcriptTypes);
 
   prospecifictranscriptTypes:any[] = [];
   isShowSpecificField=false;
   isShowNormal = false;
-  // isShowButtons = false;
+  isShowButtons = false;
   addButtonDisabled :boolean=true;
   transcripts: any[];
-
+  showTable: Boolean = false;
   transcriptName:string ;
   transcriptType:string;
   programmeId:number = -1;
@@ -57,6 +57,12 @@ export class TranscriptTypeComponent implements OnInit {
     this.fetchAllProgrammes();
     this.search();
     //console.log("specif",this.isShowSpecificField);
+
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      responsive: false,
+      paging: true,
+    };
   }
 
   isSpecific(){
@@ -85,8 +91,8 @@ export class TranscriptTypeComponent implements OnInit {
       .toPromise()
       .then((result:any) => {
         this.transcriptTypes = result;
-        this.transcriptTypeDT = new MatTableDataSource(this.transcriptTypes);
-        this.transcriptTypeDT.paginator = this.paginator;
+        // this.transcriptTypeDT = new MatTableDataSource(this.transcriptTypes);
+        // this.transcriptTypeDT.paginator = this.paginator;
         // console.log(this.transcriptTypes);
       })
       .catch((exception:any) => {
@@ -237,7 +243,7 @@ export class TranscriptTypeComponent implements OnInit {
   }
 
   search() {
-    // this.showTable=false;
+    this.showTable=false;
     this.addNewTranscriptTypeService
       .searchResponseToAPI()
       .toPromise()
@@ -245,7 +251,7 @@ export class TranscriptTypeComponent implements OnInit {
         this.transcriptType = message;
         console.log("test",message);
 
-        // this.showTable = true;
+        this.showTable = true;
       });
   }
 
