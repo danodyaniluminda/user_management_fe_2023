@@ -8,7 +8,7 @@ import {DayQuotaAllocationComponent} from "./master-data/day-quota-allocation/da
 import {ResultTypeComponent} from "./master-data/result-type/result-type.component";
 import {TranscriptTypeComponent} from "./master-data/transcript-type/transcript-type.component";
 import {TranscriptTypeAndResultTypeComponent} from "./master-data/transcript-type-and-result-type/transcript-type-and-result-type.component";
-import {ExamGuardService} from "../shared/_services/ValidatePrivileges";
+import {PermissionGuardService} from "../shared/services/ValidatePrivileges";
 
 const routes: Routes = [
   {
