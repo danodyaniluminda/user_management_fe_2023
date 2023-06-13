@@ -5,6 +5,7 @@ import {MatTableDataSource,} from '@angular/material/table';
 import {Router} from '@angular/router';
 import {DayQuotaAllocationService} from "./day-quota-allocation.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'exam-day-quota-allocation',
@@ -25,7 +26,7 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
-  updateQuota(row:any) {
+  updateQuota(row: any) {
     let quota_id = row['id'];
     let programme_id = row['programme']['id'];
 
@@ -33,19 +34,31 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
     console.log("programme_id : " + programme_id);
 
 
-    if(this.servicetype=='express'){
+    if (this.servicetype == 'express') {
       let one_day_quota_value = 0;
-      if(this.selectedOneDayQuotaValue==''){
+      if (this.selectedOneDayQuotaValue == '') {
         one_day_quota_value = row['one_day_quota'];
-      }else{
+      } else {
         one_day_quota_value = Number(this.selectedOneDayQuotaValue);
       }
       console.log("one_day_quota_value : " + one_day_quota_value);
-    }else if(this.servicetype=='normal'){
+      console.log("servicetype : " + this.servicetype);
+      this.dayQuotaAllocationService
+        .updateQuotaValue(quota_id, one_day_quota_value, programme_id, this.servicetype)
+        .toPromise()
+        .then((result: any) => {
+          console.log(result);
+          if(result.startsWith("success")){
+            Swal.fire("Success", result, "success");
+          }else{
+            Swal.fire("Error", result, "error");
+          }
+        });
+    } else if (this.servicetype == 'normal') {
       let normal_quota_value = 0;
-      if(this.selectedNormalQuotaValue==''){
+      if (this.selectedNormalQuotaValue == '') {
         normal_quota_value = row['normal_quota'];
-      }else{
+      } else {
         normal_quota_value = Number(this.selectedNormalQuotaValue);
       }
       console.log("normal_quota_value : " + normal_quota_value);
@@ -53,8 +66,14 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
         .updateQuotaValue(quota_id, normal_quota_value, programme_id, this.servicetype)
         .toPromise()
         .then((result: any) => {
-          console.log("Update normal quota value", result);
+          console.log( result);
+          if(result.startsWith("success")){
+            Swal.fire("Success", result, "success");
+          }else{
+            Swal.fire("Error", result, "error");
+          }
         });
+
     }
 
   }
@@ -73,14 +92,14 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
   selectedOneDayQuotaValue: string = "";
   selectedNormalQuotaValue: string = "";
 
-  onQuotaInputChange(target:any, type:any){
-    if(type=='express'){
-      if(target && target.value!=undefined){
+  onQuotaInputChange(target: any, type: any) {
+    if (type == 'express') {
+      if (target && target.value != undefined) {
         this.selectedOneDayQuotaValue = target.value;
         console.log("selectedOneDayQuotaValue : ", this.selectedOneDayQuotaValue);
       }
-    }else if(type=='normal'){
-      if(target && target.value!=undefined){
+    } else if (type == 'normal') {
+      if (target && target.value != undefined) {
         this.selectedNormalQuotaValue = target.value;
         console.log("selectedNormalQuotaValue : ", this.selectedNormalQuotaValue);
       }
@@ -90,7 +109,7 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
   dtOptions: DataTables.Settings = {};
   allDayQuotaAllocation: any;
   filteredDayQuotaAllocation: any;
-  filteredNormalQuotaAllocation:any;
+  filteredNormalQuotaAllocation: any;
   viewDayQuotaAllocationService: any;
   one_day_quotas: any;
   transcript_one_day_quota: any;
@@ -131,13 +150,14 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-     this.dataSource2.paginator = this.paginator1;
-     this.dataSource1.paginator = this.paginator;
+    this.dataSource2.paginator = this.paginator;
+    // this.dataSource1.paginator = this.paginator;
   }
+
 //datasource1 is for express service
 
-   @ViewChild('paginator1') paginator!: MatPaginator;
-   @ViewChild('paginator') paginator1!: MatPaginator;
+  // @ViewChild('paginator1') paginator!: MatPaginator;
+  @ViewChild('paginator') paginator!: MatPaginator;
 
   dataSource1 = new MatTableDataSource();
   dataSource2 = new MatTableDataSource();
@@ -167,6 +187,8 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
       this.showExpressTable = true;
       this.showNormalTable = false;
     }
+    //Swal.fire("Service Changed", value, "success");
+    //Swal.fire("Service Changed", value, "error");
   }
 
 
@@ -211,6 +233,9 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
   }
 
   // fetchDayQuotaAllocationDetails is use for express/one day quota
+  elements: any;
+  row: string;
+  allDayQuotaAllocations: any;
 
   fetchDayQuotaAllocationDetails() {
     this.dayQuotaAllocationService
@@ -219,9 +244,9 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
       .then((result: any) => {
         this.allDayQuotaAllocation = result;
         console.log("allDayQuotaAllocation", result);
-        this.dataSource1 = new MatTableDataSource(this.allDayQuotaAllocation);
+        // this.dataSource1 = new MatTableDataSource(this.allDayQuotaAllocation);
         this.showTable = true;
-        this.dataSource1.paginator = this.paginator;
+        // this.dataSource1.paginator = this.paginator;
         setTimeout(() => {
         }, 1000);
       });
@@ -234,9 +259,9 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
       .then((result: any) => {
         this.allNormalQuota = result;
         console.log("allNormalQuota", result);
-        this.dataSource2 = new MatTableDataSource(this.allNormalQuota);
+        // this.dataSource2 = new MatTableDataSource(this.allNormalQuota);
         this.showTable = true;
-        // this.dataSource2.paginator = this.paginator2;
+        // this.dataSource2.paginator = this.paginator;
         setTimeout(() => {
         }, 1000);
       });
@@ -244,21 +269,21 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
 
   search() {
 
-  if (this.showNormalTable)  {this.filteredNormalQuotaAllocation = this.allNormalQuota.filter((element:any) => {
-      return element['programme']['name'].includes(String(this.programmeInput))
-    });
-    this.dataSource2 = new MatTableDataSource(this.filteredNormalQuotaAllocation);
-    this.showTable = true;
-     // this.dataSource2.paginator = this.paginator2;
+    if (this.showNormalTable) {
+      this.filteredNormalQuotaAllocation = this.allNormalQuota.filter((element: any) => {
+        return element['programme']['name'].includes(String(this.programmeInput))
+      });
+      // this.dataSource2 = new MatTableDataSource(this.filteredNormalQuotaAllocation);
+      this.showTable = true;
+      // this.dataSource2.paginator = this.paginator;
+    } else {
+      this.filteredDayQuotaAllocation = this.allDayQuotaAllocation.filter((element: any) => {
+        return element['programme']['name'].includes(String(this.programmeInput))
+      });
+      // this.dataSource1 = new MatTableDataSource(this.filteredDayQuotaAllocation);
+      this.showTable = true;
+      // this.dataSource1.paginator = this.paginator;
     }
-else{
-    this.filteredDayQuotaAllocation = this.allDayQuotaAllocation.filter((element:any) => {
-      return element['programme']['name'].includes(String(this.programmeInput))
-    });
-    this.dataSource1 = new MatTableDataSource(this.filteredDayQuotaAllocation);
-    this.showTable = true;
-    this.dataSource1.paginator = this.paginator;
-}
   }
 
 
