@@ -23,7 +23,7 @@ import {
   TranscriptTypeAndResultTypeComponent
 } from './master-data/transcript-type-and-result-type/transcript-type-and-result-type.component';
 import {ExamManagementRoutingModule} from './exam-management-routing.module';
-import {ExamGuardService} from "../shared/_services/ValidatePrivileges";
+import { PermissionGuardService} from "../shared/services/ValidatePrivileges";
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import {ExamGuardService} from "../shared/_services/ValidatePrivileges";
     FormsModule
   ],
   providers: [
-    ExamGuardService
+    PermissionGuardService
   ]
 })
 export class ExamManagementModule {

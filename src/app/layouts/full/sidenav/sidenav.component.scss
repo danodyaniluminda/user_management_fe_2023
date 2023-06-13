@@ -1,5 +1,7 @@
+@import "src/assets/styles/variable.scss";
+
 .sidenav {
-  background: #263238;
+  background: #ffffff;
   transition: all .5s ease;
   position: absolute;
   z-index: 1;
@@ -11,46 +13,55 @@
 }
 
 .sidenav-collapsed {
-  width: 16.5625rem;
+  width: 14.9rem;
 }
 
 .sidenav-nav {
   list-style: none;
   padding: 0.938rem;
   margin: 0;
+  margin-left: -16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
 
   .sidenav-nav-item {
     width: 100%;
     margin-bottom: 0.625rem;
 
     .sidenav-nav-link {
+      padding-left: 0.1rem;
       display: flex;
       align-items: center;
       height: 3rem;
-      color: #f3f3f3;
+      color: $headingtext;
       text-decoration: none;
       border-radius: 0.625rem;
       transition: all .3s ease;
+      margin-top: 5px;
 
       .sidenav-link-icon {
         font-size: 22px;
         width: 2rem;
+        margin-right: 2px;
         min-width: 2rem;
-        margin: 0 0.5rem;
-        text-align: center;
+        margin: 0.5rem;
+        text-align: start;
       }
 
       .sidenav-link-text {
-        margin-left: 1.5rem;
+        margin-left: 9px;
+        font-size: 17px;
       }
     }
 
     .sidenav-nav-link:hover {
-      background-color: #fff;
+      width: 100%;
+      background-color: $themecolor-alt;
       color: #000;
 
       .menu-collapse-icon {
@@ -71,7 +82,7 @@
 }
 
 .active-sublevel {
-  color: #f3f3f3 !important;
+  color: #1976d2 !important;
   // opacity: 1 !important;
 }
 
@@ -81,38 +92,68 @@
   min-width: 2rem;
   margin: auto 0.5rem auto auto;
   text-align: center;
-  color: #f3f3f3;
+  color: #000000;
 }
 
 .sublevel-nav {
   list-style: none;
-  margin-left: 10px;
 
   .sublevel-nav-item {
     .sublevel-nav-link {
       display: flex;
       align-items: center;
       height: 3rem;
-      color: #898989;
+      margin-left: -70px;
+      color: $bodytext;
       text-decoration: none;
       border-radius: 0.625rem;
       transition: all .3s ease;
 
       .sublevel-link-icon {
-        font-size: 12px;
+        font-size: 18px;
+        width: 2rem;
+        min-width: 2rem;
+        margin: 0 0.5rem;
+        text-align: center;
+        margin-left: 22px;
+      }
+
+      .sublevel-link-text {
+        margin-left: -0.5rem;
+        font-size: 15px;
+      }
+
+    }
+
+    .sublevel1-nav-link {
+      display: flex;
+      align-items: center;
+      height: 3rem;
+      margin-left: -32px;
+      color: $bodytext;
+      text-decoration: none;
+      border-radius: 0.625rem;
+      transition: all .3s ease;
+
+      .sublevel1-link-icon {
+        font-size: 20px;
         width: 2rem;
         min-width: 2rem;
         margin: 0 0.5rem;
         text-align: center;
       }
-
-      .sublevel-link-text {
-        margin-left: 0.8rem;
+      .sublevel1-link-text{
+        font-size: 16px;
+        margin-left: -0.5rem;
       }
     }
 
     .sublevel-nav-link:hover {
-      color: #f3f3f3;
+      color: $themecolor;
+    }
+
+    .sublevel1-nav-link:hover {
+      color: $themecolor;
     }
   }
 }

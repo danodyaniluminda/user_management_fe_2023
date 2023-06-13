@@ -122,7 +122,6 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
       .toPromise()
       .then((result: any) => {
         // console.log(result);
-
         this.transcriptTypes = result;
       });
   }
