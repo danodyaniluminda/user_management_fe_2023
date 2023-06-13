@@ -14,10 +14,6 @@ import {DashboardAccess, PermissionGuardService} from "./shared/services/Validat
 import {AccessDeniedComponent} from "./layouts/error/access-denied/access-denied.component";
 
 const routes: Routes = [
-  // {
-  //   path: 'customers',
-  //   loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
-  // },
   {
     path: 'transcript-view',
     component: TranscriptViewComponent
