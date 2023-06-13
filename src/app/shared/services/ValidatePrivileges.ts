@@ -36,6 +36,17 @@ export class PermissionGuardService implements CanActivateChild {
         return false;
       });
   }
+  // private getPermission(state: RouterStateSnapshot) {
+  //   let subscription = this.permissionService
+  //     .getPermission()
+  //     .subscribe((data: any) => {
+  //       return this.validate(data, state);
+  //     }, (err: Error) => {
+  //     });
+  //   console.log(subscription)
+  //   return true
+  // }
+
 
   private validate(res: any, state: RouterStateSnapshot) {
     for (let permission of res) {

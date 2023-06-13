@@ -12,7 +12,6 @@ import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './demo-material-module';
 
-import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import {DataTablesModule} from "angular-datatables";
 import {QRCodeModule} from "angularx-qrcode";
@@ -49,7 +48,6 @@ import { AccessDeniedComponent } from './layouts/error/access-denied/access-deni
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    SharedModule,
     CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
