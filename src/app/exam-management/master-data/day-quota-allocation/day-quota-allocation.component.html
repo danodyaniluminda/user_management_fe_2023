@@ -41,108 +41,180 @@
 
     <div *ngIf="showTable">
 
-
-      <div id="normal-service" *ngIf="showNormalTable">
-        <table mat-table [dataSource]="dataSource2" class="example-container mat-elevation-z8" matSort>
-
-          <ng-container matColumnDef="programmeName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Programme </th>
-            <td mat-cell *matCellDef="let element">{{element.programme.name}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="quota">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>
-            <td mat-cell *matCellDef="let element"> <input type="number" id="ttype2"
- style="height: 28px;" (input)="onQuotaInputChange($event.target,'normal')" value="{{element.normal_quota}}"></td>
-          </ng-container>t
-
-
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let row">
-            <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">
-              <option selected disabled>Select Status Type</option>
-              <option value="true">Active</option>
-              <option value="false">Deactive</option>
-            </select>
-          </td>
-          </ng-container>
-
-          <ng-container matColumnDef="verify">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>
-            <td mat-cell *matCellDef="let row" >
-              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>
-            </td>
-          </ng-container>
-
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        </table>
+      <mat-card class="example-container" *ngIf="showNormalTable">
         <br>
-     <div id="paginator-card">
-       <mat-card>
-         <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
-        </mat-card>
-      </div>
+        <div class="example-table-container">
+<!--           <pre>{{allDayQuotaAllocation|json}}</pre>-->
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
+              <thead>
+              <tr>
+                <th style="width: 20%;">Programme Name</th>
+                <th>Quota</th>
+                <th>Status</th>
+                <th>Verify</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let element of allNormalQuota">
+                <td style="width: 20%;">{{ element.programme.name}}</td>
+                <td><input type="number" value="{{ element.normal_quota }}" id="ttype2"
+                   style="height: 28px;"  (input)="onQuotaInputChange($event.target,'normal')"></td>
+
+                <td>{{ element.status }}
+                  <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">
+                    <option selected disabled>Select Status Type</option>
+                    <option value="true">Active</option>
+                    <option value="false">Deactive</option>
+                  </select></td>
+                <td>{{ element.verify }}
+                  <button mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </mat-card>
+
+
+                  <!--      <div id="normal-service" *ngIf="showNormalTable">-->
+<!--        <table mat-table [dataSource]="dataSource2" class="example-container mat-elevation-z8" matSort>-->
+
+<!--          <ng-container matColumnDef="programmeName">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header> Programme </th>-->
+<!--            <td mat-cell *matCellDef="let element">{{element.programme.name}}</td>-->
+<!--          </ng-container>-->
+
+<!--          <ng-container matColumnDef="quota">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>-->
+<!--            <td mat-cell *matCellDef="let element"> <input type="number" id="ttype2"-->
+<!-- style="height: 28px;" (input)="onQuotaInputChange($event.target,'normal')" value="{{element.normal_quota}}"></td>-->
+<!--          </ng-container>-->
+
+
+<!--          <ng-container matColumnDef="status">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>-->
+<!--            <td mat-cell *matCellDef="let row">-->
+<!--            <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">-->
+<!--              <option selected disabled>Select Status Type</option>-->
+<!--              <option value="true">Active</option>-->
+<!--              <option value="false">Deactive</option>-->
+<!--            </select>-->
+<!--          </td>-->
+<!--          </ng-container>-->
+
+<!--          <ng-container matColumnDef="verify">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>-->
+<!--            <td mat-cell *matCellDef="let row" >-->
+<!--              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>-->
+<!--            </td>-->
+<!--          </ng-container>-->
+
+
+<!--          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+
+<!--        </table>-->
+<!--        <br>-->
+<!--     <div id="paginator-card">-->
+<!--       <mat-card>-->
+<!--         <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>-->
+<!--        </mat-card>-->
+<!--      </div>-->
 
       </div>
 
+    <mat-card class="example-container" *ngIf="showExpressTable">
+      <br>
+      <div class="example-table-container">
+        <!--           <pre>{{allDayQuotaAllocation|json}}</pre>-->
+        <div class="table-responsive">
+          <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+              <th style="width: 20%;">Programme Name</th>
+              <th>Quota</th>
+              <th>Status</th>
+              <th>Verify</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let element of allDayQuotaAllocation">
+              <td style="width: 20%;">{{ element.programme.name }}</td>
+              <td>
+                <input type="number" id="ttype" value="{{ element.one_day_quota }}"
+                       style="height: 28px;" (input)="onQuotaInputChange($event.target,'express')"></td>
 
-
-      <div id="express-service" *ngIf="showExpressTable">
-
-        <table mat-table [dataSource]="dataSource1" class="example-container mat-elevation-z8" matSort>
-
-          <ng-container matColumnDef="programmeName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Programme </th>
-            <td mat-cell *matCellDef="let element">{{element.programme.name}}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="quota" >
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>
-            <td mat-cell *matCellDef="let element"> <input type="number" id="ttype3"  (input)="onQuotaInputChange($event.target,'express')"               name="ttypem" value="{{element.one_day_quota}}">
+              <td>{{ element.verify }}
+                <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">
+                  <option selected disabled>Select Status Type</option>
+                  <option value="true">Active</option>
+                  <option value="false">Deactive</option>
+                </select></td>
+              <td>{{ element.verify }}
+                <button mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>
               </td>
-          </ng-container>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </mat-card>
 
 
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let row">
-              <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">
-                <option selected disabled>Select Status Type</option>
-                <option value="true">Active</option>
-                <option value="false">Deactive</option>
-              </select>
-            </td>
-          </ng-container>
+<!--      <div id="express-service" *ngIf="showExpressTable">-->
 
-          <ng-container matColumnDef="verify">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>
-            <td mat-cell *matCellDef="let row" >
-              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>
-            </td>
-          </ng-container>
+<!--        <table mat-table [dataSource]="dataSource1" class="example-container mat-elevation-z8" matSort>-->
+
+<!--          <ng-container matColumnDef="programmeName">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header> Programme </th>-->
+<!--            <td mat-cell *matCellDef="let element">{{element.programme.name}}</td>-->
+<!--          </ng-container>-->
+
+<!--          <ng-container matColumnDef="quota" >-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Quota</th>-->
+<!--            <td mat-cell *matCellDef="let element"> <input type="number" id="ttype3"  (input)="onQuotaInputChange($event.target,'express')"               name="ttypem" value="{{element.one_day_quota}}">-->
+<!--              </td>-->
+<!--          </ng-container>-->
 
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+<!--          <ng-container matColumnDef="status">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>-->
+<!--            <td mat-cell *matCellDef="let row">-->
+<!--              <select class="form-select" style="height: 28px;"  #statustype (change)="onStatusTypeChange(row,statustype.value)">-->
+<!--                <option selected disabled>Select Status Type</option>-->
+<!--                <option value="true">Active</option>-->
+<!--                <option value="false">Deactive</option>-->
+<!--              </select>-->
+<!--            </td>-->
+<!--          </ng-container>-->
 
-        </table>
-        <br>
-<!--        <div id="paginator-card1">-->
-<!--         <mat-card>-->
-<!--           <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>-->
-<!--       </mat-card>-->
-       </div>
+<!--          <ng-container matColumnDef="verify">-->
+<!--            <th mat-header-cell *matHeaderCellDef mat-sort-header>Verify</th>-->
+<!--            <td mat-cell *matCellDef="let row" >-->
+<!--              <button class="btn btn-outline-secondary btn-sm" mat-raised-button color="primary" type="submit" (click)="updateQuota(row)">Save</button>-->
+<!--            </td>-->
+<!--          </ng-container>-->
+
+
+<!--          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+
+<!--        </table>-->
+<!--        <br>-->
+<!--&lt;!&ndash;        <div id="paginator-card1">&ndash;&gt;-->
+<!--&lt;!&ndash;         <mat-card>&ndash;&gt;-->
+<!--&lt;!&ndash;           <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>&ndash;&gt;-->
+<!--&lt;!&ndash;       </mat-card>&ndash;&gt;-->
+<!--       </div>-->
       </div>
     </div>
 
 
 
 
-  </div>
+
 
 
 
