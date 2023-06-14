@@ -1,11 +1,23 @@
+
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">Master data</li>
+      <li class="breadcrumb-item active" aria-current="page">Day quota allocation</li>
+    </ol>
+  </nav>
+
+</mat-card>
+<div class="content">
+  &nbsp;&nbsp;&nbsp;Day Quota Allocation
+</div>
+<br>
+
+
+
 <div class="card">
-  <mat-card  class="example-container" >
-    <mat-card-content>
-      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
-        Day Quota Allocation
-      </div>
-    </mat-card-content>
-  </mat-card>
+
   <div class="card-body">
 
     <div class="container" id="htmlData"></div>
@@ -56,7 +68,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let element of allNormalQuota">
+              <tr *ngFor="let element of filteredNormalQuotaAllocation">
                 <td style="width: 20%;">{{ element.programme.name}}</td>
                 <td><input type="number" value="{{ element.normal_quota }}" id="ttype2"
                    style="height: 28px;"  (input)="onQuotaInputChange($event.target,'normal')"></td>
@@ -140,7 +152,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let element of allDayQuotaAllocation">
+            <tr *ngFor="let element of filteredDayQuotaAllocation">
               <td style="width: 20%;">{{ element.programme.name }}</td>
               <td>
                 <input type="number" id="ttype" value="{{ element.one_day_quota }}"
