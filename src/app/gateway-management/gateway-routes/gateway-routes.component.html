@@ -1,0 +1,35 @@
+<div id="root-container">
+  <mat-card id="root-row-card">
+    <br>
+    <div id="row-card">
+      <mat-label>Test</mat-label>
+    </div>
+    <br><br>
+
+    <mat-card id="table-card">
+      <div id="table-div" *ngIf="showTable">
+        <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
+          <thead>
+          <tr>
+            <th style="">ID</th>
+            <th>Route ID ( Name )</th>
+            <th>Auth Required</th>
+            <th>URI ( External URL )</th>
+            <th>Path ( Internal URL )</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of gatewayRoutesModel.allGatewayRoutes">
+            <td>{{row['id']}}</td>
+            <td>{{row['routeId']}}</td>
+            <td>{{row['authorizationRequired']}}</td>
+            <td>{{row['path']}}</td>
+            <td>{{row['uri']}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-card>
+    <br><br>
+  </mat-card>
+</div>

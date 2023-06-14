@@ -25,6 +25,7 @@ import {SublevelMenuComponent} from "./layouts/full/sidenav/sublevel-menu.compon
 import { NotFoundComponent } from './layouts/error/not-found/not-found.component';
 import { SamplePipe } from './layouts/error/sample.pipe';
 import { UserManagementModule } from './user-management/user-management.module';
+import { GatewayManagementModule } from "./gateway-management/gateway-management.module";
 import { TranscriptViewComponent } from './layouts/transcript-details/transcript-view.component';
 import {DashboardAccess, PermissionGuardService} from "./shared/services/ValidatePrivileges";
 import { AccessDeniedComponent } from './layouts/error/access-denied/access-denied.component';
@@ -58,7 +59,8 @@ import { AccessDeniedComponent } from './layouts/error/access-denied/access-deni
     DemoMaterialModule,
     ExamManagementModule,
     FinanceServicesModule,
-    UserManagementModule
+    UserManagementModule,
+    GatewayManagementModule
   ],
   providers: [
     {
