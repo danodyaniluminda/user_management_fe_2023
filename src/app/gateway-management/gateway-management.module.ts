@@ -8,7 +8,8 @@ import {MatInputModule} from "@angular/material/input";
 import {DataTablesModule} from "angular-datatables";
 import {MatButtonModule} from "@angular/material/button";
 import {ReactiveFormsModule} from "@angular/forms";
-
+import { NgxDatatableModule } from '@tusharghoshbd/ngx-datatable';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,9 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatInputModule,
     DataTablesModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDatatableModule,
+    MatIconModule
   ]
 })
 export class GatewayManagementModule { }
