@@ -1,16 +1,27 @@
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">Master data</li>
+      <li class="breadcrumb-item active" aria-current="page">Transcript type</li>
+    </ol>
+  </nav>
+
+</mat-card>
+<div class="content">
+  &nbsp;&nbsp;&nbsp;Add New Transcript Type
+</div>
+<br>
+
 <div class="content">
 
-  <mat-card  class="example-container" >
-    <mat-card-content>
-      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
-        Add New Transcript Type
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-
-  <br>
-  <br>
+<!--  <mat-card  class="example-container" >-->
+<!--    <mat-card-content>-->
+<!--      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">-->
+<!--        Add New Transcript Type-->
+<!--      </div>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
 
   <mat-card  class="example-container" >
   <div class="container">
@@ -140,125 +151,162 @@
 
 <br>
 
-<mat-card class="example-container" >
+<!--<mat-card class="example-container" >-->
+<!--  <br>-->
+<!--  <div class="example-table-container" >-->
+<!--    &lt;!&ndash; <pre>{{transcripts|json}}</pre> &ndash;&gt;-->
+<!--    <div class="table-responsive">-->
+
+<!--      <br>-->
+<!--      <br>-->
+<!--    &lt;!&ndash; <pre>{{transcriptType|json}}</pre> &ndash;&gt;-->
+<!--    <div style="overflow-x: auto;">-->
+
+<!--      <table-->
+<!--        id="printTable"-->
+<!--        mat-table-->
+<!--        [dataSource]="transcriptTypeDT"-->
+<!--        class="example-container mat-elevation-z8"-->
+<!--        matTableExporter #exporter="matTableExporter"-->
+<!--        style="background-color: #ffffff;"-->
+<!--        matSort-->
+<!--        *ngIf="isShowSpecificField || isShowNormal || true"-->
+<!--      >-->
+
+<!--        <ng-container matColumnDef="id">-->
+<!--          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>-->
+<!--          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.id }} </td>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="transcript_type_id">-->
+<!--          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Type</th>-->
+<!--          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.type }} </td>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="transcript_name">-->
+<!--          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Name</th>-->
+<!--          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.name }} </td>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="programme_name">-->
+<!--          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Programme Name</th>-->
+<!--          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ getProgrammeName(transcriptType.id) }} </td>-->
+<!--        </ng-container>-->
+
+<!--        &lt;!&ndash; <ng-container matColumnDef="paymentMethod">-->
+<!--          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Payment Method</th>-->
+<!--          <td mat-cell *matCellDef="let row; let i = index">-->
+<!--            <select class="form-select" style="height: 28px;"  #paytype (change)="onPaymentTypeChange(row,paytype.value,i)">-->
+<!--              <option selected disabled>Select Payment Type</option>-->
+<!--              <option value="1">Online</option>-->
+<!--              <option value="3">Shroff Counter</option>-->
+<!--            </select>-->
+<!--          </td>-->
+<!--        </ng-container> &ndash;&gt;-->
+
+<!--        <ng-container matColumnDef="delete">-->
+<!--          <th style="font-weight: bold;" mat-header-cell  *matHeaderCellDef >Actions</th>-->
+<!--          <td mat-cell *matCellDef="let transcriptType; let i = index" >-->
+<!--            &lt;!&ndash; <button class="center-cell" (click)="archive(transcriptType.id)" class="btn btn-danger">Delete</button> &ndash;&gt;-->
+<!--            <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" (click)="archive(transcriptType.id)">-->
+<!--              <mat-icon>delete_forever</mat-icon>-->
+<!--            </button>-->
+
+<!--          </td>-->
+<!--        </ng-container>-->
+
+
+<!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--        <tr mat-row *matRowDef="let row ; let i = index; columns: displayedColumns;"></tr>-->
+
+<!--      </table>-->
+
+<!--      <br>-->
+
+<!--      &lt;!&ndash; <thead>-->
+<!--        <tr>-->
+<!--          <th scope="col">Id</th>-->
+<!--          <th scope="col">Transcript Type</th>-->
+<!--          <th scope="col">Transcript Name</th>-->
+<!--          <th scope="col">Programme Name</th>-->
+<!--          <th scope="col">Delete</th>-->
+
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--        <tr *ngFor="let transcriptType of transcriptTypes">-->
+<!--          <td class="center-cell">{{ transcriptType.id }}</td>-->
+<!--          <td id="status-cell">{{ transcriptType.type }}</td>-->
+<!--          <td id="status-cell">{{ transcriptType.name }}</td>-->
+<!--          <td id="status-cell">{{ getProgrammeName(transcriptType.id) }}</td>-->
+<!--          <td class="center-cell"><button  (click)="archive(transcriptType.id)" class="btn btn-danger"> <mat-icon>delete</mat-icon></button></td>-->
+
+<!--        </tr>-->
+<!--      </tbody> &ndash;&gt;-->
+<!--      &lt;!&ndash; </table> &ndash;&gt;-->
+
+<!--      &lt;!&ndash; <br> &ndash;&gt;-->
+
+<!--      <table>-->
+<!--        <tr *ngIf="!transcriptTypeDT.data.length">-->
+<!--          <td style="text-align: center;" [attr.colspan]="displayedColumns.length">-->
+<!--            No Records Available!-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      </table>-->
+
+<!--    </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</mat-card>-->
+<!--<br>-->
+
+<!--<mat-card class="example-container" >-->
+<!--      <mat-paginator-->
+<!--        style="background-color: #ffffff;"-->
+<!--        #paginator-->
+<!--        [pageSizeOptions]="[10, 15, 20]"-->
+<!--        showFirstLastButtons-->
+<!--        [hidden]="!transcriptTypeDT.data.length">-->
+<!--      </mat-paginator>-->
+<!--</mat-card>-->
+
+<br>
+<mat-card class="example-container">
   <br>
-  <div class="example-table-container" >
-    <!-- <pre>{{transcripts|json}}</pre> -->
-    <div class="table-responsive">
 
-      <br>
-      <br>
-    <!-- <pre>{{transcriptType|json}}</pre> -->
-    <div style="overflow-x: auto;">
-
-      <table
-        id="printTable"
-        mat-table
-        [dataSource]="transcriptTypeDT"
-        class="example-container mat-elevation-z8"
-        matTableExporter #exporter="matTableExporter"
-        style="background-color: #ffffff;"
-        matSort
-        *ngIf="isShowSpecificField || isShowNormal || true"
-      >
-
-        <ng-container matColumnDef="id">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.id }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="transcript_type_id">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Type</th>
-          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.type }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="transcript_name">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Name</th>
-          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ transcriptType.name }} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="programme_name">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Programme Name</th>
-          <td mat-cell *matCellDef="let transcriptType; let i= index"> {{ getProgrammeName(transcriptType.id) }} </td>
-        </ng-container>
-
-        <!-- <ng-container matColumnDef="paymentMethod">
-          <th style="font-weight: bold;" mat-header-cell *matHeaderCellDef mat-sort-header>Payment Method</th>
-          <td mat-cell *matCellDef="let row; let i = index">
-            <select class="form-select" style="height: 28px;"  #paytype (change)="onPaymentTypeChange(row,paytype.value,i)">
-              <option selected disabled>Select Payment Type</option>
-              <option value="1">Online</option>
-              <option value="3">Shroff Counter</option>
-            </select>
-          </td>
-        </ng-container> -->
-
-        <ng-container matColumnDef="delete">
-          <th style="font-weight: bold;" mat-header-cell  *matHeaderCellDef >Actions</th>
-          <td mat-cell *matCellDef="let transcriptType; let i = index" >
-            <!-- <button class="center-cell" (click)="archive(transcriptType.id)" class="btn btn-danger">Delete</button> -->
-            <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" (click)="archive(transcriptType.id)">
-              <mat-icon>delete_forever</mat-icon>
-            </button>
-
-          </td>
-        </ng-container>
-
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row ; let i = index; columns: displayedColumns;"></tr>
-
-      </table>
-
-      <br>
-
-      <!-- <thead>
-        <tr>
-          <th scope="col">Id</th>
-          <th scope="col">Transcript Type</th>
-          <th scope="col">Transcript Name</th>
-          <th scope="col">Programme Name</th>
-          <th scope="col">Delete</th>
-
-        </tr>
+  <!--     <pre>{{resultStatuses|json}}</pre>-->
+  <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="showTable">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Transcript Type</th>
+        <th>Transcript Name</th>
+        <th>Programme Name</th>
+        <th>Actions</th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let transcriptType of transcriptTypes">
-          <td class="center-cell">{{ transcriptType.id }}</td>
-          <td id="status-cell">{{ transcriptType.type }}</td>
-          <td id="status-cell">{{ transcriptType.name }}</td>
-          <td id="status-cell">{{ getProgrammeName(transcriptType.id) }}</td>
-          <td class="center-cell"><button  (click)="archive(transcriptType.id)" class="btn btn-danger"> <mat-icon>delete</mat-icon></button></td>
-
-        </tr>
-      </tbody> -->
-      <!-- </table> -->
-
-      <!-- <br> -->
-
-      <table>
-        <tr *ngIf="!transcriptTypeDT.data.length">
-          <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
-            No Records Available!
-          </td>
-        </tr>
-      </table>
-
-    </div>
-    </div>
+      <tr *ngFor="let transcriptType of transcriptTypes">
+        <td>{{ transcriptType.id }}</td>
+        <td>{{ transcriptType.type }}</td>
+        <td>{{ transcriptType.name }}</td>
+        <td>{{ getProgrammeName(transcriptType.id) }}</td>
+        <td>
+          <!--<button class="center-cell" (click)="archive(resultStatus.id)" class="btn btn-danger">Delete</button>-->
+          <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" (click)="archive(transcriptType.id)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-</mat-card>
-<br>
 
-<mat-card class="example-container" >
-      <mat-paginator
-        style="background-color: #ffffff;"
-        #paginator
-        [pageSizeOptions]="[10, 15, 20]"
-        showFirstLastButtons
-        [hidden]="!transcriptTypeDT.data.length">
-      </mat-paginator>
 </mat-card>
+
+
 
 
 

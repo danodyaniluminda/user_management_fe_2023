@@ -1,6 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component,OnDestroy,AfterViewInit} from '@angular/core';
-import { MenuItems } from '../../shared/menu-items/menu-items';
+import {ChangeDetectorRef, Component, OnDestroy, AfterViewInit, OnInit} from '@angular/core';
+import {PermissionService} from "../../shared/services/permission.service";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -20,9 +20,9 @@ export class FullComponent implements OnDestroy, AfterViewInit {
   isSideNavCollapsed = false;
   screenWidth = 0;
   constructor(
+    private permissionService:PermissionService,
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    public menuItems: MenuItems
   ) {
     this.mobileQuery = media.matchMedia('(min-width: 768px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -37,4 +37,6 @@ export class FullComponent implements OnDestroy, AfterViewInit {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
   ngAfterViewInit() {}
+
+
 }

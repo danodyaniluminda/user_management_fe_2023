@@ -9,34 +9,53 @@ import {
   PaymentReconcilationComponent
 } from "./finance-services/transcript/payment-reconcilation/payment-reconcilation.component";
 import {NotFoundComponent} from "./layouts/error/not-found/not-found.component";
+import {TranscriptViewComponent} from './layouts/transcript-details/transcript-view.component';
+import {DashboardAccess, PermissionGuardService} from "./shared/services/ValidatePrivileges";
+import {AccessDeniedComponent} from "./layouts/error/access-denied/access-denied.component";
 
 const routes: Routes = [
-  // {
-  //   path: 'customers',
-  //   loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
-  // },
+  {
+    path: 'transcript-view',
+    component: TranscriptViewComponent
+  },
   {
     path: '',
     component: FullComponent,
+    canActivateChild: [PermissionGuardService],
     children: [
       {
         path: '',
         redirectTo: '/dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
       },
       {
-        path:'exam',
-        loadChildren:()=> import('./exam-management/exam-management.module').then(m => m.ExamManagementModule)
+        path: 'exam',
+        loadChildren: () => import('./exam-management/exam-management.module').then(m => m.ExamManagementModule)
       },
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
       },
-      { path: 'finance-services', loadChildren: () => import('./finance-services/finance-services.module').then(m => m.FinanceServicesModule) },
-      { path: 'user-management', loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule) },
       {
-        path:'**',
-        component:NotFoundComponent
+        path: 'finance-services',
+        loadChildren: () => import('./finance-services/finance-services.module').then(m => m.FinanceServicesModule)
+      },
+      {
+        path: 'user-management',
+        loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule)
+      },
+      {
+        path: 'gateway-management',
+        loadChildren: ()=> import('./gateway-management/gateway-management.module').then(m => m.GatewayManagementModule)
+      },
+      {
+        path: 'access-denied',
+        component:AccessDeniedComponent
+
+      },
+      {
+        path: '**',
+        component: NotFoundComponent
       }
     ]
   },

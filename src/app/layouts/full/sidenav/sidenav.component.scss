@@ -1,7 +1,7 @@
 @import "src/assets/styles/variable.scss";
 
 .sidenav {
-  background: $sidebar-alt;
+  background: #ffffff;
   transition: all .5s ease;
   position: absolute;
   z-index: 1;
@@ -18,50 +18,52 @@
 
 .sidenav-nav {
   list-style: none;
-  padding-top: 0.938rem;
+  padding: 0.938rem;
   margin: 0;
-  margin-left: -3rem;
+  margin-left: -16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 16px;
   cursor: pointer;
+  font-size: 15px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+
   .sidenav-nav-item {
-    width: 90%;
-    margin-bottom: 0.0rem;
+    width: 100%;
+    margin-bottom: 0.625rem;
 
     .sidenav-nav-link {
       padding-left: 0.1rem;
       display: flex;
       align-items: center;
-      height: 2.5rem;
+      height: 3rem;
       color: $headingtext;
       text-decoration: none;
-      border-radius: 0.0rem;
+      border-radius: 0.625rem;
       transition: all .3s ease;
-      margin-top: 15px;
-
+      margin-top: 5px;
 
       .sidenav-link-icon {
         font-size: 22px;
         width: 2rem;
+        margin-right: 2px;
         min-width: 2rem;
         margin: 0.5rem;
         text-align: start;
       }
 
       .sidenav-link-text {
-        margin-left: 5px;
+        margin-left: 9px;
         font-size: 17px;
       }
     }
 
     .sidenav-nav-link:hover {
       width: 100%;
-      background-color: $themecolor;
+      background-color: $themecolor-alt;
       color: #000;
+
       .menu-collapse-icon {
         color: #000;
       }
@@ -71,15 +73,17 @@
 
 .active {
   background-color: #fff;
+
   .menu-collapse-icon,
   .sidenav-link-icon,
+  .sidenav-link-icon1,
   .sidenav-link-text {
-    color: $themecolor-dark;
+    color: #1976d2;
   }
 }
 
 .active-sublevel {
-  color: $themecolor-dark !important;
+  color: #1976d2 !important;
   // opacity: 1 !important;
 }
 
@@ -89,43 +93,67 @@
   min-width: 2rem;
   margin: auto 0.5rem auto auto;
   text-align: center;
-  color: #f3f3f3;
+  color: #000000;
 }
 
 .sublevel-nav {
   list-style: none;
-  margin-top: 5px;
+
   .sublevel-nav-item {
     .sublevel-nav-link {
-      display: flow;
-      align-items: start;
-      height: 1.1rem;
-      margin-left: 0px;
-      margin-top: 0;
+      display: flex;
+      align-items: center;
+      height: 3rem;
+      margin-left: -70px;
       color: $bodytext;
       text-decoration: none;
       border-radius: 0.625rem;
       transition: all .3s ease;
 
       .sublevel-link-icon {
-        font-size: 4px;
-        width: 3rem;
-        min-width: 1rem;
+        font-size: 18px;
+        width: 2rem;
+        min-width: 2rem;
         margin: 0 0.5rem;
         text-align: center;
+        margin-left: 22px;
       }
 
       .sublevel-link-text {
-        margin-left: -3.6rem;
-        font-size: 14px;
+        margin-left: -0.5rem;
+        font-size: 15px;
+      }
+
+    }
+
+    .sublevel1-nav-link {
+      display: flex;
+      align-items: center;
+      height: 3rem;
+      margin-left: -32px;
+      color: $bodytext;
+      text-decoration: none;
+      border-radius: 0.625rem;
+      transition: all .3s ease;
+
+      .sublevel1-link-icon {
+        font-size: 20px;
+        width: 2rem;
+        min-width: 2rem;
+        margin: 0 0.5rem;
+        text-align: center;
       }
       .sublevel1-link-text{
-        font-size: 17px;
-        margin-left: -1.5rem;
+        font-size: 16px;
+        margin-left: -0.5rem;
       }
     }
 
     .sublevel-nav-link:hover {
+      color: $themecolor;
+    }
+
+    .sublevel1-nav-link:hover {
       color: $themecolor;
     }
   }
@@ -136,7 +164,7 @@
 .scrollwrap {
   overflow-y: auto;
   visibility: hidden;
-  height: calc(100%);
+  height: calc(100% - 3.65rem);
 }
 
 .sidenav-nav,
