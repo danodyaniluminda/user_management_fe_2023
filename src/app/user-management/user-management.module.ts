@@ -20,6 +20,8 @@ import {MatTableExporterModule} from "mat-table-exporter";
 import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {DataTablesModule} from "angular-datatables";
+import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 
 
 @NgModule({
@@ -45,7 +47,9 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
         MatTableExporterModule,
         MatTableModule,
         MatTooltipModule,
-        NgxMatSelectSearchModule
+        NgxMatSelectSearchModule,
+        DataTablesModule,
+        NgxDatatableModule
     ]
 })
 export class UserManagementModule { }
