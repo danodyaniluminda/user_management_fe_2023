@@ -1,0 +1,29 @@
+#root-container{
+  margin-left: 20px;
+}
+
+
+#root-card{
+
+}
+
+
+
+.mat-card:not([class*=mat-elevation-z]) {
+
+}
+#row-card{
+  margin-left: 30px;
+  margin-right: 30px;
+  //border: 1px solid #7A7A7A;
+  border: 0.15px solid #7A7A7A;
+  border-radius: 2px !important;
+
+}
+#table-card{
+  margin: 40px;
+}
+
+#table-div{
+  padding:20px;
+}

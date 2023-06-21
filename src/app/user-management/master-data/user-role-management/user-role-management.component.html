@@ -1,1 +1,168 @@
-<p>user-role-management works!</p>
+<div class="content">
+
+  <mat-card  class="example-container" >
+    <mat-card-content>
+      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
+        Add New User Role
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<br>
+
+<div id="root-container">
+  <mat-card id="root-card">
+    <br>
+
+    <div style="margin-top:20px;margin-left: 50px; color: #4f5459" class="row">
+
+        <ul style="list-style-type: square;color: #5b6269">
+          <li>  <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
+            <mat-label> User Name</mat-label>
+            <mat-select
+            >
+              <mat-option>
+                <ngx-mat-select-search placeholderLabel="Find user role..." noEntriesFoundLabel="'No matching programme found'">
+                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                </ngx-mat-select-search>
+              </mat-option>
+              <mat-option >Select All</mat-option>
+
+              <mat-option >
+
+              </mat-option>
+            </mat-select>
+          </mat-form-field></li>
+          <li><div style="text-align: left;">
+            <button [disabled]=""   mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Save</button>
+            &nbsp;
+            <button   mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Cancel</button>
+          </div></li>
+        </ul>
+    </div>
+
+    <!-- Start Table Division -->
+    <div id="table-div">
+
+      <!-- Horizontal Line -->
+      <hr/>
+
+      <br><br>
+      <div class="row">
+        <div class="col-sm-12">
+
+          <!-- Table starts -->
+          <ngx-datatable tableClass="table table-striped table-bordered table-hover"
+                         [tableId]="'checkboxWithRowDetail'" [data]="data" [options]="options"
+                         [columns]="columns"   (checkboxClick)="onCheckboxClick($event)">
+            <!-- if you dont want checkbox -->
+            <!-- delete (checkboxClick)="onCheckboxClick($event)" -->
+
+            <!-- Table title start -->
+            <ngx-caption>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12 col-12 ">
+                  <b style="margin-left: 20px">
+                    User Role
+                  </b>
+                </div>
+              </div>
+            </ngx-caption>
+            <!-- Table title ends -->
+
+            <!-- Row expansion area starts -->
+            <ng-template #rowExpansion let-row let-rowIndex="rowIndex">
+
+              <br><br>
+              <h6 style="color: #2f3d4a;margin-left: 50px">User Name : {{row.user.name}}</h6>
+              <h6 style="color: #2f3d4a;margin-left: 50px">User Role : {{row.role.name}}</h6>
+              <h6 style="color: #2f3d4a;margin-left: 50px">Active Status : {{row.status}}</h6>
+              <br>
+
+              <button (click)="showEditArray[rowIndex]=!showEditArray[rowIndex]" style="width:100px;margin-left: 50px" class="btn btn-primary">
+                <mat-icon>edit</mat-icon>
+              </button>
+<!--              <button style="width:100px;margin-left: 20px" type="button" class="btn btn-danger">-->
+<!--                <mat-icon>delete</mat-icon>-->
+<!--              </button>-->
+
+              <br>
+              <div style="margin-left: 100px;margin-top: 50px" *ngIf="showEditArray[rowIndex]">
+                <label> User Name : </label> <input type="text" value="{{row.user.name}}">
+              </div>
+
+              <div style="margin-left: 100px;margin-top: 50px" *ngIf="showEditArray[rowIndex]">
+                <label> User Role: </label> <input type="text" value="{{row.role.name}}">
+              </div>
+
+              <br>
+
+              <span>.</span>
+
+            </ng-template>
+
+
+            <!-- Row expansion area ends -->
+
+
+          </ngx-datatable>
+          <!-- Table ends -->
+
+        </div>
+      </div>
+    </div>
+    <!-- End Table Division -->
+
+
+    <br>
+    <!-- Horizontal Line -->
+    <hr/>
+    <br>
+
+    <br>
+  </mat-card>
+</div>
+
+
+
+<mat-card  class="example-container" >
+  <div class="container">
+    <mat-card-content>
+      <form class="date-block" ></form>
+      <div>
+        <mat-form-field class="form-fields" appearance="outline"  style="width: 600px; margin-left: 10px; "  >
+          <mat-label>User Name</mat-label>
+          <input  matInput placeholder="User Name"
+                  type="text"
+                 id="ttype"
+                 name="ttype">
+        </mat-form-field> <br>
+      </div>
+      <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
+        <mat-label> User Role</mat-label>
+        <mat-select
+        >
+          <mat-option>
+            <ngx-mat-select-search placeholderLabel="Find user role..." noEntriesFoundLabel="'No matching programme found'">
+              <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option >Select All</mat-option>
+
+          <mat-option >
+
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <br>
+
+      <div style="text-align: left;">
+        <button [disabled]=""   mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Save</button>
+        &nbsp;
+        <button   mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Cancel</button>
+      </div>
+    </mat-card-content>
+
+</div>
+</mat-card>
