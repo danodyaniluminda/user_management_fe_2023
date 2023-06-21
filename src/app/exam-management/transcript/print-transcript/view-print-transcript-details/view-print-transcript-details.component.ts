@@ -177,7 +177,7 @@ async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistratio
         this.interimResultSheetService.generateWordDoc(result,applicantId,resultType,this.gvlue);
         break;
       case 'afterSenateApproval':
-        this.afterSenateApprovalService.generateWordDoc(result,applicantId,resultType);
+        this.afterSenateApprovalService.generateWordDoc(result,applicantId,resultType,this.gvlue);
         break;
       case 'beforeSenateApproval':
         this.beforeSenateApprovalService.generateWordDoc(result,applicantId,resultType);
