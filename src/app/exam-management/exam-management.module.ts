@@ -24,6 +24,8 @@ import {
 } from './master-data/transcript-type-and-result-type/transcript-type-and-result-type.component';
 import {ExamManagementRoutingModule} from './exam-management-routing.module';
 import { PermissionGuardService} from "../shared/services/ValidatePrivileges";
+import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
+// import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { PermissionGuardService} from "../shared/services/ValidatePrivileges";
     NgxMatSelectSearchModule,
     DataTablesModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgxDatatableModule,
+    NgxDatatableModule
   ],
   providers: [
     PermissionGuardService
