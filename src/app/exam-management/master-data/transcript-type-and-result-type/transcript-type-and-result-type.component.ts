@@ -195,11 +195,11 @@ export class TranscriptTypeAndResultTypeComponent implements OnInit {
 
 
   goToAddNewTranscriptType(){
-    this.router.navigate(['/add-new-transcript-type'])
+    this.router.navigate(['/exam/master-data/transcript-type'])
   }
 
   goToAddNewResultType(){
-    this.router.navigate(['/add-new-result-status'])
+    this.router.navigate(['/exam/master-data/result-type'])
   }
 
 }
