@@ -25,7 +25,6 @@ import {
 import {ExamManagementRoutingModule} from './exam-management-routing.module';
 import { PermissionGuardService} from "../shared/services/ValidatePrivileges";
 import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
-// import {NgxDatatableModule} from "@swimlane/ngx-datatable";
 
 @NgModule({
   declarations: [
@@ -51,6 +50,7 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
     NgxDatatableModule,
     NgxDatatableModule
   ],
+
   providers: [
     PermissionGuardService
   ]

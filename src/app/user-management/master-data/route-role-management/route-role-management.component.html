@@ -1,1 +1,53 @@
-<p>route-role-management works!</p>
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">User Management</li>
+      <li class="breadcrumb-item active" aria-current="page">Role route management</li>
+    </ol>
+  </nav>
+
+</mat-card>
+<div class="content">
+  Role route management
+</div>
+<br>
+
+
+<mat-card class="example-container">
+  <br>
+  <div class="form-content">
+<!--    <form class="date-block">-->
+<!--      <mat-grid-list cols="2" rowHeight="4rem" gutterSize="4px">-->
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field appearance="outline" class="form-fields">-->
+<!--            <mat-label>Select Role Name</mat-label>-->
+<!--&lt;!&ndash;            <mat-select&ndash;&gt;-->
+<!--&lt;!&ndash;              formControlName="roleName">&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-option >Select All</mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-option *ngFor="let roleName of roleNames" [value]="roleName.id">&ndash;&gt;-->
+<!--&lt;!&ndash;                {{roleName.name}}</mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </mat-select>&ndash;&gt;-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+
+<!--        <mat-grid-tile>-->
+<!--          <mat-form-field appearance="outline" class="form-fields">-->
+<!--            <mat-label>Select Route Name</mat-label>-->
+<!--&lt;!&ndash;            <mat-select&ndash;&gt;-->
+<!--&lt;!&ndash;              formControlName="routeName">&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-option >Select All</mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;              <mat-option *ngFor="let routeName of routeNames" [value]="routeName.id">{{routeName.name}}</mat-option>&ndash;&gt;-->
+<!--&lt;!&ndash;            </mat-select>&ndash;&gt;-->
+<!--          </mat-form-field>-->
+<!--        </mat-grid-tile>-->
+<!--      </mat-grid-list>-->
+
+<!--    </form>-->
+  </div>
+  <br>
+  <div class="row ml-4">
+    <button mat-raised-button color="primary" >Search</button>
+  </div>
+  <br>
+</mat-card>
