@@ -9,39 +9,43 @@ mat-card-content {
   text-align: left;
 }
 
-table {
-  width: 100%;
+.breadcrumb{
   background-color: #ffffff;
 }
+
+/*table {*/
+/*  width: 100%;*/
+/*  background-color: #ffffff;*/
+/*}*/
 
 th {
   font-weight: bold;
 }
 
-.mat-column-nic {
-  flex: 0 0 15%;
-}
+/*.mat-column-nic {*/
+/*  flex: 0 0 15%;*/
+/*}*/
 
-.mat-column-applicationId {
-  flex: 0 0 15%;
-}
+/*.mat-column-applicationId {*/
+/*  flex: 0 0 15%;*/
+/*}*/
 
-.mat-column-status {
-  flex: 0 0 15%;
-}
+/*.mat-column-status {*/
+/*  flex: 0 0 15%;*/
+/*}*/
 
-.mat-column-paymentMethod {
-  flex: 0 0 15%;
-}
+/*.mat-column-paymentMethod {*/
+/*  flex: 0 0 15%;*/
+/*}*/
 
-mat-paginator {
-  color: black;
-  background-color: #ffffff;
-}
+/*mat-paginator {*/
+/*  color: black;*/
+/*  background-color: #ffffff;*/
+/*}*/
 
-mat-form-field {
-  max-width: 320px;
-}
+/*mat-form-field {*/
+/*  max-width: 320px;*/
+/*}*/
 
 .export-container {
   margin-left: 10px;
@@ -64,4 +68,13 @@ mat-form-field {
   .example-card {
     min-width:17rem;
   }
+}
+
+.roxExpansionContainer{
+  margin-left: 50px;
+}
+
+.table-content {
+  width: 1220px;
+  margin-left: 30px;
 }
