@@ -162,9 +162,11 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
       });
   }
 
-  VerifyTranscript(id: any, registrationNumber:any) {
+  VerifyTranscript(id: any, registrationNumber:any, transcriptType:any, serviceType:any) {
     this.generateTranscriptDataTransferService.transcriptId = id;
     this.generateTranscriptDataTransferService.registrationNumber = registrationNumber;
+    this.generateTranscriptDataTransferService.transcriptType = transcriptType;
+    this.generateTranscriptDataTransferService.serviceType = serviceType;
     this.isDisabled.emit(false);
   }
 
