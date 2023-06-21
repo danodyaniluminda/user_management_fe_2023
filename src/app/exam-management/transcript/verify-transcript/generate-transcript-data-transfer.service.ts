@@ -4,6 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GenerateTranscriptDataTransferService {
+  get serviceType(): number {
+    return this._serviceType;
+  }
+
+  set serviceType(value: number) {
+    this._serviceType = value;
+  }
+
+  get transcriptType(): number {
+    return this._transcriptType;
+  }
+
+  set transcriptType(value: number) {
+    this._transcriptType = value;
+  }
 
   constructor() { }
 
@@ -24,6 +39,11 @@ export class GenerateTranscriptDataTransferService {
   public set registrationNumber(value: number) {
     this._registrationNumber = value;
   }
+
+
+  private _serviceType: number;
+  private _transcriptType: number;
+
 
 
   jsonDataPrintTranscript = [
