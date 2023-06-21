@@ -22,6 +22,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {DataTablesModule} from "angular-datatables";
+import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 
 
 @NgModule({
@@ -50,7 +52,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
         NgxMatSelectSearchModule,
         MatDatepickerModule,
         MatGridListModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgxMatSelectSearchModule,
+        DataTablesModule,
+        NgxDatatableModule
     ]
 })
 export class UserManagementModule { }
