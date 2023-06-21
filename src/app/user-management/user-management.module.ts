@@ -6,7 +6,7 @@ import {RoleManagementComponent} from "./master-data/role-management/role-manage
 import {UserRoleManagementComponent} from "./master-data/user-role-management/user-role-management.component";
 import {RouteManagementComponent} from "./master-data/route-management/route-management.component";
 import {RouteRoleManagementComponent} from "./master-data/route-role-management/route-role-management.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -20,6 +20,8 @@ import {MatTableExporterModule} from "mat-table-exporter";
 import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatGridListModule} from "@angular/material/grid-list";
 import {DataTablesModule} from "angular-datatables";
 import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 
@@ -47,6 +49,10 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
         MatTableExporterModule,
         MatTableModule,
         MatTooltipModule,
+        NgxMatSelectSearchModule,
+        MatDatepickerModule,
+        MatGridListModule,
+        ReactiveFormsModule,
         NgxMatSelectSearchModule,
         DataTablesModule,
         NgxDatatableModule
