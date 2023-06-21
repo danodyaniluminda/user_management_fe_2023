@@ -12,7 +12,6 @@ import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './demo-material-module';
 
-import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import {DataTablesModule} from "angular-datatables";
 import {QRCodeModule} from "angularx-qrcode";
@@ -26,6 +25,7 @@ import {SublevelMenuComponent} from "./layouts/full/sidenav/sublevel-menu.compon
 import { NotFoundComponent } from './layouts/error/not-found/not-found.component';
 import { SamplePipe } from './layouts/error/sample.pipe';
 import { UserManagementModule } from './user-management/user-management.module';
+import { GatewayManagementModule } from "./gateway-management/gateway-management.module";
 import { TranscriptViewComponent } from './layouts/transcript-details/transcript-view.component';
 import {DashboardAccess, PermissionGuardService} from "./shared/services/ValidatePrivileges";
 import { AccessDeniedComponent } from './layouts/error/access-denied/access-denied.component';
@@ -49,7 +49,6 @@ import { AccessDeniedComponent } from './layouts/error/access-denied/access-deni
     FormsModule,
     FlexLayoutModule,
     HttpClientModule,
-    SharedModule,
     CommonModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -60,7 +59,8 @@ import { AccessDeniedComponent } from './layouts/error/access-denied/access-deni
     DemoMaterialModule,
     ExamManagementModule,
     FinanceServicesModule,
-    UserManagementModule
+    UserManagementModule,
+    GatewayManagementModule
   ],
   providers: [
     {

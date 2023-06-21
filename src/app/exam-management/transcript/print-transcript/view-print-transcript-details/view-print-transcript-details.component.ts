@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { ReplaySubject, Subject, takeUntil } from 'rxjs';
@@ -14,6 +14,20 @@ import { Interim_result_sheetService } from '../transcript-formats/interim_resul
   styleUrls: ['./view-print-transcript-details.component.css']
 })
 export class ViewPrintTranscriptDetailsComponent implements OnInit {
+
+  @ViewChild('rowExpansion', { static: true }) rowExpansion: TemplateRef<any>;
+  options = {}
+  // data:any = [];
+  allData:any = [];
+  showEditArray:boolean[] = [];
+  columns = [
+    { key: 'programmeName', title: 'Programme Name', width: 30},
+    { key: 'serviceType', title: 'Service Type', width: 30},
+    { key: 'transcriptType', title: 'Transcript Type', width: 30},
+    { key: 'dateApplied', title: 'Date Applied', width: 30},
+    { key: 'regNo', title: 'Reg No', width: 30},
+    { key: 'nic', title: 'NIC/Passport', width: 30}
+  ];
 
   transcriptFunction:String;
   gpaTableValue:any;
@@ -64,7 +78,28 @@ export class ViewPrintTranscriptDetailsComponent implements OnInit {
       paging: true,
     };
     this.programmeChange();
+
+    //Set table options
+    this.options = {
+      //delete check box true if you dont want checkbox
+      //checkboxes: true,
+      rowDetailTemplate:this.rowExpansion
+    }
+
+    // //Get data from backend
+    // setTimeout(() => {
+    //
+    //   //Get data from backend
+    //   // this.data = this.search();
+    //
+    //   //Create boolean array
+    //   this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+    //
+    // }, 3000);
+
   }
+
+
 
   ngAfterViewInit() {
     this.programmeChange();
@@ -411,8 +446,19 @@ saveGpa(){
     this.printTranscriptService
       .searchResponseToAPI(this.form)
       .toPromise()
-      .then((message: any) => {
-        this.transcripts = message;
+      .then((result: any) => {
+        //this.transcripts = result;
+       console.log("Test", result);
+        result = result.map((row:any) => ({
+          programmeName: row['programmeName'],
+          serviceType: row['serviceType'],
+          transcriptType: row['transcriptType'],
+          dateApplied: row['dateApplied'],
+          regNo: row['regNo'],
+          nic: row['nic']
+        }));
+        this.transcripts = result;
+        this.data = result;
         // console.log("T_types",this.transcripts);
         this.showTable = true;
       });

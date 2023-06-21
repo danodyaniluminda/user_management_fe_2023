@@ -134,5 +134,28 @@ export const navbarData: INavbarData[] =
           ]
         }
       ]
+    },
+    {
+      "label": "Gateway Manage",
+      "routeLink": "gateway-management",
+      "icon": "cloud_upload",
+      "hasPermission":false,
+      "items": [
+        {
+          "label": "Gateway",
+          "routeLink": "/gateway-management/gateway",
+          "icon": 'cloud_upload',
+          "hasPermission":false,
+          "items": [
+            {
+              "label": "Gateway Routes",
+              "routeLink": "/gateway-management/gateway/gateway-routes",
+              "icon": "account_balance",
+              "hasPermission":false,
+              "items": []
+            }
+          ]
+        }
+      ]
     }
   ];
