@@ -129,7 +129,7 @@
             <td>{{ transcript.nic }}</td>
             <td>
               <!--                  <pre>{{!transcript.status?.includes('Payment verified')}} </pre><pre>  {{!transcript.status?.includes('Results not verified')}}</pre>-->
-              <button [disabled]="!transcript.status?.includes('Payment verified') && !transcript.status?.includes('Results not verified')" mat-raised-button color="primary" type="submit" (click)="VerifyTranscript(transcript.id,transcript.regNo)">Verify</button>
+              <button [disabled]="!transcript.status?.includes('Payment verified') && !transcript.status?.includes('Results not verified')" mat-raised-button color="primary" type="submit" (click)="VerifyTranscript(transcript.id,transcript.regNo,transcript.transcriptType,transcript.serviceType)">Verify</button>
             </td>
           </tr>
           </tbody>
