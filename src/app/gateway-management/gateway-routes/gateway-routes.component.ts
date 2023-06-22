@@ -1,5 +1,6 @@
 import { Component, ViewChild, TemplateRef, OnInit } from '@angular/core';
-import {newArray} from "@angular/compiler/src/util";
+import {GatewayManagementService} from "../gateway-management.service";
+import {GatewayRoutesModel} from "./gateway-routes.model";
 
 @Component({
   selector: 'app-checkbox',
@@ -10,306 +11,72 @@ import {newArray} from "@angular/compiler/src/util";
 
 export class GatewayRoutesComponent implements OnInit  {
 
+  gatewayRoutesModel:GatewayRoutesModel = new GatewayRoutesModel();
+
   //Below are the variables of table
   @ViewChild('rowExpansion', { static: true }) rowExpansion: TemplateRef<any>;
   options = {}
-  data:any = [];
   showEditArray:boolean[] = [];
   columns = [
-    { key: 'id', title: "ID", width: 50, sorting: true },
-    { key: 'name', title: 'Name', width: 100},
-    { key: 'phone', title: 'Phone',  align: { head: 'center' }, width: 120, sorting: true, noWrap: { head: true, body: true } },
-    { key: 'company', title: 'Company', width: 300, sorting: true, align: { head: 'left', body: 'right' }, noWrap: { head: true, body: true } },
-    { key: 'date', title: 'Date', width: 100, sorting: false, pinned: false },
-    { key: 'phone', title: 'Phone' ,width: 120},
-    { key: 'company', title: 'Company', width: 200, noWrap: { head: true, body: true } },
-    { key: 'zip', title: 'ZIP', sorting: false, width: 120 }
+    { key: 'id', title: "ID", sorting: true, orderBy : {
+        order: 'asc',
+        key: 'id'
+      } },
+    { key: 'routeId', title: 'Route ID <br>( Route Name )'},
+    { key: 'authorizationRequired', title: 'Authorization<br>Required' },
+    { key: 'path', title: 'Path<br>( External path \'\'Frontend &#8594; Gateway\'\' )', sorting: true, align: { head: 'left', body: 'left' }, noWrap: {body: true } },
+    { key: 'uri', title: 'URI<br>( Internal path \'\'Gateway &#8594; Microservice\'\' )', pinned: false, noWrap: {body: true } },
+    { key: 'rolesAllowed', title: 'Roles Allowed', pinned: false, noWrap: {body: true } },
   ];
 
-  constructor() { }
+  constructor(private gatewayManagementService:GatewayManagementService) { }
   ngOnInit(): void {
 
     //Set table options
     this.options = {
-      //delete check box true if you dont want checkbox
-      checkboxes: true,
-      rowDetailTemplate:this.rowExpansion
+      rowDetailTemplate:this.rowExpansion,
     }
 
     //Get data from backend
-    setTimeout(() => {
+    this.gatewayManagementService.gatewayRoutesModel = this.gatewayRoutesModel;
+    this.getAllGatewayRoutes();
+    this.getAllRoles();
 
-      //Get data from backend
-      this.data = this.getData();
-
-      //Create boolean array
-      this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
-
-    }, 3000);
+  }
 
 
+  getAllGatewayRoutes(){
+    this.gatewayManagementService.getAllGatewayRoutes()?.toPromise()
+      .then(
+        (data:any) => {
+          console.log(data);
+          this.showEditArray = Array.from({ length: data.length }, (value, index) => false);
+          this.gatewayRoutesModel.allGatewayRoutes = data;
+          this.gatewayRoutesModel.allGatewayRoutesModified = data;
+        }
+      )
+      .catch(
+        (error:any) => {
+        }
+      );
+  }
+
+  getAllRoles(){
+    this.gatewayManagementService.getAllRoles()?.toPromise()
+      .then(
+        (data:any) => {
+          console.log("Roles : " , data);
+          this.gatewayRoutesModel.allRoles = data;
+        }
+      )
+      .catch(
+        (error:any) => {
+        }
+      );
   }
 
   onCheckboxClick(selectCheckBoxArr:any) {
     alert(JSON.stringify(selectCheckBoxArr));
   }
-
-  public getData(){
-    return [
-      {
-        "id": "1",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "ZEnim Commodo Limited Enim Commodo Limited Enim Commodo LimitedEnim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "2",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "ZOdio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "3",
-        "name": "qwBrendan",
-        "phone": "1-724-406-2487",
-        "company": "YEnim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "4",
-        "name": "rarren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "5",
-        "name": "dssendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "6",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "7",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "8",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "9",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "10",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "11",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "12",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "13",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "14",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "15",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "16",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "17",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "18",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "19",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "20",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "21",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "22",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "23",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "Enim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      },
-      {
-        "id": "24",
-        "name": "Warren",
-        "phone": "1-412-485-9725",
-        "company": "Odio Etiam Institute",
-        "zip": "10312",
-        "city": "Sautin",
-        "date": "01/01/13",
-        "country": "India"
-      },
-      {
-        "id": "25",
-        "name": "Brendan",
-        "phone": "1-724-406-2487",
-        "company": "ZEnim Commodo Limited Enim Commodo Limited Enim Commodo LimitedEnim Commodo Limited",
-        "zip": "98611",
-        "city": "Norman",
-        "date": "02/13/14",
-        "country": "Bangladesh"
-      }
-    ];
-  }
-
-
-
 
 }
