@@ -24,7 +24,7 @@ export class PrintTranscriptService {
 
   private _programmes : any;
 
-
+//vr
   getAllProgrammes(): Observable<any> {
     let result = this.http.get(GENERATE_TRANSCRIPT_API + 'programmes');
     return new Observable(observable => {
