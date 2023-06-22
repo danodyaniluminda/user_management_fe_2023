@@ -2,13 +2,6 @@
   margin-left: 20px;
 }
 
-
-#root-card{
-
-}
-
-
-
 .mat-card:not([class*=mat-elevation-z]) {
 
 }
@@ -18,12 +11,75 @@
   //border: 1px solid #7A7A7A;
   border: 0.15px solid #7A7A7A;
   border-radius: 2px !important;
-
 }
+
 #table-card{
   margin: 40px;
 }
 
 #table-div{
   padding:20px;
+}
+
+.info-table{
+  border: none;
+}
+
+.info-table td{
+  border: none;
+}
+
+.info-table tr:nth-child(odd){
+  background: none;
+}
+
+.info-table tr:hover{
+  background: none;
+}
+
+.info-row{
+  color: #2f3d4a;
+}
+
+.info-heading{
+}
+
+.info-data{
+}
+
+.rowExpansionTemplate{
+  background: none;
+}
+
+.rowExpansionTemplateContainer, .rowExpansionTemplate{
+  padding-left: 50px;
+}
+
+.mat-form-field-input{
+  min-width: 600px;
+}
+
+.mat-form-field-select{
+  width: 200px;
+}
+
+
+
+.rowExpansionTemplateContainer{
+  margin: -10px;
+  background-color: #ffffff;
+}
+.rowExpansionTemplateContainer:hover{
+  border: 1px solid #82b8e8;
+}
+
+
+.edit-roles-wrapper{
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 3px;
+  width: fit-content;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
 }
