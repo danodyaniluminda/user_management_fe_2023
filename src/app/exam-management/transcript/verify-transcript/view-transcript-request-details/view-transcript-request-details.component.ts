@@ -1,12 +1,13 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Observable, ReplaySubject, Subject, take, takeUntil} from "rxjs";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MatSelect} from "@angular/material/select";
 
 import {HttpClient} from "@angular/common/http";
 import {GenerateTranscriptDataTransferService} from "../generate-transcript-data-transfer.service";
 import {Router} from "@angular/router";
 import {ViewTranscriptRequestDetailsService} from "./view-transcript-request-details.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'exam-view-transcript-request-details',
@@ -16,7 +17,7 @@ import {ViewTranscriptRequestDetailsService} from "./view-transcript-request-det
 export class ViewTranscriptRequestDetailsComponent implements OnInit {
 
 
-  formData : Observable<Array<any>>
+  formData: Observable<Array<any>>
 
   @Output() isDisabled = new EventEmitter<Boolean>();
 
@@ -32,7 +33,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
   form = new FormGroup({
     fromDate: new FormControl(),
     toDate: new FormControl(),
-    nic: new FormControl(),
+    nic: new FormControl('',noSpaceValidator()),
     programme: new FormControl(),
     status: new FormControl(),
     transcriptType: new FormControl(),
@@ -42,7 +43,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
   public filteredProgrammes: ReplaySubject<any> = new ReplaySubject<any>(1);
   public programmeFilterCtrl: FormControl = new FormControl('');
   protected _onDestroy = new Subject<void>();
-  @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
+  @ViewChild('singleSelect', {static: true}) singleSelect: MatSelect;
 
   programmes: any;
   transcriptTypes: any;
@@ -53,8 +54,10 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
   constructor(private viewTranscriptRequestDetailsService: ViewTranscriptRequestDetailsService,
               private _httpClient: HttpClient,
               private generateTranscriptDataTransferService: GenerateTranscriptDataTransferService,
-              private router: Router
+              private router: Router,
+              private titleService: Title
   ) {
+    this.titleService.setTitle("Verify and Generate Result Sheet - OUSL");
   }
 
   ngOnInit(): void {
@@ -79,29 +82,6 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
     this._onDestroy.complete();
   }
 
-  ngAfterViewInit() {
-    //this.setInitialValue();
-
-  }
-
-  get fromDate() {
-    const fd = this.form.get('fromDate');
-    if (fd) {
-      return fd.value;
-    } else {
-      return null;
-    }
-  }
-
-  get toDate() {
-    const td = this.form.get('toDate');
-    if (td) {
-      return td.value;
-    } else {
-      return null;
-    }
-  }
-
 
   fetchAllProgrammes() {
     this.viewTranscriptRequestDetailsService
@@ -112,7 +92,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
         this.programmes = result;
         this.filteredProgrammes.next(this.programmes);
         this.showSelect = true;
-        console.log("array data", this.programmes);
+        //console.log("array data", this.programmes);
       }, error => this.isLoading = false);
   }
 
@@ -131,7 +111,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
       .getAllServiceTypes()
       .toPromise()
       .then((result: any) => {
-        console.log(result);
+        //console.log(result);
 
         this.serviceTypes = result;
       });
@@ -142,7 +122,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
       .getAllStatusesTypes()
       .toPromise()
       .then((result: any) => {
-        console.log(result);
+        //console.log(result);
         this.statuses = result;
       });
   }
@@ -154,7 +134,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
       .searchResponseToAPI(this.form)
       .toPromise()
       .then((message: any) => {
-        console.log(message)
+        //console.log(message)
         this.transcripts = message;
         this.showTable = true;
 
@@ -162,7 +142,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
       });
   }
 
-  VerifyTranscript(id: any, registrationNumber:any, transcriptType:any, serviceType:any) {
+  VerifyTranscript(id: any, registrationNumber: any, transcriptType: any, serviceType: any) {
     this.generateTranscriptDataTransferService.transcriptId = id;
     this.generateTranscriptDataTransferService.registrationNumber = registrationNumber;
     this.generateTranscriptDataTransferService.transcriptType = transcriptType;
@@ -206,8 +186,22 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
       search = search.toLowerCase();
     }
     this.filteredProgrammes.next(
-      this.programmes.filter((programme: { name: string; }) => programme.name.toLowerCase().indexOf(search) > -1)
+      this.programmes.filter((programme: { name: string, programmeCode: string }) =>
+        programme.name.toLowerCase().indexOf(search) > -1 || programme.programmeCode.toLowerCase().indexOf(search) > -1)
     );
   }
 
+}
+
+
+import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+
+export function noSpaceValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value = control.value;
+    if (value && value.trim().length === 0) {
+      return { noSpace: true };
+    }
+    return null;
+  };
 }

@@ -32,7 +32,7 @@ export class AddNewTranscriptTypeService {
   }
 
   getAllProgrammes(): Observable<any> {
-    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'programme/get_all_programmes');
+    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'programmes');
     return new Observable(observable => {
       observable.next(result.toPromise().then((result: any) => {
         observable.next(result);
