@@ -24,10 +24,11 @@
 
           <!-- Table starts -->
           <ngx-datatable tableClass="table table-striped table-bordered table-hover"
-                         [tableId]="'checkboxWithRowDetail'" [data]="data" [options]="options"
-                         [columns]="columns"   (checkboxClick)="onCheckboxClick($event)">
-                          <!-- if you dont want checkbox -->
-                          <!-- delete (checkboxClick)="onCheckboxClick($event)" -->
+                         [tableId]="'checkboxWithRowDetail'" [data]="gatewayRoutesModel.allGatewayRoutes"
+                         [options]="options"
+                         [columns]="columns">
+            <!-- if you dont want checkbox -->
+            <!-- delete (checkboxClick)="onCheckboxClick($event)" -->
 
             <!-- Table title start -->
             <ngx-caption>
@@ -42,30 +43,106 @@
             <!-- Table title ends -->
 
             <!-- Row expansion area starts -->
-            <ng-template #rowExpansion let-row let-rowIndex="rowIndex">
+            <ng-template class="rowExpansionTemplate" #rowExpansion let-row let-rowIndex="rowIndex">
+              <div class="rowExpansionTemplateContainer">
+                <br><br>
+                <table class="info-table">
+                    <tr class="info-row">
+                      <td class="info-heading">ID</td>
+                      <td class="info-heading">:</td>
+                      <td class="info-data">{{row.id}}</td>
+                    </tr>
 
-              <br><br>
-              <h6 style="color: #2f3d4a;margin-left: 50px">Name : {{row.name}}</h6>
-              <h6 style="color: #2f3d4a;margin-left: 50px">Company : {{row.company}}</h6>
-              <h6 style="color: #2f3d4a;margin-left: 50px">Phone : {{row.phone}}</h6>
-              <h6 style="color: #2f3d4a;margin-left: 50px">Country : {{row.country}}</h6>
-              <br>
+                    <tr class="info-row">
+                      <td class="info-heading">Route ID ( Route Name )</td>
+                      <td class="info-heading">:</td>
+                      <td *ngIf="!showEditArray[rowIndex]" class="info-data">{{row.routeId}}</td>
+                      <td *ngIf="showEditArray[rowIndex]" class="info-data">
+                        <mat-form-field class="mat-form-field-input" appearance="outline" floatLabel="always">
+                          <mat-label>Route ID ( Route Name )</mat-label>
+                          <input [(ngModel)]="gatewayRoutesModel.allGatewayRoutesModified[rowIndex]['routeId']" matInput autocomplete="off" placeholder="Route ID ( Route Name )">
+                        </mat-form-field>
+                      </td>
+                    </tr>
 
-              <button (click)="showEditArray[rowIndex]=!showEditArray[rowIndex]" style="width:100px;margin-left: 50px" class="btn btn-primary">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button style="width:100px;margin-left: 20px" type="button" class="btn btn-danger">
-                <mat-icon>delete</mat-icon>
-              </button>
+                    <tr class="info-row">
+                      <td class="info-heading">Authorization Required</td>
+                      <td class="info-heading">:</td>
+                      <td *ngIf="!showEditArray[rowIndex]"  class="info-data">{{row.authorizationRequired}}</td>
+                      <td *ngIf="showEditArray[rowIndex]" class="info-data">
+                        <mat-form-field class="mat-form-field-select" appearance="outline" floatLabel="always">
+                          <mat-label>Authorization Required</mat-label>
+                          <mat-select [(value)]="gatewayRoutesModel.allGatewayRoutesModified[rowIndex]['authorizationRequired']" name="authorizationRequired"  placeholder="Authorization Required">
+                            <mat-option [value]=true>True</mat-option>
+                            <mat-option [value]=false>False</mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </td>
+                    </tr>
 
-              <br>
-              <div style="margin-left: 100px;margin-top: 50px" *ngIf="showEditArray[rowIndex]">
-                <label> Name : </label> <input type="text" value="{{row.name}}">
+                    <tr class="info-row">
+                      <td class="info-heading">Path ( External path "Frontend <span style="font-size: 18px;">&#8594;</span> Gateway" )</td>
+                      <td class="info-heading">:</td>
+                      <td *ngIf="!showEditArray[rowIndex]" class="info-data">{{row.path}}</td>
+                      <td *ngIf="showEditArray[rowIndex]" class="info-data">
+                        <mat-form-field class="mat-form-field-input" appearance="outline" floatLabel="always">
+                          <mat-label>Path ( External path "Frontend <span style="font-size: 18px;">&#8594;</span> Gateway" )</mat-label>
+                          <input  [(ngModel)]="gatewayRoutesModel.allGatewayRoutesModified[rowIndex]['path']" matInput autocomplete="off" placeholder="">
+                        </mat-form-field>
+                      </td>
+                    </tr>
+
+                    <tr class="info-row">
+                      <td class="info-heading">URI ( Internal path "Gateway <span style="font-size: 18px;">&#8594;</span> Microservice" )</td>
+                      <td class="info-heading">:</td>
+                      <td *ngIf="!showEditArray[rowIndex]" class="info-data">{{row.uri}}</td>
+                      <td *ngIf="showEditArray[rowIndex]" class="info-data">
+                        <mat-form-field class="mat-form-field-input" appearance="outline" floatLabel="always">
+                          <mat-label>URI ( Internal path "Gateway <span style="font-size: 18px;">&#8594;</span> Microservice" )</mat-label>
+                          <input  [(ngModel)]="gatewayRoutesModel.allGatewayRoutesModified[rowIndex]['uri']" matInput autocomplete="off" placeholder="">
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                    <tr class="info-row">
+                      <td class="info-heading">Roles Allowed</td>
+                      <td class="info-heading">:</td>
+                      <td *ngIf="!showEditArray[rowIndex]" class="info-data">{{row.rolesAllowed}}</td>
+                      <td *ngIf="showEditArray[rowIndex]" class="info-data">
+                        <div class="edit-roles-wrapper">
+                          <p style="margin-top: -17px">Test</p>
+                          <mat-checkbox color='primary'>STUDENT</mat-checkbox>
+                        </div>
+                      </td>
+                    </tr>
+                </table>
+
+                <br>
+                <!--
+                <mat-form-field class="mat-form-field-input" appearance="outline" floatLabel="always">
+                  <mat-label>filter</mat-label>
+                  <input matInput autocomplete="off" placeholder="enter 3 or more char." #filterInput>
+                </mat-form-field>
+                -->
+
+                <br>
+
+                <button (click)="showEditArray[rowIndex]=!showEditArray[rowIndex]" style="width:100px;"
+                        class="btn btn-primary">
+                  Edit
+                </button>
+                <button style="width:100px;margin-left: 20px" type="button" class="btn btn-primary">
+                  Delete
+                </button>
+
+                <br>
+                <div style="margin-left: 100px;margin-top: 50px" *ngIf="showEditArray[rowIndex]">
+                  <label> Name : </label> <input type="text" value="{{row.name}}">
+                </div>
+
+                <br>
+
+                <span>.</span>
               </div>
-
-              <br>
-
-              <span>.</span>
 
             </ng-template>
 
