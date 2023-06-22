@@ -18,35 +18,33 @@ export class After_senate_approvalService {
   constructor(private commonData:PrintCommonService,private printTranscriptService:PrintTranscriptService) {
     (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
   }
-  gpaDetailsjsonData = [
+  bbbbb:any;
+  additionalRequirementsHeading:any;
+  additionalRequirementsTable:any;
+  additionalRequirementsGPATableHeading:any;
+  additionalRequirementsGPATable:any;
+  coursejsonContinuData= [
     {
-      grade:[
-        {value:'A+'},{value:'A'},{value:'A-'},{value:'B+'},{value:'B'},{value:'B-'},{value:'C+'},{value:'C'},{value:'C-'},{value:'D+'},{value:'D'},{value:'E'},{value:'EX'}
-      ],
-      gradeValue:[
-      ],
-      marks:[],
-    }
-    ,
-    {
-      grade:[],
-      gradeValue:[
-        {value:'4.00'},{value:'4.00'},{value:'3.70'},{value:'3.30'},{value:'3.00'},{value:'2.70'},{value:'2.30'},{value:'2.00'},{value:'1.70'},{value:'1.30'},{value:'1.00'},{value:'0.00'},{value:'0.00'}
-      ],
-      marks:[],
+      courseCode: "LEE3410",
+      grade: "A-",
+      creadit: "6",
+      title: "English for General Academic Purposes Pramod"
     },
     {
-      grade:[],
-      gradeValue:[],
-      marks:[
-        {value:'>80'},{value:'70-79'},{value:'65-69'},{value:'60-64'},{value:'55-59'},{value:'50-54'},{value:'45-49'},{value:'40-44'},{value:'35-39'},{value:'30-34'},{value:'20-29'},{value:'00-19'},{value:''}
-
-      ],
+      courseCode: "LEE5010",
+      grade: "C-",
+      creadit: "3",
+      title: "English for General Academic Purposes Pramod"
     }
   ];
+  //this.generateEnglishGPATable(gg.gpaDetailsjsonDataEnglish),
 
-  async  generateWordDoc(data:any,applicantId:any,resultType:any) {
+  async  generateWordDoc(data:any,applicantId:any,resultType:any,gg:any) {
+
+//console.log("course Details lenght",gg.coursejsonDataEnglish);
+//console.log("englishcourse Details lenght",gg.gpaDetailsjsonDataEnglish.lenght);
     const rows = [];
+
     const rows1 = new TableRow({
       children: [
           new TableCell({
@@ -54,28 +52,72 @@ export class After_senate_approvalService {
                   size: 800,
                   type: WidthType.PERCENTAGE,
               },
-              children: [new Paragraph("Course Code")],
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      font:"Book Antiqua",
+                      size:20,
+                      bold:true,
+                      text: "Course Code",
+                    }),
+                  ]
+                })
+            ],
           }),
           new TableCell({
               width: {
-                  size: 2500,
+                  size: 3000,
                   type: WidthType.PERCENTAGE,
               },
-              children: [new Paragraph("Course Title")],
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      font:"Book Antiqua",
+                      size:20,
+                      bold:true,
+                      text: "Course Title",
+                    }),
+                  ]
+                })
+              ],
           }),
           new TableCell({
             width: {
-                size: 800,
+                size: 400,
                 type: WidthType.PERCENTAGE,
             },
-            children: [new Paragraph("Credit Rating")],
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:20,
+                    bold:true,
+                    text: "Credit Rating",
+                  }),
+                ]
+              })
+            ],
         }),
         new TableCell({
           width: {
-              size: 2500,
+              size: 400,
               type: WidthType.PERCENTAGE,
           },
-          children: [new Paragraph("Grade")],
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  font:"Book Antiqua",
+                  size:20,
+                  bold:true,
+                  text: "Grade",
+                }),
+              ]
+            })
+          ],
       }),
       ],
   });
@@ -86,7 +128,18 @@ export class After_senate_approvalService {
       const rowLevel = new docx.TableRow({
         children: [
           new docx.TableCell({
-          children: [new docx.Paragraph(String(data.academicPerformanceDetails[i].level))],
+          children: [
+            new docx.Paragraph({
+              children: [
+                new TextRun({
+                  font:"Book Antiqua",
+                  size:20,
+                  bold:true,
+                  text: String("Level 0"+data.academicPerformanceDetails[i].level),
+                }),
+              ]
+            })
+          ],
           columnSpan: 4,
         })],
       });
@@ -95,16 +148,66 @@ export class After_senate_approvalService {
         let rowCourse = new docx.TableRow({
           children: [
             new docx.TableCell({
-            children: [new docx.Paragraph(courseDetails[j].courseCode)],
+              verticalAlign: docx.VerticalAlign.CENTER,
+            children: [
+              new docx.Paragraph({
+                alignment: docx.AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:20,
+                    text: String(courseDetails[j].courseCode),
+                  }),
+                ]
+              })
+
+            ],
           }),
           new docx.TableCell({
-            children: [new docx.Paragraph(courseDetails[j].courseTitle)],
+            children: [
+              new docx.Paragraph({
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:20,
+                    text: String(courseDetails[j].courseTitle),
+                  }),
+                ]
+              })
+
+            ],
           }),
           new docx.TableCell({
-            children: [new docx.Paragraph(String(courseDetails[j].courseCredit))],
+            verticalAlign: docx.VerticalAlign.CENTER,
+            children: [
+              new docx.Paragraph({
+                alignment: docx.AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:20,
+                    text: String(courseDetails[j].courseCredit)
+                  }),
+                ]
+              })
+
+            ],
           }),
           new docx.TableCell({
-            children: [new docx.Paragraph(String(courseDetails[j].gradeGpValue))],
+            verticalAlign: docx.VerticalAlign.CENTER,
+            children: [
+              new docx.Paragraph({
+                alignment: docx.AlignmentType.CENTER,
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:20,
+                    text: String(courseDetails[j].gradeDescription),
+                  }),
+                ]
+              })
+
+            ],
           })
 
 
@@ -134,6 +237,8 @@ export class After_senate_approvalService {
       rows.push(rowEmpty);
     }
 
+
+
     const academicPerformanceDetails = new docx.Table({
       width: {
         size: 100,
@@ -144,233 +249,303 @@ export class After_senate_approvalService {
     });
 
 
-
-
-
   const personalDetails = new Table({
     width: {
       size: 100,
-      type: docx.WidthType.PERCENTAGE,
+      type: docx.WidthType.AUTO,
+    },
+    borders:{
+      top: { style: docx.BorderStyle.NONE },
+      bottom: { style: docx.BorderStyle.NONE },
+      left: { style: docx.BorderStyle.NONE },
+      right: { style: docx.BorderStyle.NONE },
+      insideHorizontal:{ style: docx.BorderStyle.NONE },
+      insideVertical:{ style: docx.BorderStyle.NONE },
     },
     margins:{top:100},
     rows: [
         new TableRow({
+          height: {
+            value: 10, // Adjust the value as needed
+            rule: docx.HeightRule.ATLEAST,
+          },
             children: [
                 new TableCell({
-                    width: {
-                        size: 800,
-                        type: WidthType.PERCENTAGE,
-                    },
-                    children: [new Paragraph("Student Name: Rev./Mr./Ms.")],
+
+                    children: [
+                     new Paragraph({
+                        children: [
+                          new TextRun({
+                            font:"Book Antiqua",
+                            size:22,
+                            text: "Student Name:",
+                          }),
+                        ]
+                      })
+                      ],
                 }),
                 new TableCell({
                   columnSpan:3,
-                    width: {
-                        size: 2500,
-                        type: WidthType.PERCENTAGE,
-                    },
-                    children: [new Paragraph(data.personalDetails.denotedByInitials +' '+ data.personalDetails.lastName)],
+                    children: [
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            font:"Book Antiqua",
+                            size:22,
+                            text:data.personalDetails.titleText+'.',
+                          }),
+                          new TextRun({
+                            text:this.camelCaseText(data.personalDetails.denotedByInitials)+' ',
+                            font:"Book Antiqua",
+                            size:22,
+                            //italics:true
+                          }),
+                          new TextRun({
+                            text:this.camelCaseText(data.personalDetails.lastName),
+                            font:"Book Antiqua",
+                            size:22,
+                            //italics:true
+                          }),
+                          // new TextRun({
+                          //   font:"Book Antiqua",
+                          //   size:22,
+                          //   text:this.camelCaseText(' '+data.personalDetails.lastName),
+                          //   //italics:true
+                          // }),
+                          // new TextRun({
+                          //   font:"Book Antiqua",
+                          //   size:22,
+                          //   text:' '+data.personalDetails.initials,
+                          //   //italics:true
+                          // })
+
+                        ]
+                      })
+                      ],
                 }),
             ],
         }),
         new TableRow({
+          height: {
+            value: 10, // Adjust the value as needed
+            rule: docx.HeightRule.ATLEAST,
+          },
             children: [
                 new TableCell({
-                    width: {
-                        size: 800,
-                        type: WidthType.PERCENTAGE,
-                    },
-                    children: [new Paragraph("Student Registration No.:")],
+                    children: [
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            font:"Book Antiqua",
+                            size:22,
+                            text: "Student Registration No.:",
+                          }),
+                        ]
+                      })],
                 }),
                 new TableCell({
                   columnSpan:3,
-                    width: {
-                        size: 2500,
-                        type: WidthType.PERCENTAGE,
-                    },
-                    children: [new Paragraph(data.personalDetails.registrationNumber!)],
+                    children: [
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            font:"Book Antiqua",
+                            size:22,
+                            text: data.personalDetails.registrationNumber!,
+                          }),
+                        ]
+                      })],
                 }),
             ],
         }),
         new TableRow({
+          height: {
+            value: 2, // Adjust the value as needed
+            rule: docx.HeightRule.AUTO,
+          },
           children: [
               new TableCell({
-                  width: {
-                      size: 800,
-                      type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph("Medium:")],
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          font:"Book Antiqua",
+                          size:22,
+                          text: "Medium:",
+                        }),
+                      ]
+                    })],
               }),
               new TableCell({
                 columnSpan:3,
-                  width: {
-                      size: 2500,
-                      type: WidthType.PERCENTAGE,
-                  },
-                  children: [new Paragraph(data.personalDetails.mediumText!)],
+                  children: [
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          font:"Book Antiqua",
+                          size:22,
+                          text: data.personalDetails.mediumText!,
+                        }),
+                      ]
+                    })],
               }),
           ],
       }),
       new TableRow({
         children: [
             new TableCell({
-                width: {
-                    size: 800,
-                    type: WidthType.PERCENTAGE,
-                },
-                children: [new Paragraph("Field of Specialisation/ Discipline:")],
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        font:"Book Antiqua",
+                        size:22,
+                        text: "Grade Point Average (GPA):",
+                      }),
+                    ]
+                  })],
             }),
             new TableCell({
               columnSpan:3,
-                width: {
-                    size: 2500,
-                    type: WidthType.PERCENTAGE,
-                },
-                children: [new Paragraph(data.personalDetails.specialization_description!)],
+                children: [
+                  new Paragraph({
+                    children: [
+                      new TextRun({
+                        font:"Book Antiqua",
+                        size:22,
+                        text: "",
+                      }),
+                    ]
+                  })
+               ],
             }),
         ],
     }),
     new TableRow({
       children: [
           new TableCell({
-              width: {
-                  size: 800,
-                  type: WidthType.PERCENTAGE,
-              },
-              children: [new Paragraph("Grade Point Average (GPA):")],
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      font:"Book Antiqua",
+                      size:22,
+                      text: "Effective Date:",
+                    }),
+                  ]
+                })],
           }),
           new TableCell({
             columnSpan:3,
-              width: {
-                  size: 2500,
-                  type: WidthType.PERCENTAGE,
-              },
-              children: [new Paragraph("")],
+              children: [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      font:"Book Antiqua",
+                      size:22,
+                      text: "",
+                    }),
+                  ]
+                })
+             ],
           }),
       ],
-  }),
-  new TableRow({
+  }),new TableRow({
     children: [
         new TableCell({
-            width: {
-                size: 800,
-                type: WidthType.PERCENTAGE,
-            },
-            children: [new Paragraph("Effective Date:")],
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:22,
+                    text: "Final Award:",
+                  }),
+                ]
+              })],
         }),
         new TableCell({
           columnSpan:3,
-            width: {
-                size: 2500,
-                type: WidthType.PERCENTAGE,
-            },
-            children: [new Paragraph("")],
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:22,
+                    text: "",
+                  }),
+                ]
+              })
+           ],
         }),
     ],
 }),
-new TableRow({
-  children: [
-      new TableCell({
-          width: {
-              size: 800,
-              type: WidthType.PERCENTAGE,
-          },
-          children: [new Paragraph("Final Award:")],
-      }),
-      new TableCell({
-        columnSpan:3,
-          width: {
-              size: 2500,
-              type: WidthType.PERCENTAGE,
-          },
-          children: [new Paragraph("")],
-      }),
-  ],
-}),
+    //   new TableRow({
+    //     children: [
+    //         new TableCell({
+    //             children: [
+    //               new Paragraph({
+    //                 children: [
+    //                   new TextRun({
+    //                     font:"Book Antiqua",
+    //                     size:22,
+    //                     text: "Field of Specialisation/ Discipline:",
+    //                   }),
+    //                 ]
+    //               })],
+    //         }),
+    //         new TableCell({
+    //           columnSpan:3,
+    //             children: [
+    //               new Paragraph({
+    //                 children: [
+    //                   new TextRun({
+    //                     font:"Book Antiqua",
+    //                     size:22,
+    //                     text: data.personalDetails.specialization_description!,
+    //                   }),
+    //                 ]
+    //               })
+    //            ],
+    //         }),
+    //     ],
+    // }),
+
     ],
 });
 
 
-const gpaDetails = new docx.Table({
-width: {
-  size: 100,
-  type: docx.WidthType.PERCENTAGE,
-},
-rows: [
-  new docx.TableRow({
 
-    children: [
-      new docx.TableCell({
-        verticalAlign: VerticalAlign.CENTER,
-        width: {
-          size: 700,
-          type: WidthType.DXA,
-      },
-        children: [new docx.Paragraph('Grade/Status')]
-      }),
+if (this.coursejsonContinuData.length === 0) {
+  this.additionalRequirementsHeading="";
+  this.additionalRequirementsTable="";
+} else {
+  this.additionalRequirementsHeading=this.createSubHeadingSecond("Additional Requirements for the Award:");
+  this.additionalRequirementsTable=this.generateEnglishTable(this.coursejsonContinuData);
+}
 
-      ...this.gpaDetailsjsonData[0].grade.map((grade, index) => {
-        return new TableCell({
-              children: [new Paragraph(grade.value)],
+if (gg.gpaDetailsjsonDataEnglish.length === 0) {
+  this.additionalRequirementsGPATableHeading="";
+  this.additionalRequirementsGPATable="";
+} else {
+  this.additionalRequirementsGPATableHeading=this.createSubHeadingSecond("Key to "+gg.coursejsonDataEnglish[0].courseCode);
+  this.additionalRequirementsGPATable=this.generateEnglishGPATable(gg.gpaDetailsjsonDataEnglish);
+}
 
-        });
-      }),
+//const bbbbb=this.generateEnglishGPATable(gg.gpaDetailsjsonDataEnglish);
 
-    ]
-  }),
 
-  new docx.TableRow({
-
-    children: [
-      new docx.TableCell({
-        verticalAlign: VerticalAlign.CENTER,
-        width: {
-          size: 700,
-          type: WidthType.DXA,
-      },
-        children: [new docx.Paragraph('Marks')]
-      }),
-
-      ...this.gpaDetailsjsonData[1].gradeValue.map((gradeValue, index) => {
-        return new TableCell({
-              children: [new Paragraph(gradeValue.value)],
-
-        });
-      }),
-
-    ]
-  }),
-  new docx.TableRow({
-
-    children: [
-      new docx.TableCell({
-        verticalAlign: VerticalAlign.CENTER,
-        width: {
-          size: 700,
-          type: WidthType.DXA,
-      },
-        children: [new docx.Paragraph('Marks')]
-      }),
-
-      ...this.gpaDetailsjsonData[2].marks.map((marks, index) => {
-        return new TableCell({
-              children: [new Paragraph(marks.value)],
-
-        });
-      }),
-
-    ]
-  }),
-]
-});
 
 const TOTAL_PAGES =PageNumber.TOTAL_PAGES;
 const CURRENT_PAGE = PageNumber.CURRENT;
 
 const currentDate = new Date();
-const dateString = currentDate.toLocaleDateString();
-const fullName="Amarasekara Mudiyansege Gihan Samarasekara";
-const programmeName="BTech";
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0');
+const day = String(today.getDate()).padStart(2, '0');
+const dateString = `${year}-${month}-${day}`;
+//const dateString = currentDate.toLocaleDateString();
   const document = new docx.Document({
     numbering: {
       config: [
@@ -457,6 +632,11 @@ const programmeName="BTech";
         properties: {
           titlePage: true,
           page: {
+            margin: {
+              right: 1000,
+              bottom: 0,
+              left: 1000,
+          },
             pageNumbers: {
                 start: 1,
                 formatType: NumberFormat.DECIMAL,
@@ -467,12 +647,15 @@ const programmeName="BTech";
             first: new Header({
                 children: [
                     new Paragraph({
+                      indent: {
+                        left: -400,
+                    },
                         children: [
                           new ImageRun({
-                            data: this.commonData.mainHeader,
+                            data: this.commonData.mainheader3,
                             transformation: {
-                                width: 600,
-                                height: 100,
+                                width: 717,
+                                height: 204.33,
                             },
 
                         }),
@@ -480,36 +663,38 @@ const programmeName="BTech";
                     }),
                 ],
             }),
-            default: new Header({
-                children: [
-                    new Paragraph({
-                        children: [
-                          new ImageRun({
-                            data: this.commonData.secondHeader,
-                            transformation: {
-                                width: 600,
-                                height: 50,
-                            },
-
-                        }),
-                        ],
-                    }),
-                ],
-            }),
+            // default: new Header({
+            //     children: [
+            //         new Paragraph({
+            //             children: [
+            //               new ImageRun({
+            //                 data: this.commonData.secondHeader,
+            //                 transformation: {
+            //                     width: 600,
+            //                     height: 50,
+            //                 },
+            //             }),
+            //             ],
+            //         }),
+            //     ],
+            // }),
         },
         footers: {
             first: new Footer({
                 children: [
                   new Paragraph({
                     children: [
-                      new TextRun({
-                        text: 'Examinations Division – The Open University of Sri Lanka.',
-                        font:"Monotype Corsiva"
-                      }),
+
+                      new ImageRun({
+                        data: this.commonData.footer2,
+                        transformation: {
+                            width: 620,
+                            height: 33,
+                        },
+                    }),
                       new Tab(),
-                      new Tab(),
                       new TextRun({
-                        children: ["                                                                                            Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -520,15 +705,17 @@ const programmeName="BTech";
                 children: [
                   new Paragraph({
                     children: [
-                      new TextRun({
 
-                        text: 'Examinations Division – The Open University of Sri Lanka.',
-                        font:"Monotype Corsiva"
-                      }),
-                      new Tab(),
+                      new ImageRun({
+                        data: this.commonData.footer2,
+                        transformation: {
+                            width: 620,
+                            height: 33,
+                        },
+                    }),
                       new Tab(),
                       new TextRun({
-                        children: ["                                                                                            Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -544,7 +731,22 @@ const programmeName="BTech";
           },
             children: [
                 new TextRun({
+                    text:"Email : sarexam@ou.ac.lk",
+                    font:"Book Antiqua",
+                    size:20,
+                }),
+            ],
+        }),
+          new Paragraph({
+            spacing: {
+              before: 250,
+          },
+            children: [
+                new TextRun({
                     text:"Date : "+dateString,
+                    font:"Book Antiqua",
+                    size:20,
+                    //italics:true
                 }),
             ],
         }),
@@ -552,62 +754,174 @@ const programmeName="BTech";
           this.createHeading("To Whom It May Concern:"),
 
           //Show Qualification Details
-          this.createSubHeading("Interim Results of (Qualification)"),
+          this.createSubHeading(data.personalDetails.programmeTitle),
           personalDetails,
 
           new Paragraph({
+            alignment: docx.AlignmentType.JUSTIFIED,
             spacing: {
               before: 250,
           },
             children: [
                 new TextRun({
-                    text:"This is to certify that "+data.personalDetails.denotedByInitials+' '+ data.personalDetails.lastName+" has obtained the following grades or exemptions in the under mentioned courses of the "+data.personalDetails.programmeTitle+", conducted by The Open University of Sri Lanka.",
-                }),
+                    text:"This is to certify that ",
+                    font:"Book Antiqua",
+                    size:22,
+                  }),
+                  new TextRun({
+                    text:this.camelCaseText(data.personalDetails.denotedByInitials)+' ',
+                    font:"Book Antiqua",
+                    size:22,
+                    //italics:true
+                  }),
+                  new TextRun({
+                    text:this.camelCaseText(data.personalDetails.lastName),
+                    font:"Book Antiqua",
+                    size:22,
+                    //italics:true
+                  }),
+                  new TextRun({
+                    text:" has obtained the following grades or exemptions in the under mentioned courses of the ",
+                    font:"Book Antiqua",
+                    size:22,
+                  }),
+                  new TextRun({
+                    text:this.camelCaseText(data.personalDetails.programmeTitle),
+                    font:"Book Antiqua",
+                    size:22,
+                    //italics:true
+                  }),
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:22,
+                    text:", conducted by The Open University of Sri Lanka.",
+
+                  }),
             ],
         }),
 
-        new Paragraph({
-          spacing: {
-            before: 250,
-        },
-          children: [
-              new TextRun({
-                  text:"Please note that the University Senate has approved the award of the "+data.personalDetails.qualifications+" for this student on "+dateString+"",
-              }),
-          ],
-      }),
+      //   new Paragraph({
+      //     spacing: {
+      //       before: 250,
+      //   },
+      //     children: [
+      //         new TextRun({
+      //           font:"Book Antiqua",
+      //           size:22,
+      //             text:"Please note that the student has Yet to complete all the academic requirements for the award of the ",
+      //         }),
+      //         new TextRun({
+      //           text:"data.personalDetails.qualifications",
+      //           font:"Book Antiqua",
+      //           size:22,
+      //         }),
+      //         new TextRun({
+      //           text: "as at "+dateString,
+      //           font:"Book Antiqua",
+      //           size:22,
+      //         }),
+      //     ],
+      // }),
 
 
          //Show Academic Performance Details:
-         this.createSubHeading("Academic Performance Details:"),
+         this.createSubHeadingSecond("Academic Performance Details"),
          academicPerformanceDetails,
 
-         new Paragraph({
-          children: [
-              new TextRun({
-                  text: "*Subject to confirmation by the University Senate.",
-                  italics:true,
-                  bold:true
-              }),
-          ],
-      }),
+
 
 
    //Show Key to Grades/Status and Grade Point Values:
-   this.createSubHeading("Key to Grades/Status, Grade Point Values and Mark Ranges:"),
-   gpaDetails,
+   //this.createSubHeading("Key to Grades/Status, Grade Point Values and Mark Ranges:"),
+  // gpa,
+   this.createSubHeadingSecond("Key to Grades/Status, Grade Point Values and Mark Ranges:(Up to the Ac.year 2020/2021)"),
+   this.generateGPATable(gg),
    new Paragraph({
-    spacing:{
-      after:150,
-    },
     children: [
         new TextRun({
             text: "Grades A+ to C are the pass grades.",
             italics:true,
-            bold:true
+            bold:true,
+            font:"Book Antiqua",
+            size:20,
         }),
     ],
 }),
+
+   this.createSubHeadingSecond("Key to Grades/Status, Grade Point Values and Mark Ranges:(with effect from Ac.year 2021/2022)"),
+   this.generateGPATable2(gg),
+   new Paragraph({
+    children: [
+        new TextRun({
+            text: "Grades A+ to C are the pass grades.",
+            italics:true,
+            bold:true,
+            font:"Book Antiqua",
+            size:20,
+        }),
+    ],
+}),
+
+new Paragraph({
+  spacing:{
+    before:400,
+    after:250
+  },
+  tabStops: [
+    {
+      type: TabStopType.RIGHT,
+      position: TabStopPosition.MAX
+    }
+  ],
+  children: [
+    new TextRun({
+      text:"30 Credits at Levels 03 & 04 of this programme have been exempted based on the Degree in ",
+      font:"Book Antiqua",
+      size:22,
+    }),
+    new TextRun({
+      text:this.camelCaseText(data.personalDetails.programmeTitle),
+      font:"Book Antiqua",
+      size:22,
+      //italics:true
+    }),
+    new TextRun({
+      text:" offered by the Ministry of Health, Sri Lanka",
+      font:"Book Antiqua",
+      size:22
+    }),
+  ]
+}),
+
+   //this.createSubHeadingSecond("Additional Requirements for the Award:"),
+   //this.generateEnglishTable(gg.coursejsonDataEnglish),
+   //this.createSubHeadingSecond("Key to "+gg.coursejsonDataEnglish[0].courseCode),
+   //this.bbbbb,
+   //this.generateEnglishGPATable(gg.gpaDetailsjsonDataEnglish),
+   //gpaDetails1,
+  //gg,
+  this.additionalRequirementsHeading,
+  this.additionalRequirementsTable,
+  this.additionalRequirementsGPATableHeading,
+  this.additionalRequirementsGPATable,
+  new Paragraph({
+    spacing:{
+      before:50,
+      after:50
+    },
+    tabStops: [
+      {
+        type: TabStopType.RIGHT,
+        position: TabStopPosition.MAX
+      }
+    ],
+    children: [
+      new TextRun({
+        text: "",
+      })
+    ]
+  }),
+
 
 new Table({
   borders:{
@@ -624,44 +938,137 @@ new Table({
   },
   rows: [
       new TableRow({
-          children: [
-              new TableCell({
-                width: {
-                  size: 50,
-                  type: WidthType.AUTO,
-              },
-                  children: [new Paragraph("RX")],
-              }),
-              new TableCell({
-                width: {
-                  size: 50,
-                  type: WidthType.AUTO,
-              },
-                children: [new Paragraph("- Student has passed the Continuous Assessment,but absent for the Final Examination,hence required to sit the Final Examination.")],
-            }),
-          ],
-      }),
-      new TableRow({
         children: [
             new TableCell({
               width: {
                 size: 50,
                 type: WidthType.AUTO,
             },
-                children: [new Paragraph("EX")],
+                children: [
+                  new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "EX",
+                            font:"Book Antiqua",
+                            size:20,
+                        }),
+                    ],
+                }),
+                ],
             }),
             new TableCell({
               width: {
                 size: 50,
                 type: WidthType.AUTO,
             },
-              children: [new Paragraph("- Exemption has been granted after evaluation of previous qualifications obtained by the student.")],
+              children: [
+                new Paragraph({
+                  children: [
+                      new TextRun({
+                          text: "- Exemption has been granted after evaluation of previous qualifications obtained by the student.",
+                          font:"Book Antiqua",
+                          size:20,
+                      }),
+                  ],
+              }),
+             ],
           }),
         ],
     }),
   ],
 }),
-
+//this is RX andEX //
+// new Table({
+//   borders:{
+//     top: { style: docx.BorderStyle.NONE },
+//     bottom: { style: docx.BorderStyle.NONE },
+//     left: { style: docx.BorderStyle.NONE },
+//     right: { style: docx.BorderStyle.NONE },
+//     insideHorizontal:{ style: docx.BorderStyle.NONE },
+//     insideVertical:{ style: docx.BorderStyle.NONE },
+//   },
+//   width: {
+//     size: 100,
+//     type: docx.WidthType.PERCENTAGE,
+//   },
+//   rows: [
+//       new TableRow({
+//           children: [
+//               new TableCell({
+//                 width: {
+//                   size: 50,
+//                   type: WidthType.AUTO,
+//               },
+//                   children: [
+//                     new Paragraph({
+//                       children: [
+//                           new TextRun({
+//                               text: "RX",
+//                               font:"Book Antiqua",
+//                               size:20,
+//                           }),
+//                       ],
+//                   }),
+//                   ],
+//               }),
+//               new TableCell({
+//                 width: {
+//                   size: 50,
+//                   type: WidthType.AUTO,
+//               },
+//                 children: [
+//                   new Paragraph({
+//                     children: [
+//                         new TextRun({
+//                             text: "- Student has passed the Continuous Assessment,but absent for the Final Examination,hence required to sit the Final Examination.",
+//                             font:"Book Antiqua",
+//                             size:20,
+//                         }),
+//                     ],
+//                 })],
+//             }),
+//           ],
+//       }),
+//       new TableRow({
+//         children: [
+//             new TableCell({
+//               width: {
+//                 size: 50,
+//                 type: WidthType.AUTO,
+//             },
+//                 children: [
+//                   new Paragraph({
+//                     children: [
+//                         new TextRun({
+//                             text: "EX",
+//                             font:"Book Antiqua",
+//                             size:20,
+//                         }),
+//                     ],
+//                 }),
+//                 ],
+//             }),
+//             new TableCell({
+//               width: {
+//                 size: 50,
+//                 type: WidthType.AUTO,
+//             },
+//               children: [
+//                 new Paragraph({
+//                   children: [
+//                       new TextRun({
+//                           text: "- Exemption has been granted after evaluation of previous qualifications obtained by the student.",
+//                           font:"Book Antiqua",
+//                           size:20,
+//                       }),
+//                   ],
+//               }),
+//              ],
+//           }),
+//         ],
+//     }),
+//   ],
+// }),
 
          new Paragraph({
           spacing:{
@@ -676,15 +1083,31 @@ new Table({
           ],
           children: [
             new TextRun({
-              text: "This letter is issued at the request of Rev./Mr./Ms. "+data.personalDetails.denotedByInitials+' '+ data.personalDetails.lastName+"",
+              font:"Book Antiqua",
+              size:22,
+              text: "This letter is issued at the request of "+this.camelCaseText(data.personalDetails.titleText)+'.'+""
+            }),
+            new TextRun({
+              font:"Book Antiqua",
+              size:22,
+              text: " "+data.personalDetails.initials+"",
+              //italics:true
+            }),
+            new TextRun({
+              font:"Book Antiqua",
+              size:22,
+              text: " "+ this.camelCaseText(data.personalDetails.lastName)+".",
+              //italics:true
             })
           ]
         }),
         new Paragraph({
           children: [
               new TextRun({
-                  text: "Deputy Registrar/ Senior Assistant Registrar/Assistant Registrar",
-                  bold:true
+                  text: "Assistant Registrar",
+                  bold:true,
+                  font:"Book Antiqua",
+                  size:22,
               })
           ],
       }),
@@ -692,7 +1115,9 @@ new Table({
         children: [
             new TextRun({
               text: "Examinations Division",
-              bold:true
+              bold:true,
+              font:"Book Antiqua",
+              size:22,
           })
         ],
     }),
@@ -700,7 +1125,9 @@ new Table({
       children: [
         new TextRun({
           text: "For Registrar",
-          bold:true
+          bold:true,
+          font:"Book Antiqua",
+          size:22,
       }),
       ],
   }),
@@ -818,15 +1245,25 @@ public createHeading(text: string): Paragraph {
     spacing:{
       before:300,
     },
-    text: text,
+    children: [
+      new TextRun({
+        font:"Book Antiqua",
+        text: text,
+        bold: true,
+        size:24
+      }),
+
+    ],
     heading: HeadingLevel.HEADING_2,
   });
 }
 
 public createSubHeading(text: string): Paragraph {
   return new Paragraph({
+    alignment: docx.AlignmentType.JUSTIFIED,
     spacing:{
-      before:500,
+      before:300,
+      after:300
     },
     thematicBreak: true,
     tabStops: [
@@ -837,6 +1274,32 @@ public createSubHeading(text: string): Paragraph {
     ],
     children: [
       new TextRun({
+        font:"Book Antiqua",
+        size:24,
+        allCaps: true,
+        text: "RESULTS OF THE "+text,
+        bold: true
+      }),
+
+    ]
+  });
+}
+
+public createSubHeadingSecond(text: string): Paragraph {
+  return new Paragraph({
+    spacing:{
+      before:300,
+    },
+    tabStops: [
+      {
+        type: TabStopType.RIGHT,
+        position: TabStopPosition.MAX
+      }
+    ],
+    children: [
+      new TextRun({
+        font:"Book Antiqua",
+        size:22,
         text: text,
         bold: true
       }),
@@ -846,13 +1309,304 @@ public createSubHeading(text: string): Paragraph {
 }
 
 
-public createSkillList(skills: any[]): TableRow {
-  return new TableRow({
+
+generateGPATable(data: any) {
+  const rows = [];
+
+  for (let i = 0; i < data.data.length; i++) {
+    const item = data.data[i].value;
+    const cells = [];
+for (let p = 0; p < item.length; p++) {
+const cell =new docx.TableCell({
+  verticalAlign: docx.VerticalAlign.CENTER,
+  width: {
+    size: 700,
+    type: WidthType.DXA,
+},
+  children: [
+    new docx.Paragraph({
+      alignment: docx.AlignmentType.CENTER,
+      children: [
+        new TextRun({
+          font:"Book Antiqua",
+          size:18,
+          text: item[p],
+        }),
+      ]
+    })
+
+  ]
+})
+cells.push(cell);
+}
+    const row = new docx.TableRow({
+      children: cells
+    });
+
+    rows.push(row);
+  }
+
+  const table = new docx.Table({
+    rows
+  });
+
+  return table;
+}
+
+
+generateGPATable2(data: any) {
+  const rows = [];
+
+  for (let i = 0; i < data.data2.length; i++) {
+    const item = data.data2[i].value;
+    const cells = [];
+for (let p = 0; p < item.length; p++) {
+const cell =new docx.TableCell({
+  verticalAlign: docx.VerticalAlign.CENTER,
+  width: {
+    size: 700,
+    type: WidthType.DXA,
+},
+  children: [
+    new docx.Paragraph({
+      alignment: docx.AlignmentType.CENTER,
+      children: [
+        new TextRun({
+          font:"Book Antiqua",
+          size:18,
+          text: item[p],
+        }),
+      ]
+    })
+
+  ]
+})
+cells.push(cell);
+}
+    const row = new docx.TableRow({
+      children: cells
+    });
+
+    rows.push(row);
+  }
+
+  const table = new docx.Table({
+    rows
+  });
+
+  return table;
+}
+
+
+generateEnglishGPATable(data: any) {
+  const rows = [];
+
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i].value;
+    const cells = [];
+for (let p = 0; p < item.length; p++) {
+const cell =new docx.TableCell({
+  verticalAlign: docx.VerticalAlign.CENTER,
+  width: {
+    size: 700,
+    type: WidthType.DXA,
+},
+  children: [
+    new docx.Paragraph({
+      alignment: docx.AlignmentType.CENTER,
+      children: [
+        new TextRun({
+          font:"Book Antiqua",
+          size:18,
+          text: item[p],
+        }),
+      ]
+    })
+  ]
+})
+cells.push(cell);
+}
+    const row = new docx.TableRow({
+      children: cells
+    });
+
+    rows.push(row);
+  }
+
+  const table = new docx.Table({
+    rows
+  });
+
+  return table;
+}
+
+ camelCaseText(word:string): string {
+  const words = word.split(' ');
+
+  const camelCaseWords = words.map((word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  });
+
+  return camelCaseWords.join(' ');
+}
+
+
+
+generateEnglishTable(data: any) {
+  const rows = [];
+
+  const rows1 = new TableRow({
+    children: [
+        new TableCell({
+            width: {
+                size: 800,
+                type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:20,
+                    bold:true,
+                    text: "Course Code",
+                  }),
+                ]
+              })
+            ],
+        }),
+        new TableCell({
+            width: {
+                size: 2500,
+                type: WidthType.PERCENTAGE,
+            },
+            children: [
+              new Paragraph({
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:20,
+                    bold:true,
+                    text: "Course Title",
+                  }),
+                ]
+              })
+            ],
+        }),
+        new TableCell({
+          width: {
+              size: 800,
+              type: WidthType.PERCENTAGE,
+          },
+          children: [
+            new Paragraph({
+              children: [
+                new TextRun({
+                  font:"Book Antiqua",
+                  size:20,
+                  bold:true,
+                  text: "Credit Rating",
+                }),
+              ]
+            })
+          ],
+      }),
+      new TableCell({
+        width: {
+            size: 2500,
+            type: WidthType.PERCENTAGE,
+        },
+        children: [
+          new Paragraph({
+            children: [
+              new TextRun({
+                font:"Book Antiqua",
+                size:20,
+                bold:true,
+                text: "Grade",
+              }),
+            ]
+          })
+        ],
+    }),
+    ],
+});
+
+rows.push(rows1);
+
+for (let j = 0; j < data.length; j++) {
+  let rowCourse = new docx.TableRow({
     children: [
       new docx.TableCell({
-        columnSpan:4,
-        children: [new docx.Paragraph("ggg")] }),
-    ],
-  })
+        verticalAlign: docx.VerticalAlign.CENTER,
+      children: [
+        new docx.Paragraph({
+          children: [
+            new TextRun({
+              font:"Book Antiqua",
+              size:20,
+              text: String(data[j].courseCode),
+            }),
+          ]
+        })
+      ],
+    }),
+    new docx.TableCell({
+
+      children: [
+        new docx.Paragraph({
+          children: [
+            new TextRun({
+              font:"Book Antiqua",
+              size:20,
+              text: String(data[j].title),
+            }),
+          ]
+        })
+      ],
+    }),
+    new docx.TableCell({
+      verticalAlign: docx.VerticalAlign.CENTER,
+      children: [
+        new docx.Paragraph({
+          alignment: docx.AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              font:"Book Antiqua",
+              size:20,
+              text: String(data[j].creadit),
+            }),
+          ]
+        })
+
+      ],
+    }),
+    new docx.TableCell({
+      verticalAlign: docx.VerticalAlign.CENTER,
+      children: [
+        new docx.Paragraph({
+          alignment: docx.AlignmentType.CENTER,
+          children: [
+            new TextRun({
+              font:"Book Antiqua",
+              size:20,
+              text: String(data[j].grade),
+            }),
+          ]
+        })
+      ],
+    })
+
+
+  ],
+  });
+  rows.push(rowCourse);
+}
+
+  const table = new docx.Table({
+    rows
+  });
+
+  return table;
 }
 }
