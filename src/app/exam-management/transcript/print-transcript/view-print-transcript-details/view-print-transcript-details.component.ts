@@ -441,29 +441,44 @@ saveGpa(){
       });
   }
 
+  // search() {
+  //   this.transcripts = [];
+  //   this.showTable=false;
+  //   this.printTranscriptService
+  //     .searchResponseToAPI(this.form)
+  //     .toPromise()
+  //     .then((message: any) => {
+  //       this.transcripts = message;
+  //      // console.log("Test", result);
+  //      //  result = result.map((row:any) => ({
+  //      //    programmeName: row['programmeName'],
+  //      //    serviceType: row['serviceType'],
+  //      //    transcriptType: row['transcriptType'],
+  //      //    dateApplied: row['dateApplied'],
+  //      //    regNo: row['regNo'],
+  //      //    nic: row['nic']
+  //      //  }));
+  //      //  this.transcripts = result;
+  //      //  this.data = result;
+  //       // console.log("T_types",this.transcripts);
+  //       this.showTable = true;
+  //     });
+  // }
+
   search() {
-    this.showTable=false;
+    this.transcripts = [];
+    this.showTable = false;
     this.printTranscriptService
       .searchResponseToAPI(this.form)
       .toPromise()
-      .then((result: any) => {
-        //this.transcripts = result;
-       console.log("Test", result);
-        result = result.map((row:any) => ({
-          programmeName: row['programmeName'],
-          serviceType: row['serviceType'],
-          transcriptType: row['transcriptType'],
-          dateApplied: row['dateApplied'],
-          regNo: row['regNo'],
-          nic: row['nic']
-        }));
-        this.transcripts = result;
-        this.data = result;
-        // console.log("T_types",this.transcripts);
+      .then((message: any) => {
+        console.log(message)
+        this.transcripts = message;
         this.showTable = true;
+
+
       });
   }
-
   programmeChange() {
     this.filteredProgrammes.next(this.programmes);
     this.programmeFilterCtrl.valueChanges

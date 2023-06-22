@@ -48,6 +48,7 @@
     "mat-select-filter": "^2.3.0",
     "mat-table-exporter": "^10.2.4",
     "ng-apexcharts": "^1.2.1",
+    "ng-multiselect-dropdown": "^0.3.9",
     "ng2-daterangepicker": "^2.0.12",
     "ngx-mat-select-search": "^4.0.2",
     "pdf-lib": "^1.17.1",

@@ -12,7 +12,17 @@ const REQUEST_TRANSCRIPT_API_OLD_OMIS = environment.base_url_old_omis+'/api/old_
 })
 export class PrintTranscriptService {
 
+  get programmes(): any {
+    return this._programmes;
+  }
+
+  set programmes(value: any) {
+    this._programmes = value;
+  }
+
   constructor(private http: HttpClient, private router: Router) { }
+
+  private _programmes : any;
 
 
   getAllProgrammes(): Observable<any> {
