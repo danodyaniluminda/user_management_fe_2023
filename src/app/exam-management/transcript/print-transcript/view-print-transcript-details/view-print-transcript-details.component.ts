@@ -197,6 +197,8 @@ getgpaTable(id: any): Promise<any> {
 
 async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistrationNumber:any,transcript_type_id:any,programme_id:any,transcriptId:any): Promise<void> {
   // Call the getTranscriptFunction() function and store the returned string value in a variable
+  alert(programme_id);
+  alert(transcriptId);
   try {
     this.printTranscriptService
     .getTranscriptDetails(applicantRegistrationNumber,false)
@@ -212,7 +214,7 @@ async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistratio
         this.interimResultSheetService.generateWordDoc(result,applicantId,resultType,this.gvlue);
         break;
       case 'afterSenateApproval':
-        this.afterSenateApprovalService.generateWordDoc(result,applicantId,resultType);
+        this.afterSenateApprovalService.generateWordDoc(result,applicantId,resultType,this.gvlue);
         break;
       case 'beforeSenateApproval':
         this.beforeSenateApprovalService.generateWordDoc(result,applicantId,resultType);
