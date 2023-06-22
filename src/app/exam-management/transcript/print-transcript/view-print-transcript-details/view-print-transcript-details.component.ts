@@ -503,7 +503,8 @@ saveGpa(){
       search = search.toLowerCase();
     }
     this.filteredProgrammes.next(
-      this.programmes.filter((programme: { name: string; }) => programme.name.toLowerCase().indexOf(search) > -1)
+      this.programmes.filter((programme: { name: string, programmeCode: string }) =>
+        programme.name.toLowerCase().indexOf(search) > -1 || programme.programmeCode.toLowerCase().indexOf(search) > -1)
     );
   }
 
