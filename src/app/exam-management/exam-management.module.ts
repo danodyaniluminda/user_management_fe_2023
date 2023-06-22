@@ -39,16 +39,18 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
     DayQuotaAllocationComponent,
     TranscriptTypeAndResultTypeComponent,
   ],
-    imports: [
-        ExamManagementRoutingModule,
-        DemoMaterialModule,
-        CommonModule,
-        NgxMatSelectSearchModule,
-        DataTablesModule,
-        ReactiveFormsModule,
-        FormsModule,
-        NgxDatatableModule
-    ],
+  imports: [
+    ExamManagementRoutingModule,
+    DemoMaterialModule,
+    CommonModule,
+    NgxMatSelectSearchModule,
+    DataTablesModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgxDatatableModule,
+    NgxDatatableModule
+  ],
+
   providers: [
     PermissionGuardService
   ]

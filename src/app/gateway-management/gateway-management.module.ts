@@ -7,9 +7,11 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {DataTablesModule} from "angular-datatables";
 import {MatButtonModule} from "@angular/material/button";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NgxDatatableModule } from '@tusharghoshbd/ngx-datatable';
 import {MatIconModule} from "@angular/material/icon";
+import {MatSelectModule} from "@angular/material/select";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,10 @@ import {MatIconModule} from "@angular/material/icon";
     MatButtonModule,
     ReactiveFormsModule,
     NgxDatatableModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
+    FormsModule,
+    MatCheckboxModule
   ]
 })
 export class GatewayManagementModule { }
