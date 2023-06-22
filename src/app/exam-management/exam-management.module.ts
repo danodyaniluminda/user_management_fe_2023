@@ -37,7 +37,7 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
     TranscriptTypeComponent,
     ResultTypeComponent,
     DayQuotaAllocationComponent,
-    TranscriptTypeAndResultTypeComponent
+    TranscriptTypeAndResultTypeComponent,
   ],
   imports: [
     ExamManagementRoutingModule,

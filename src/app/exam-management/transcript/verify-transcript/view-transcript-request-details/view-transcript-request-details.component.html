@@ -63,8 +63,7 @@
                 </mat-spinner>
               </mat-card>
               <mat-label  >Select Programme</mat-label>
-              <mat-select *ngIf="showSelect"  (click)="programmeChange()" #singleSelect
-                          formControlName="programme">
+              <mat-select *ngIf="showSelect"  (click)="programmeChange()" #singleSelect formControlName="programme">
 
                 <mat-option>
                   <ngx-mat-select-search [formControl]="programmeFilterCtrl"  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
@@ -73,7 +72,7 @@
                 </mat-option>
                 <mat-option >Select All</mat-option>
                 <mat-option  *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
-                  {{programme.name}}
+                  {{programme.programmeCode}} - {{programme.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

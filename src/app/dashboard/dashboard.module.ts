@@ -17,4 +17,5 @@ import { NgApexchartsModule } from 'ng-apexcharts';
   ],
   declarations: [DashboardComponent]
 })
-export class DashboardModule {}
+export class DashboardModule {
+}
