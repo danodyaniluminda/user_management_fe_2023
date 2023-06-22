@@ -16,7 +16,8 @@
       <exam-view-transcript-request-details (isDisabled)="addItem($event)"></exam-view-transcript-request-details>
     </mat-tab>
     <mat-tab label="Verify and generate Result sheet" [disabled]="verifyTabDisabled">
-      <!--      <app-verify-and-generate-result-sheet (changeTab)="changeIndex()" *ngIf="!verifyTabDisabled"></app-verify-and-generate-result-sheet>-->
+      <exam-verify-and-generate-result-sheet (changeTab)="changeIndex()" *ngIf="!verifyTabDisabled"></exam-verify-and-generate-result-sheet>
+<!--      <app-verify-and-generate-result-sheet (changeTab)="changeIndex()" *ngIf="!verifyTabDisabled"></app-verify-and-generate-result-sheet>-->
     </mat-tab>
     <!--    <mat-tab label="Print transcript">-->
     <!--      <exam-print-transcript></exam-print-transcript>-->
