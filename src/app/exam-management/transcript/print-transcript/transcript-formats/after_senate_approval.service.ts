@@ -443,7 +443,7 @@ export class After_senate_approvalService {
                     new TextRun({
                       font:"Book Antiqua",
                       size:22,
-                      text: "",
+                      text: "2023-02-01",
                     }),
                   ]
                 })
@@ -528,7 +528,7 @@ if (gg.gpaDetailsjsonDataEnglish.length === 0) {
   this.additionalRequirementsGPATableHeading="";
   this.additionalRequirementsGPATable="";
 } else {
-  this.additionalRequirementsGPATableHeading=this.createSubHeadingSecond("Key to "+gg.coursejsonDataEnglish[0].courseCode);
+  this.additionalRequirementsGPATableHeading=this.createSubHeadingSecond("Key to LSC & LEE");
   this.additionalRequirementsGPATable=this.generateEnglishGPATable(gg.gpaDetailsjsonDataEnglish);
 }
 
@@ -862,36 +862,7 @@ const dateString = `${year}-${month}-${day}`;
     ],
 }),
 
-new Paragraph({
-  spacing:{
-    before:400,
-    after:250
-  },
-  tabStops: [
-    {
-      type: TabStopType.RIGHT,
-      position: TabStopPosition.MAX
-    }
-  ],
-  children: [
-    new TextRun({
-      text:"30 Credits at Levels 03 & 04 of this programme have been exempted based on the Degree in ",
-      font:"Book Antiqua",
-      size:22,
-    }),
-    new TextRun({
-      text:this.camelCaseText(data.personalDetails.programmeTitle),
-      font:"Book Antiqua",
-      size:22,
-      //italics:true
-    }),
-    new TextRun({
-      text:" offered by the Ministry of Health, Sri Lanka",
-      font:"Book Antiqua",
-      size:22
-    }),
-  ]
-}),
+
 
    //this.createSubHeadingSecond("Additional Requirements for the Award:"),
    //this.generateEnglishTable(gg.coursejsonDataEnglish),
