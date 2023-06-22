@@ -1,5 +1,14 @@
 // @ts-ignore
-import {Component, Injectable, OnInit, NgModule, ViewChild, AfterViewInit, ElementRef} from '@angular/core';
+import {
+  Component,
+  Injectable,
+  OnInit,
+  NgModule,
+  ViewChild,
+  AfterViewInit,
+  ElementRef,
+  TemplateRef
+} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource,} from '@angular/material/table';
 import {Router} from '@angular/router';
@@ -14,6 +23,7 @@ import Swal from "sweetalert2";
 })
 export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
 
+
   getOneDayQuotaAllocations() {
     throw new Error('Method not implemented.');
   }
@@ -26,6 +36,230 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
+
+  programmequotas: any;
+
+  updateVoucher(arg0: any, arg1: any) {
+    throw new Error('Method not implemented.');
+  }
+
+  allProgrammes: any = [];
+  allNormalQuota: any = [];
+  allDayQuota: any = [];
+
+  programme: any = [];
+  programmes: [] = [];
+
+  selectedOneDayQuotaValue: string = "";
+  selectedNormalQuotaValue: string = "";
+
+
+  filteredDayQuotaAllocation: any;
+  filteredNormalQuotaAllocation: any;
+
+  viewDayQuotaAllocationService: any;
+  one_day_quotas: any;
+  transcript_one_day_quota: any;
+  programmeId: number = 0;
+  dayQuotaAllocation: any;
+  dayQuotaAllocations: any;
+  StatusTypes: any;
+  filteredProgrammes: any = [];
+  showExpressTable: boolean = true;
+  showNormalTable: boolean;
+  servicetype: any = "express";
+  element: any;
+  one_day_quota: any;
+  normal_quota: any;
+  programmeInput!: String;
+
+  elements: any;
+  row: string;
+  allDayQuotaAllocations: any;
+
+
+  form = new FormGroup({
+
+    programme: new FormControl(),
+    quota: new FormControl(),
+    status: new FormControl(),
+    verify: new FormControl(),
+
+
+  });
+
+  constructor(
+    private dayQuotaAllocationService: DayQuotaAllocationService,
+    private router: Router,
+  ) {
+  }
+
+
+  ngAfterViewInit(): void {
+  }
+
+//datasource1 is for express service
+
+  // @ViewChild('paginator1') paginator!: MatPaginator;
+  @ViewChild('paginator') paginator!: MatPaginator;
+
+  // dataSource1 = new MatTableDataSource();
+  // dataSource2 = new MatTableDataSource();
+  // displayedColumns: string[] = ['programmeName', 'quota', 'status', 'verify'];
+
+  @ViewChild('rowExpansion', { static: true }) rowExpansion: TemplateRef<any>;
+  options = {}
+  data:any = [];
+  showEditArray:boolean[] = [];
+  columns = [
+    { key: 'programme_name', title: "Programme Name", width: 50, sorting: true },
+    { key: 'quota', width: 100, title: " Quota"},
+    { key: 'active', title: 'Active Status',  align: { head: 'center' }, width: 120, sorting: true, noWrap: { head: true, body: true } },
+
+  ];
+  ngOnInit(): void {
+    this.fetchAllProgrammeDetails();
+    this.fetchDayQuotaAllocationDetails();
+    this.fetchNormalQuotaDetails();
+
+
+    //Set table options
+    this.options = {
+      rowDetailTemplate:this.rowExpansion
+    };
+
+    //   this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+
+
+
+  }
+
+  onCheckboxClick(selectCheckBoxArr:any) {
+    alert(JSON.stringify(selectCheckBoxArr));
+  }
+
+
+  changeServiceType(target: any) {
+    let value = target.value;
+    console.log(value);
+    this.servicetype = value;
+    if (value == 'normal') {
+      this.data = this.allNormalQuota;
+      this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+    } else if (value == 'express') {
+      this.data = this.allDayQuota;
+      this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+    }
+    //Swal.fire("Service Changed", value, "success");
+    //Swal.fire("Service Changed", value, "error");
+  }
+
+
+  fetchAllProgrammeDetails() {
+    this.dayQuotaAllocationService
+      .getAllProgrammes()
+      .toPromise()
+      .then((result: any) => {
+        console.log("fetchAllProgrammeDetails", result);
+        this.allProgrammes = result;
+      });
+  }
+
+
+  filterProgramme() {
+    this.filteredProgrammes = this.allProgrammes.filter((tt: {
+      name: string
+    }) => tt.name.toLowerCase().includes(this.programmeInput.toLowerCase()));
+    console.log(this.filteredProgrammes.map((ftt: { name: any; }) => ftt.name))
+  }
+
+
+  getProgramme(value: any) {
+    let programme = this.filteredProgrammes.filter((tt: {
+      name: string
+    }) => tt.name.toLowerCase() == value.toLowerCase())[0];
+    let programmeId = programme.id;
+    let programmeName = programme.name;
+    console.log("programmeId - ", programmeId);
+    console.log("programmeName - ", programmeName);
+  }
+
+  genProgrammeValue(filteredProgramme: any) {
+    return filteredProgramme.name
+  }
+
+  onProgrammeChange(value: any) {
+    alert()
+    // this.eligibilityTranscriptTypes[index] = value;
+    console.log("TEST R", this.programmeInput);
+
+  }
+
+  // fetchDayQuotaAllocationDetails is use for express/one day quota
+  fetchDayQuotaAllocationDetails() {
+    this.dayQuotaAllocationService
+      .getDayQuotaAllocation()
+      .toPromise()
+      .then((result: any) => {
+        this.allDayQuota = result;
+        this.filteredDayQuotaAllocation = result;
+        result = result.map((row:any) => ({
+          programme_name : row['programme']['name'],
+          quota:row['one_day_quota'],
+          active:row['archive'],
+          id:row['id'],
+          archive:row['archive'],
+          one_day_quota:row['one_day_quota'],
+          programme:row['programme'],
+          createdDate:row['createdDate']
+        }))
+        this.data = result;
+        this.allDayQuota = result;
+        this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+        console.log("allDayQuotaAllocation", result);
+      });
+  }
+
+  fetchNormalQuotaDetails() {
+    this.dayQuotaAllocationService
+      .getNormalQuotaAllocations()
+      .toPromise()
+      .then((result: any) => {
+        this.allNormalQuota = result;
+        this.filteredNormalQuotaAllocation = result;
+        result = result.map((row:any) => ({
+          programme_name : row['programme']['name'],
+          quota:row['normal_quota'],
+          active:row['archive'],
+          id:row['id'],
+          archive:row['archive'],
+          normal_quota:row['normal_quota'],
+          programme:row['programme'],
+          createdDate:row['createdDate']
+        }))
+        this.allNormalQuota = result;
+        //this.data = result;
+        //this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+        console.log("allNormalQuota", result);
+      });
+  }
+
+  search() {
+
+    if (this.showNormalTable) {
+      this.filteredNormalQuotaAllocation = this.allNormalQuota.filter((element: any) => {
+        return element['programme']['name'].includes(String(this.programmeInput))
+      });
+      this.data = this.filteredNormalQuotaAllocation;
+    } else {
+      this.filteredDayQuotaAllocation = this.allDayQuota.filter((element: any) => {
+        return element['programme']['name'].includes(String(this.programmeInput))
+      });
+      this.data = this.filteredDayQuotaAllocation;
+    }
+  }
+
+  // update quota value in backend
   updateQuota(row: any) {
     let quota_id = row['id'];
     let programme_id = row['programme']['id'];
@@ -78,20 +312,6 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
 
   }
 
-  programmequotas: any;
-
-  updateVoucher(arg0: any, arg1: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  allProgrammes: any = [];
-  allNormalQuota: any = [];
-  programme: any = [];
-  programmes: [] = [];
-
-  selectedOneDayQuotaValue: string = "";
-  selectedNormalQuotaValue: string = "";
-
   onQuotaInputChange(target: any, type: any) {
     if (type == 'express') {
       if (target && target.value != undefined) {
@@ -103,186 +323,6 @@ export class DayQuotaAllocationComponent implements OnInit, AfterViewInit {
         this.selectedNormalQuotaValue = target.value;
         console.log("selectedNormalQuotaValue : ", this.selectedNormalQuotaValue);
       }
-    }
-  }
-
-  dtOptions: DataTables.Settings = {};
-  allDayQuotaAllocation: any;
-  filteredDayQuotaAllocation: any;
-  filteredNormalQuotaAllocation: any;
-  viewDayQuotaAllocationService: any;
-  one_day_quotas: any;
-  transcript_one_day_quota: any;
-  programmeId: number = 0;
-  dayQuotaAllocation: any;
-  dayQuotaAllocations: any;
-  StatusTypes: any;
-  filteredProgrammes: any = [];
-  showExpressTable: boolean = true;
-  showNormalTable: boolean;
-  servicetype: any = "express";
-  showTable: boolean = false;
-  available_quota: any;
-  element: any;
-  one_day_quota: any;
-  normal_quota: any;
-
-
-  form = new FormGroup({
-
-    programme: new FormControl(),
-    quota: new FormControl(),
-    status: new FormControl(),
-    verify: new FormControl(),
-
-
-  });
-
-
-  programmeInput!: String;
-
-
-  constructor(
-    private dayQuotaAllocationService: DayQuotaAllocationService,
-    private router: Router,
-  ) {
-  }
-
-
-  ngAfterViewInit(): void {
-    this.dataSource2.paginator = this.paginator;
-    // this.dataSource1.paginator = this.paginator;
-  }
-
-//datasource1 is for express service
-
-  // @ViewChild('paginator1') paginator!: MatPaginator;
-  @ViewChild('paginator') paginator!: MatPaginator;
-
-  dataSource1 = new MatTableDataSource();
-  dataSource2 = new MatTableDataSource();
-  displayedColumns: string[] = ['programmeName', 'quota', 'status', 'verify'];
-
-
-  ngOnInit(): void {
-    this.fetchAllProgrammeDetails();
-    this.fetchDayQuotaAllocationDetails();
-    this.fetchNormalQuotaDetails();
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      responsive: false,
-      paging: true,
-    };
-  }
-
-  changeServiceType(target: any) {
-    let value = target.value;
-    console.log(value);
-    this.servicetype = value;
-    if (value == 'normal') {
-      this.showNormalTable = true;
-      this.showExpressTable = false;
-    } else if (value == 'express') {
-      this.showExpressTable = true;
-      this.showNormalTable = false;
-    }
-    //Swal.fire("Service Changed", value, "success");
-    //Swal.fire("Service Changed", value, "error");
-  }
-
-
-  fetchAllProgrammeDetails() {
-    this.dayQuotaAllocationService
-      .getAllProgrammes()
-      .toPromise()
-      .then((result: any) => {
-        console.log("fetchAllProgrammeDetails", result);
-        this.allProgrammes = result;
-      });
-  }
-
-
-  filterProgramme() {
-    this.filteredProgrammes = this.allProgrammes.filter((tt: {
-      name: string
-    }) => tt.name.toLowerCase().includes(this.programmeInput.toLowerCase()));
-    console.log(this.filteredProgrammes.map((ftt: { name: any; }) => ftt.name))
-  }
-
-
-  getProgramme(value: any) {
-    let programme = this.filteredProgrammes.filter((tt: {
-      name: string
-    }) => tt.name.toLowerCase() == value.toLowerCase())[0];
-    let programmeId = programme.id;
-    let programmeName = programme.name;
-    console.log("programmeId - ", programmeId);
-    console.log("programmeName - ", programmeName);
-  }
-
-  genProgrammeValue(filteredProgramme: any) {
-    return filteredProgramme.name
-  }
-
-  onProgrammeChange(value: any) {
-    alert()
-    // this.eligibilityTranscriptTypes[index] = value;
-    console.log("TEST R", this.programmeInput);
-
-  }
-
-  // fetchDayQuotaAllocationDetails is use for express/one day quota
-  elements: any;
-  row: string;
-  allDayQuotaAllocations: any;
-
-  fetchDayQuotaAllocationDetails() {
-    this.dayQuotaAllocationService
-      .getDayQuotaAllocation()
-      .toPromise()
-      .then((result: any) => {
-        this.allDayQuotaAllocation = result;
-        console.log("allDayQuotaAllocation", result);
-        // this.dataSource1 = new MatTableDataSource(this.allDayQuotaAllocation);
-        this.showTable = true;
-        // this.dataSource1.paginator = this.paginator;
-        setTimeout(() => {
-        }, 1000);
-      });
-  }
-
-  fetchNormalQuotaDetails() {
-    this.dayQuotaAllocationService
-      .getNormalQuotaAllocations()
-      .toPromise()
-      .then((result: any) => {
-        this.allNormalQuota = result;
-        console.log("allNormalQuota", result);
-        // this.dataSource2 = new MatTableDataSource(this.allNormalQuota);
-        this.showTable = true;
-        // this.dataSource2.paginator = this.paginator;
-        setTimeout(() => {
-        }, 1000);
-      });
-  }
-
-  search() {
-
-    if (this.showNormalTable) {
-      this.filteredNormalQuotaAllocation = this.allNormalQuota.filter((element: any) => {
-        return element['programme']['name'].includes(String(this.programmeInput))
-      });
-      // this.dataSource2 = new MatTableDataSource(this.filteredNormalQuotaAllocation);
-      this.showTable = true;
-      // this.dataSource2.paginator = this.paginator;
-    } else {
-      this.filteredDayQuotaAllocation = this.allDayQuotaAllocation.filter((element: any) => {
-        return element['programme']['name'].includes(String(this.programmeInput))
-      });
-      // this.dataSource1 = new MatTableDataSource(this.filteredDayQuotaAllocation);
-      this.showTable = true;
-      // this.dataSource1.paginator = this.paginator;
     }
   }
 

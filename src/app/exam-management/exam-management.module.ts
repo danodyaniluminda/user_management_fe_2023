@@ -24,6 +24,8 @@ import {
 } from './master-data/transcript-type-and-result-type/transcript-type-and-result-type.component';
 import {ExamManagementRoutingModule} from './exam-management-routing.module';
 import { PermissionGuardService} from "../shared/services/ValidatePrivileges";
+import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
+
 @NgModule({
   declarations: [
     VerifyTranscriptComponent,
@@ -37,15 +39,16 @@ import { PermissionGuardService} from "../shared/services/ValidatePrivileges";
     DayQuotaAllocationComponent,
     TranscriptTypeAndResultTypeComponent,
   ],
-  imports: [
-    ExamManagementRoutingModule,
-    DemoMaterialModule,
-    CommonModule,
-    NgxMatSelectSearchModule,
-    DataTablesModule,
-    ReactiveFormsModule,
-    FormsModule
-  ],
+    imports: [
+        ExamManagementRoutingModule,
+        DemoMaterialModule,
+        CommonModule,
+        NgxMatSelectSearchModule,
+        DataTablesModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgxDatatableModule
+    ],
   providers: [
     PermissionGuardService
   ]
