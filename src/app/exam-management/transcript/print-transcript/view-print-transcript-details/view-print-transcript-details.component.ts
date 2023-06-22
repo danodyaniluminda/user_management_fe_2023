@@ -197,6 +197,8 @@ getgpaTable(id: any): Promise<any> {
 
 async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistrationNumber:any,transcript_type_id:any,programme_id:any,transcriptId:any): Promise<void> {
   // Call the getTranscriptFunction() function and store the returned string value in a variable
+  alert(programme_id);
+  alert(transcriptId);
   try {
     this.printTranscriptService
     .getTranscriptDetails(applicantRegistrationNumber,false)
@@ -455,7 +457,8 @@ saveGpa(){
           transcriptType: row['transcriptType'],
           dateApplied: row['dateApplied'],
           regNo: row['regNo'],
-          nic: row['nic']
+          nic: row['nic'],
+          
         }));
         this.transcripts = result;
         this.data = result;
