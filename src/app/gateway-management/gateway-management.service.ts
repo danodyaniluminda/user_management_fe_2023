@@ -24,13 +24,36 @@ export class GatewayManagementService {
 
 
   getAllGatewayRoutes():Observable<any> | null{
-    let result = this.http.get(GATEWAY_API + '/gateway_routes/get_all_gateway_routes');
+    let result = this.http.get(GATEWAY_API + '/gateway_routes/get_all_gateway_routes_with_roles');
     return new Observable(
       observable => {
         result.toPromise()
           .then(
             (data:any) => {
-              this._gatewayRoutesModel.allGatewayRoutes = data;
+              data.sort((a:any,b:any) => a.id - b.id);
+              observable.next(data);
+              observable.complete();
+            }
+          )
+          .catch(
+            (error:any) => {
+              console.log(error);
+              observable.next(error);
+              observable.complete();
+            }
+          )
+      }
+    );
+  }
+
+  getAllRoles():Observable<any> | null{
+    let result = this.http.get(GATEWAY_API + '/roles');
+    return new Observable(
+      observable => {
+        result.toPromise()
+          .then(
+            (data:any) => {
+              data.sort((a:any,b:any) => a.id - b.id);
               observable.next(data);
               observable.complete();
             }

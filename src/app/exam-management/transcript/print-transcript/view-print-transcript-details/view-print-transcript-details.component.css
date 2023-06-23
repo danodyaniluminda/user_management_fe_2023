@@ -38,17 +38,21 @@ mat-form-field {
   font-size: 13px;
 }
 
-mat-label {
-  font-weight: bolder;
+.export-container {
+  margin-left: 10px;
 }
 
-  table {
-  width: 97%;
-  max-height: 500px;
-  overflow: auto;
-  margin-left: 20px;
-  margin-right: 20px;
-}
+/*mat-label {*/
+/*  font-weight: bolder;*/
+/*}*/
+
+/*  table {*/
+/*  width: 97%;*/
+/*  max-height: 500px;*/
+/*  overflow: auto;*/
+/*  margin-left: 20px;*/
+/*  margin-right: 20px;*/
+/*}*/
 
 .example-loading-shade {
   position: absolute;
@@ -93,6 +97,11 @@ mat-label {
   width: 800px;
 }
 
+.table-content {
+  width: 1220px;
+  margin-left: 30px;
+}
+
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
   mat-select,mat-grid-list{
@@ -102,3 +111,8 @@ mat-label {
 }
 
 
+::ng-deep .mat-error {
+
+  color: red;
+  padding-top: 10px;
+}

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 import { PrintTranscriptService } from './print-transcript.service';
@@ -15,6 +15,20 @@ import { Interim_result_sheetService } from '../transcript-formats/interim_resul
 })
 export class ViewPrintTranscriptDetailsComponent implements OnInit {
 
+  @ViewChild('rowExpansion', { static: true }) rowExpansion: TemplateRef<any>;
+  options = {}
+  // data:any = [];
+  allData:any = [];
+  showEditArray:boolean[] = [];
+  columns = [
+    { key: 'programmeName', title: 'Programme Name', width: 30},
+    { key: 'serviceType', title: 'Service Type', width: 30},
+    { key: 'transcriptType', title: 'Transcript Type', width: 30},
+    { key: 'dateApplied', title: 'Date Applied', width: 30},
+    { key: 'regNo', title: 'Reg No', width: 30},
+    { key: 'nic', title: 'NIC/Passport', width: 30}
+  ];
+
   transcriptFunction:String;
   gpaTableValue:any;
   gvlue:any;
@@ -27,7 +41,7 @@ export class ViewPrintTranscriptDetailsComponent implements OnInit {
   form = new FormGroup({
     fromDate: new FormControl(),
     toDate: new FormControl(),
-    nic: new FormControl(),
+    nic: new FormControl('',[Validators.pattern(/^\S+$/)]),
     programme: new FormControl(),
     status: new FormControl(3),
     transcriptType: new FormControl(),
@@ -64,7 +78,28 @@ export class ViewPrintTranscriptDetailsComponent implements OnInit {
       paging: true,
     };
     this.programmeChange();
+
+    //Set table options
+    this.options = {
+      //delete check box true if you dont want checkbox
+      //checkboxes: true,
+      rowDetailTemplate:this.rowExpansion
+    }
+
+    // //Get data from backend
+    // setTimeout(() => {
+    //
+    //   //Get data from backend
+    //   // this.data = this.search();
+    //
+    //   //Create boolean array
+    //   this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+    //
+    // }, 3000);
+
   }
+
+
 
   ngAfterViewInit() {
     this.programmeChange();
@@ -162,6 +197,8 @@ getgpaTable(id: any): Promise<any> {
 
 async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistrationNumber:any,transcript_type_id:any,programme_id:any,transcriptId:any): Promise<void> {
   // Call the getTranscriptFunction() function and store the returned string value in a variable
+ // alert(programme_id);
+  //alert(transcriptId);
   try {
     this.printTranscriptService
     .getTranscriptDetails(applicantRegistrationNumber,false)
@@ -177,7 +214,7 @@ async fetchTranscriptDetails(applicantId:any,resultType:any,applicantRegistratio
         this.interimResultSheetService.generateWordDoc(result,applicantId,resultType,this.gvlue);
         break;
       case 'afterSenateApproval':
-        this.afterSenateApprovalService.generateWordDoc(result,applicantId,resultType);
+        this.afterSenateApprovalService.generateWordDoc(result,applicantId,resultType,this.gvlue);
         break;
       case 'beforeSenateApproval':
         this.beforeSenateApprovalService.generateWordDoc(result,applicantId,resultType);
@@ -406,18 +443,44 @@ saveGpa(){
       });
   }
 
+  // search() {
+  //   this.transcripts = [];
+  //   this.showTable=false;
+  //   this.printTranscriptService
+  //     .searchResponseToAPI(this.form)
+  //     .toPromise()
+  //     .then((message: any) => {
+  //       this.transcripts = message;
+  //      // console.log("Test", result);
+  //      //  result = result.map((row:any) => ({
+  //      //    programmeName: row['programmeName'],
+  //      //    serviceType: row['serviceType'],
+  //      //    transcriptType: row['transcriptType'],
+  //      //    dateApplied: row['dateApplied'],
+  //      //    regNo: row['regNo'],
+  //      //    nic: row['nic']
+  //      //  }));
+  //      //  this.transcripts = result;
+  //      //  this.data = result;
+  //       // console.log("T_types",this.transcripts);
+  //       this.showTable = true;
+  //     });
+  // }
+
   search() {
-    this.showTable=false;
+    this.transcripts = [];
+    this.showTable = false;
     this.printTranscriptService
       .searchResponseToAPI(this.form)
       .toPromise()
       .then((message: any) => {
+        console.log(message)
         this.transcripts = message;
-        // console.log("T_types",this.transcripts);
         this.showTable = true;
+
+
       });
   }
-
   programmeChange() {
     this.filteredProgrammes.next(this.programmes);
     this.programmeFilterCtrl.valueChanges
@@ -440,7 +503,8 @@ saveGpa(){
       search = search.toLowerCase();
     }
     this.filteredProgrammes.next(
-      this.programmes.filter((programme: { name: string; }) => programme.name.toLowerCase().indexOf(search) > -1)
+      this.programmes.filter((programme: { name: string, programmeCode: string }) =>
+        programme.name.toLowerCase().indexOf(search) > -1 || programme.programmeCode.toLowerCase().indexOf(search) > -1)
     );
   }
 

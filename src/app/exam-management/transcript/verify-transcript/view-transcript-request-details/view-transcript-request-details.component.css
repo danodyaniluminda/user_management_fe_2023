@@ -8,6 +8,10 @@
   background-color: #ffffff;
 }
 
+.export-container {
+  margin-left: 10px;
+}
+
 /*.content {*/
 /*  margin-left: 10px;*/
 /*  margin-right: 10px;*/
@@ -96,4 +100,7 @@ table {
   }
 }
 
-
+::ng-deep .mat-error {
+  color: red;
+  padding-top: 10px;
+}
