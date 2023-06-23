@@ -1,54 +1,100 @@
-<div class="content">
+<!--<mat-card>-->
+<!--  <nav aria-label="breadcrumb">-->
+<!--    <ol class="breadcrumb">-->
+<!--      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>-->
+<!--      <li class="breadcrumb-item active">Master data</li>-->
+<!--      <li class="breadcrumb-item active" aria-current="page">Route Management</li>-->
+<!--    </ol>-->
+<!--  </nav>-->
 
-  <mat-card  class="example-container" >
-    <mat-card-content>
-      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
-        Add New Route
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
-<br>
-<mat-card  class="example-container" >
-  <div class="container">
-    <mat-card-content>
-      <form class="date-block" ></form>
-      <div>
-        <mat-form-field class="form-fields" appearance="outline"  style="width: 600px; margin-left: 10px; "  >
-          <mat-label>Route Name</mat-label>
-          <input  matInput placeholder="Route Name"
-                  type="text"
-                 id="ttype"
-                 name="ttype">
-        </mat-form-field> <br>
-      </div>
-      <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
-        <mat-label> Select Category</mat-label>
-        <mat-select
-        >
-          <mat-option>
-            <ngx-mat-select-search placeholderLabel="Find category..." noEntriesFoundLabel="'No matching programme found'">
-              <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
-            </ngx-mat-select-search>
-          </mat-option>
-          <mat-option >Select All</mat-option>
+<!--</mat-card>-->
+<!--<div class="content">-->
+<!--  &nbsp;&nbsp;&nbsp;Add New Route-->
+<!--</div>-->
+<!--<br>-->
 
-          <mat-option >
+<!--<div class="content">-->
+<!--  <mat-card  class="example-container" >-->
+<!--    <div class="container">-->
 
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+<!--      <mat-card-content>-->
+<!--        <form class="date-block" ></form>-->
+<!--        <br />-->
+<!--        <div>-->
+<!--          <mat-form-field style="text-transform: uppercase;"class="form-fields" appearance="outline" style="width: 600px; margin-left: 5px;" >-->
+<!--            <mat-label>Route Name</mat-label>-->
+<!--            <input matInput type="text" placeholder="Transcript Name"-->
+<!--                   (keyup)="showRouteNameError()"-->
+<!--                   [(ngModel)]="routeName"-->
+<!--                   (input)="filterRoute($event)"-->
+<!--                   id="ttype"-->
+<!--                   name="ttypem">-->
+<!--          </mat-form-field> <br>-->
+<!--          <label *ngIf="showTranscriptNameError()" class="text-danger"> &nbsp; Special characters and numbers are not allowed.</label>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--          <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">-->
+<!--            <mat-label> Select Category</mat-label>-->
+<!--            <mat-select [(ngModel)]="categoryId"  (click)="categoryChange($event.target)"-->
+<!--            >-->
+<!--              <mat-option>-->
+<!--                <ngx-mat-select-search [formControl]="categoryFilterCtrl"  placeholderLabel="Find Category..." noEntriesFoundLabel="'No matching programme found'">-->
+<!--                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>-->
+<!--                </ngx-mat-select-search>-->
+<!--              </mat-option>-->
+<!--              <mat-option >Select All</mat-option>-->
+<!--              <mat-option *ngFor="let category of filteredCategorys | async" [value]="category.id" >-->
+<!--                {{category.name}}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <br>-->
+<!--        <div>-->
+<!--          <button [disabled]="addButtonDisabled" (click)="addNewRoute() "type="button" mat-raised-button color="primary" style="width: 75px;margin-left: 5px;">Add</button>-->
+<!--          &nbsp;-->
+<!--          <button   (click)="close()" type="button" mat-raised-button color="primary">Cancel</button>-->
 
-      <br>
-
-      <div style="text-align: left;">
-        <button [disabled]=""   mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Save</button>
-        &nbsp;
-        <button   mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Cancel</button>
-      </div>
-    </mat-card-content>
-
-</div>
-</mat-card>
-
-
+<!--        </div>-->
+<!--      </mat-card-content>-->
+<!--    </div>-->
+<!--  </mat-card>-->
+<!--</div>-->
+<!--<br>-->
+<!--<br>-->
+<!--<mat-card class="example-container">-->
+<!--  <br>-->
+<!--  &lt;!&ndash;     <pre>{{resultStatuses|json}}</pre>&ndash;&gt;-->
+<!--  <div class="table-responsive">-->
+<!--    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover" *ngIf="showTable"  >-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th>Id</th>-->
+<!--        <th>Route Name</th>-->
+<!--        <th>Category </th>-->
+<!--        <th>Active Status</th>-->
+<!--        <th>Edit</th>-->
+<!--        <th>Delete</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let route of routes">-->
+<!--        <td>{{ route.id }}</td>-->
+<!--        <td>{{ route.name }}</td>-->
+<!--        <td>{{ route.active }}</td>-->
+<!--        <td>{{ getCategoryName(route.id) }}</td>-->
+<!--        <td>-->
+<!--          <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Edit" >-->
+<!--            <mat-icon>edit_forever</mat-icon>-->
+<!--          </button>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--          <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" >-->
+<!--            <mat-icon>delete_forever</mat-icon>-->
+<!--          </button>-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</mat-card>-->

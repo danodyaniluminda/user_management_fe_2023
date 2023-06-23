@@ -54,7 +54,7 @@ export class AddNewResultStatusService {
           observable.next(result);
           observable.next(result);
           observable.complete();
-          Swal.fire('Success...','Record Added Successfully', 'success');
+          Swal.fire('Success !','Record Added Successfully.', 'success');
           setTimeout(() =>{ location.reload();},3000);
         }else{
           Swal.fire('Error...','error', 'error');
