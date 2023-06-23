@@ -278,7 +278,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text: "Student Name:",
+                            text: "Student Name                          :",
                           }),
                         ]
                       })
@@ -292,7 +292,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text:data.personalDetails.titleText+'.',
+                            text:data.personalDetails.titles+'.',
                           }),
                           new TextRun({
                             text:this.camelCaseText(data.personalDetails.denotedByInitials)+' ',
@@ -338,7 +338,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text: "Student Registration No.:",
+                            text: "Student Registration No.        :",
                           }),
                         ]
                       })],
@@ -371,7 +371,7 @@ export class After_senate_approvalService {
                         new TextRun({
                           font:"Book Antiqua",
                           size:22,
-                          text: "Medium:",
+                          text: "Medium                                     :",
                         }),
                       ]
                     })],
@@ -400,7 +400,7 @@ export class After_senate_approvalService {
                       new TextRun({
                         font:"Book Antiqua",
                         size:22,
-                        text: "Grade Point Average (GPA):",
+                        text: "Grade Point Average (GPA)   :",
                       }),
                     ]
                   })],
@@ -413,7 +413,7 @@ export class After_senate_approvalService {
                       new TextRun({
                         font:"Book Antiqua",
                         size:22,
-                        text: "",
+                        text: data.personalDetails.calculatedGPALevel +" out of 4.00" ,
                       }),
                     ]
                   })
@@ -430,7 +430,7 @@ export class After_senate_approvalService {
                     new TextRun({
                       font:"Book Antiqua",
                       size:22,
-                      text: "Effective Date:",
+                      text: "Effective Date                            :",
                     }),
                   ]
                 })],
@@ -459,7 +459,7 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:22,
-                    text: "Final Award:",
+                    text: "Final Award                               :",
                   }),
                 ]
               })],
@@ -472,7 +472,7 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:22,
-                    text: "",
+                    text: data.personalDetails.classDescription,
                   }),
                 ]
               })
@@ -516,12 +516,12 @@ export class After_senate_approvalService {
 
 
 
-if (this.coursejsonContinuData.length === 0) {
+if (data.courseJSONContinueData.length === 0) {
   this.additionalRequirementsHeading="";
   this.additionalRequirementsTable="";
 } else {
   this.additionalRequirementsHeading=this.createSubHeadingSecond("Additional Requirements for the Award:");
-  this.additionalRequirementsTable=this.generateEnglishTable(this.coursejsonContinuData);
+  this.additionalRequirementsTable=this.generateEnglishTable(data.courseJSONContinueData);
 }
 
 if (gg.gpaDetailsjsonDataEnglish.length === 0) {
@@ -688,13 +688,13 @@ const dateString = `${year}-${month}-${day}`;
                       new ImageRun({
                         data: this.commonData.footer2,
                         transformation: {
-                            width: 620,
+                            width: 630,
                             height: 33,
                         },
                     }),
                       new Tab(),
                       new TextRun({
-                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: [PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -709,13 +709,13 @@ const dateString = `${year}-${month}-${day}`;
                       new ImageRun({
                         data: this.commonData.footer2,
                         transformation: {
-                            width: 620,
+                            width: 630,
                             height: 33,
                         },
                     }),
                       new Tab(),
                       new TextRun({
-                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: [PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -1056,7 +1056,7 @@ new Table({
             new TextRun({
               font:"Book Antiqua",
               size:22,
-              text: "This letter is issued at the request of "+this.camelCaseText(data.personalDetails.titleText)+'.'+""
+              text: "This letter is issued at the request of "+this.camelCaseText(data.personalDetails.titles)+'.'+""
             }),
             new TextRun({
               font:"Book Antiqua",
@@ -1545,7 +1545,7 @@ for (let j = 0; j < data.length; j++) {
             new TextRun({
               font:"Book Antiqua",
               size:20,
-              text: String(data[j].creadit),
+              text: String(data[j].credit),
             }),
           ]
         })
