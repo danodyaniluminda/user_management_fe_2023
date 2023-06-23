@@ -20,6 +20,7 @@ import {MatTableExporterModule} from "mat-table-exporter";
 import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {DataTablesModule} from "angular-datatables";
 
 
 @NgModule({
@@ -29,23 +30,24 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
     RouteManagementComponent,
     RouteRoleManagementComponent
   ],
-    imports: [
-        CommonModule,
-        UserManagementRoutingModule,
-        FormsModule,
-        MatButtonModule,
-        MatCardModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatInputModule,
-        MatOptionModule,
-        MatPaginatorModule,
-        MatSelectModule,
-        MatSortModule,
-        MatTableExporterModule,
-        MatTableModule,
-        MatTooltipModule,
-        NgxMatSelectSearchModule
-    ]
+  imports: [
+    CommonModule,
+    UserManagementRoutingModule,
+    FormsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatOptionModule,
+    MatPaginatorModule,
+    MatSelectModule,
+    MatSortModule,
+    MatTableExporterModule,
+    MatTableModule,
+    MatTooltipModule,
+    NgxMatSelectSearchModule,
+    DataTablesModule
+  ]
 })
 export class UserManagementModule { }
