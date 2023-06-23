@@ -14,10 +14,6 @@ import {DashboardAccess, PermissionGuardService} from "./shared/services/Validat
 import {AccessDeniedComponent} from "./layouts/error/access-denied/access-denied.component";
 
 const routes: Routes = [
-  // {
-  //   path: 'customers',
-  //   loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
-  // },
   {
     path: 'transcript-view',
     component: TranscriptViewComponent
@@ -47,6 +43,10 @@ const routes: Routes = [
       {
         path: 'user-management',
         loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule)
+      },
+      {
+        path: 'gateway-management',
+        loadChildren: ()=> import('./gateway-management/gateway-management.module').then(m => m.GatewayManagementModule)
       },
       {
         path: 'access-denied',
