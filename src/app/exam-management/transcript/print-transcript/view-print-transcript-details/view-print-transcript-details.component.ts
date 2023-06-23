@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { ReplaySubject, Subject, takeUntil } from 'rxjs';
 import { PrintTranscriptService } from './print-transcript.service';
@@ -41,7 +41,7 @@ export class ViewPrintTranscriptDetailsComponent implements OnInit {
   form = new FormGroup({
     fromDate: new FormControl(),
     toDate: new FormControl(),
-    nic: new FormControl(),
+    nic: new FormControl('',[Validators.pattern(/^\S+$/)]),
     programme: new FormControl(),
     status: new FormControl(3),
     transcriptType: new FormControl(),
