@@ -33,7 +33,7 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
   form = new FormGroup({
     fromDate: new FormControl(),
     toDate: new FormControl(),
-    nic: new FormControl('',noSpaceValidator()),
+    nic: new FormControl('',[Validators.pattern(/^\S+$/)]),
     programme: new FormControl(),
     status: new FormControl(),
     transcriptType: new FormControl(),

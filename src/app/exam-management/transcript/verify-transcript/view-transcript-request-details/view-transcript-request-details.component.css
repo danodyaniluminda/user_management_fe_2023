@@ -100,4 +100,7 @@ table {
   }
 }
 
-
+::ng-deep .mat-error {
+  color: red;
+  padding-top: 10px;
+}
