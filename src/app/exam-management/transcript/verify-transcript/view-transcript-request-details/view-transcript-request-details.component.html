@@ -5,7 +5,7 @@
     <div class="form-content">
       <br>
       <form class="date-block" [formGroup]="form">
-        <mat-grid-list cols="2" rowHeight="60px" gutterSize="4px">
+        <mat-grid-list cols="2" rowHeight="62px" gutterSize="4px">
           <mat-grid-tile>
             <mat-form-field class="form-fields" appearance="outline">
               <mat-label>NIC or Reg number</mat-label>
@@ -13,7 +13,11 @@
               <button matSuffix mat-icon-button aria-label="Search">
                 <mat-icon>search</mat-icon>
               </button>
+              <mat-error>
+                Spaces are not allowed.
+              </mat-error>
             </mat-form-field>
+
           </mat-grid-tile>
 
           <mat-grid-tile>
@@ -96,7 +100,7 @@
 <!--        </div>-->
 
         <div class="export-container">
-          <button (click)="search()" mat-raised-button color="primary">Search</button>        &nbsp;
+          <button (click)="search()" [disabled]="!form.valid" mat-raised-button color="primary">Search</button>        &nbsp;
           <button mat-raised-button color="primary" onclick="window.location.reload()">Refresh</button>
         </div>
         <br>
