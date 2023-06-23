@@ -93,7 +93,7 @@
     <br>
 
     <div class="export-container">
-      <button (click)="search()" mat-raised-button color="primary">Search</button>        &nbsp;
+      <button (click)="search()" [disabled]="!form.valid" mat-raised-button color="primary">Search</button>        &nbsp;
       <button mat-raised-button color="primary" onclick="window.location.reload()">Refresh</button>
     </div>
 
