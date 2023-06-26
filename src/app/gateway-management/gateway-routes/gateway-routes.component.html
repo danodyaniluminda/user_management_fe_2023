@@ -109,8 +109,10 @@
                       <td *ngIf="!showEditArray[rowIndex]" class="info-data">{{row.rolesAllowed}}</td>
                       <td *ngIf="showEditArray[rowIndex]" class="info-data">
                         <div class="edit-roles-wrapper">
-                          <p style="margin-top: -17px">Test</p>
-                          <mat-checkbox color='primary'>STUDENT</mat-checkbox>
+                          <p id="edit-roles-label">Roles Allowed</p>
+                          <div *ngFor="let role of gatewayRoutesModel.allRoles">
+                            <mat-checkbox color='primary'>{{role.roleName}}</mat-checkbox>
+                          </div>
                         </div>
                       </td>
                     </tr>
