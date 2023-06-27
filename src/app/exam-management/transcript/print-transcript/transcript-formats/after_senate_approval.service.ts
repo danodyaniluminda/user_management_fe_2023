@@ -18,6 +18,9 @@ export class After_senate_approvalService {
   constructor(private commonData:PrintCommonService,private printTranscriptService:PrintTranscriptService) {
     (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
   }
+  lowercaseText: string;
+  uppercaseText: string;
+  capitalizedText: string;
   bbbbb:any;
   additionalRequirementsHeading:any;
   additionalRequirementsTable:any;
@@ -170,7 +173,7 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:20,
-                    text: String(courseDetails[j].courseTitle),
+                    text: this.changeCase(String(courseDetails[j].courseTitle),'capitalize'),
                   }),
                 ]
               })
@@ -278,7 +281,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text: "Student Name:",
+                            text: "Student Name                          :",
                           }),
                         ]
                       })
@@ -292,7 +295,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text:data.personalDetails.titleText+'.',
+                            text:data.personalDetails.titles+'.',
                           }),
                           new TextRun({
                             text:this.camelCaseText(data.personalDetails.denotedByInitials)+' ',
@@ -338,7 +341,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text: "Student Registration No.:",
+                            text: "Student Registration No.        :",
                           }),
                         ]
                       })],
@@ -371,7 +374,7 @@ export class After_senate_approvalService {
                         new TextRun({
                           font:"Book Antiqua",
                           size:22,
-                          text: "Medium:",
+                          text: "Medium                                     :",
                         }),
                       ]
                     })],
@@ -400,7 +403,7 @@ export class After_senate_approvalService {
                       new TextRun({
                         font:"Book Antiqua",
                         size:22,
-                        text: "Grade Point Average (GPA):",
+                        text: "Grade Point Average (GPA)   :",
                       }),
                     ]
                   })],
@@ -413,7 +416,7 @@ export class After_senate_approvalService {
                       new TextRun({
                         font:"Book Antiqua",
                         size:22,
-                        text: "",
+                        text: data.personalDetails.calculatedGPALevel +" out of 4.00" ,
                       }),
                     ]
                   })
@@ -430,7 +433,7 @@ export class After_senate_approvalService {
                     new TextRun({
                       font:"Book Antiqua",
                       size:22,
-                      text: "Effective Date:",
+                      text: "Effective Date                            :",
                     }),
                   ]
                 })],
@@ -459,7 +462,7 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:22,
-                    text: "Final Award:",
+                    text: "Final Award                               :",
                   }),
                 ]
               })],
@@ -472,7 +475,7 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:22,
-                    text: "",
+                    text: data.personalDetails.classDescription,
                   }),
                 ]
               })
@@ -516,12 +519,12 @@ export class After_senate_approvalService {
 
 
 
-if (this.coursejsonContinuData.length === 0) {
+if (data.courseJSONContinueData.length === 0) {
   this.additionalRequirementsHeading="";
   this.additionalRequirementsTable="";
 } else {
   this.additionalRequirementsHeading=this.createSubHeadingSecond("Additional Requirements for the Award:");
-  this.additionalRequirementsTable=this.generateEnglishTable(this.coursejsonContinuData);
+  this.additionalRequirementsTable=this.generateEnglishTable(data.courseJSONContinueData);
 }
 
 if (gg.gpaDetailsjsonDataEnglish.length === 0) {
@@ -688,13 +691,13 @@ const dateString = `${year}-${month}-${day}`;
                       new ImageRun({
                         data: this.commonData.footer2,
                         transformation: {
-                            width: 620,
+                            width: 630,
                             height: 33,
                         },
                     }),
                       new Tab(),
                       new TextRun({
-                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: [PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -709,13 +712,13 @@ const dateString = `${year}-${month}-${day}`;
                       new ImageRun({
                         data: this.commonData.footer2,
                         transformation: {
-                            width: 620,
+                            width: 630,
                             height: 33,
                         },
                     }),
                       new Tab(),
                       new TextRun({
-                        children: ["Page", PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
+                        children: [PageNumber.CURRENT,"/",PageNumber.TOTAL_PAGES],
                         font:"Monotype Corsiva"
                     }),
                     ]
@@ -1056,7 +1059,7 @@ new Table({
             new TextRun({
               font:"Book Antiqua",
               size:22,
-              text: "This letter is issued at the request of "+this.camelCaseText(data.personalDetails.titleText)+'.'+""
+              text: "This letter is issued at the request of "+this.camelCaseText(data.personalDetails.titles)+'.'+""
             }),
             new TextRun({
               font:"Book Antiqua",
@@ -1421,6 +1424,24 @@ cells.push(cell);
   return camelCaseWords.join(' ');
 }
 
+changeCase(text: string, caseType: string): string {
+  switch (caseType) {
+    case 'lower':
+      return this.lowercaseText = text.toLowerCase();
+      break;
+    case 'upper':
+      return this.uppercaseText = text.toUpperCase();
+      break;
+    case 'capitalize':
+      return this.capitalizedText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+      break;
+    default:
+      // Do nothing or handle error case
+      return text;
+      break;
+  }
+}
+
 
 
 generateEnglishTable(data: any) {
@@ -1530,7 +1551,7 @@ for (let j = 0; j < data.length; j++) {
             new TextRun({
               font:"Book Antiqua",
               size:20,
-              text: String(data[j].title),
+              text: this.changeCase(String(data[j].title),'capitalize'),
             }),
           ]
         })
@@ -1545,7 +1566,7 @@ for (let j = 0; j < data.length; j++) {
             new TextRun({
               font:"Book Antiqua",
               size:20,
-              text: String(data[j].creadit),
+              text: String(data[j].credit),
             }),
           ]
         })

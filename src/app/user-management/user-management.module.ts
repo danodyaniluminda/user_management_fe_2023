@@ -20,9 +20,9 @@ import {MatTableExporterModule} from "mat-table-exporter";
 import {MatTableModule} from "@angular/material/table";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {DataTablesModule} from "angular-datatables";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatGridListModule} from "@angular/material/grid-list";
-import {DataTablesModule} from "angular-datatables";
 import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 
 

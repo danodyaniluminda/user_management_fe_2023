@@ -19,13 +19,15 @@ export class PaymentReconcilationComponent implements OnInit {
   data:any = [];
   allData:any = [];
   showEditArray:boolean[] = [];
+
   columns = [
     { key: 'applicationId', title: 'Application Id', width: 30},
     { key: 'nic', title: 'NIC', width: 30},
     { key: 'dateAppliedTable', title: 'Date Applied', width: 30},
     { key: 'status', title: 'Voucher Status', width: 30},
-    { key: 'dueAmount', title: 'Due Amount', width: 30}
+    { key: 'dueAmount', title: 'Due Amount', width: 30},
   ];
+
 
   AllVouchers: voucherInterface[] = [];
   AllProgrammes: any = [];
@@ -228,8 +230,9 @@ export class PaymentReconcilationComponent implements OnInit {
           dateApplied: row['dateApplied'],
           dateAppliedTable: this.datepipe.transform(row['dateApplied'], 'dd-MM-yyyy'),
           dateAppliedForSort: this.datepipe.transform(row['dateApplied'], 'yyyy-MM-dd'),
-          status: row['status'],
-          dueAmount: row['dueAmount']
+          // status: row['status'],
+          status:Boolean(row['status']) ? 'Paid' : 'Unpaid',
+          dueAmount: parseFloat(row['dueAmount']).toFixed(2)
         }));
         this.data = this.allData;
         this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
@@ -251,6 +254,8 @@ export class PaymentReconcilationComponent implements OnInit {
         this.vouchersPaymentTypes = Array(this.AllVouchers.length).fill('0');
       });
   }
+
+
 
   updateVoucher(applicationId: any,paymentTypeId:any) {
     console.log("Application Id : " + applicationId);

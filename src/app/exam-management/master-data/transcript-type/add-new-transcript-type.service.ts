@@ -67,7 +67,7 @@ export class AddNewTranscriptTypeService {
           observable.complete();
         }else{
           // alert(result);
-          Swal.fire('Success...','Record Added Successfully', 'success').
+          Swal.fire('Success !','Record Added Successfully.', 'success').
           then((result) => {
             if(result){
               location.reload();
