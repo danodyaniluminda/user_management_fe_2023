@@ -18,6 +18,9 @@ export class After_senate_approvalService {
   constructor(private commonData:PrintCommonService,private printTranscriptService:PrintTranscriptService) {
     (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
   }
+  lowercaseText: string;
+  uppercaseText: string;
+  capitalizedText: string;
   bbbbb:any;
   additionalRequirementsHeading:any;
   additionalRequirementsTable:any;
@@ -170,7 +173,7 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:20,
-                    text: String(courseDetails[j].courseTitle),
+                    text: this.changeCase(String(courseDetails[j].courseTitle),'capitalize'),
                   }),
                 ]
               })
@@ -1421,6 +1424,24 @@ cells.push(cell);
   return camelCaseWords.join(' ');
 }
 
+changeCase(text: string, caseType: string): string {
+  switch (caseType) {
+    case 'lower':
+      return this.lowercaseText = text.toLowerCase();
+      break;
+    case 'upper':
+      return this.uppercaseText = text.toUpperCase();
+      break;
+    case 'capitalize':
+      return this.capitalizedText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+      break;
+    default:
+      // Do nothing or handle error case
+      return text;
+      break;
+  }
+}
+
 
 
 generateEnglishTable(data: any) {
@@ -1530,7 +1551,7 @@ for (let j = 0; j < data.length; j++) {
             new TextRun({
               font:"Book Antiqua",
               size:20,
-              text: String(data[j].title),
+              text: this.changeCase(String(data[j].title),'capitalize'),
             }),
           ]
         })
