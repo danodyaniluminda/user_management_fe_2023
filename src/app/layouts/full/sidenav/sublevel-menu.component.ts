@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { fadeInOut, INavbarData } from './helper';
 import {PermissionService} from "../../../shared/services/permission.service";
+import {AuthenticationService} from "../../../shared/_services";
 
 @Component({
   selector: 'app-sublevel-menu',
@@ -87,7 +88,7 @@ export class SublevelMenuComponent implements OnInit {
   @Input() multiple: boolean = false;
   private permissions: any;
 
-  constructor(public router: Router,private sideNavService:PermissionService) {}
+  constructor(public router: Router,private sideNavService:PermissionService,private authenticationService: AuthenticationService) {}
 
   ngOnInit(): void {
   }
@@ -115,7 +116,7 @@ export class SublevelMenuComponent implements OnInit {
 
   getPermissions(item:INavbarData) {
     this.sideNavService
-      .getPermission()
+      .getPermission(this.authenticationService.currentUserValue.role)
       .toPromise()
       .then((res: any) => {
         this.permissions = res;
