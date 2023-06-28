@@ -24,7 +24,6 @@ import {DataTablesModule} from "angular-datatables";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
-import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 
 
 @NgModule({
@@ -58,24 +57,24 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
         DataTablesModule,
         NgxDatatableModule
     ]
-  imports: [
-    CommonModule,
-    UserManagementRoutingModule,
-    FormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatOptionModule,
-    MatPaginatorModule,
-    MatSelectModule,
-    MatSortModule,
-    MatTableExporterModule,
-    MatTableModule,
-    MatTooltipModule,
-    NgxMatSelectSearchModule,
-    NgxDatatableModule
-  ]
+  // imports: [
+  //   CommonModule,
+  //   UserManagementRoutingModule,
+  //   FormsModule,
+  //   MatButtonModule,
+  //   MatCardModule,
+  //   MatFormFieldModule,
+  //   MatIconModule,
+  //   MatInputModule,
+  //   MatOptionModule,
+  //   MatPaginatorModule,
+  //   MatSelectModule,
+  //   MatSortModule,
+  //   MatTableExporterModule,
+  //   MatTableModule,
+  //   MatTooltipModule,
+  //   NgxMatSelectSearchModule,
+  //   NgxDatatableModule
+  // ]
 })
 export class UserManagementModule { }

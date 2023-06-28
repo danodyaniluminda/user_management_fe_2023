@@ -220,7 +220,7 @@
 //
 
 import { Component, OnInit } from '@angular/core';
-import { Component, ViewChild, TemplateRef, OnInit } from '@angular/core';
+import { ViewChild, TemplateRef } from '@angular/core';
 import {newArray} from "@angular/compiler/src/util";
 
 @Component({
@@ -248,7 +248,7 @@ export class RouteManagementComponent implements OnInit  {
 
   ];
 
-  constructor() { }
+
   ngOnInit(): void {
 
     //Set table options
@@ -262,177 +262,177 @@ export class RouteManagementComponent implements OnInit  {
 
 }
     //Get data from backend
-    setTimeout(() => {
+    // setTimeout(() => {
+    //
+    //   //Get data from backend
+    //   this.data = this.getData();
+    //
+    //   //Create boolean array
+    //   this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+    //
+    // }, 3000);
 
-      //Get data from backend
-      this.data = this.getData();
 
-      //Create boolean array
-      this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+ // }
 
-    }, 3000);
+  // onCheckboxClick(selectCheckBoxArr:any) {
+  //   alert(JSON.stringify(selectCheckBoxArr));
+  // }
 
-
-  }
-
-  onCheckboxClick(selectCheckBoxArr:any) {
-    alert(JSON.stringify(selectCheckBoxArr));
-  }
-
-  public getData(){
-    return [
-      {
-        "id": "1",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "2",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "3",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "4",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "5",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "6",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "7",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "8",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "9",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "10",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "11",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "12",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "13",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "14",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "15",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "16",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "17",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "18",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "19",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "20",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "21",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "22",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "23",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "24",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      },
-      {
-        "id": "25",
-        "routename": "exam",
-        "category": "Exam management",
-        "activestatus": "true"
-      }
-    ];
-  }
+  // public getData(){
+  //   return [
+  //     {
+  //       "id": "1",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "2",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "3",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "4",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "5",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "6",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "7",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "8",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "9",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "10",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "11",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "12",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "13",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "14",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "15",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "16",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "17",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "18",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "19",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "20",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "21",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "22",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "23",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "24",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     },
+  //     {
+  //       "id": "25",
+  //       "routename": "exam",
+  //       "category": "Exam management",
+  //       "activestatus": "true"
+  //     }
+  //   ];
+  // }
 
 
 
