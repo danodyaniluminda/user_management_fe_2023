@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,6 +13,21 @@ import { PaymentReconcilationService } from './payment-reconcilation.service';
   styleUrls: ['./payment-reconcilation.component.css']
 })
 export class PaymentReconcilationComponent implements OnInit {
+
+  @ViewChild('rowExpansion', { static: true }) rowExpansion: TemplateRef<any>;
+  options = {}
+  data:any = [];
+  allData:any = [];
+  showEditArray:boolean[] = [];
+
+  columns = [
+    { key: 'applicationId', title: 'Application Id', width: 30},
+    { key: 'nic', title: 'NIC', width: 30},
+    { key: 'dateAppliedTable', title: 'Date Applied', width: 30},
+    { key: 'status', title: 'Voucher Status', width: 30},
+    { key: 'dueAmount', title: 'Due Amount', width: 30},
+  ];
+
 
   AllVouchers: voucherInterface[] = [];
   AllProgrammes: any = [];
@@ -68,12 +83,47 @@ export class PaymentReconcilationComponent implements OnInit {
 
   applyFilter() {
     this.vouchers.filter = ''+Math.random();
-    console.log(this.vouchers);
+    this.data.filter = ''+Math.random();
+    //console.log(this.vouchers);
+
+
+
+    let fromDate =this.datepipe.transform(this.fromDate,'yyyy-MM-dd') + "";
+    let toDate = this.datepipe.transform(this.toDate,'yyyy-MM-dd') + "";
+
+    //console.log("dateApplied",dateApplied);
+    //console.log("fromDate",fromDate);
+    //console.log("toDate",toDate);
+
+    //console.log("this.allData", this.allData)
+    //console.log("this.allData", this.allData.len)
+
+    let filtered: any[] = [];
+    this.allData.forEach((object:any) => {
+      let dateApplied= object['dateAppliedForSort'];
+      if(dateApplied >= fromDate && dateApplied <= toDate){
+        filtered.push(object);
+      }
+    });
+
+    this.data = filtered;
+    // this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+
+
+
   }
 
   ngOnInit(): void {
     this.fetchVoucherDetails();
     this.updateVoucher;
+
+    //Set table options
+    this.options = {
+      //delete check box true if you dont want checkbox
+      //checkboxes: true,
+      rowDetailTemplate:this.rowExpansion
+    }
+
   }
 
   exportTable(){
@@ -166,13 +216,27 @@ export class PaymentReconcilationComponent implements OnInit {
   archive: Boolean = true;
 
 
-
   fetchVoucherDetails() {
+    // @ts-ignore
+    let datePipe = new DatePipe();
     this.paymentReconcilationService
       .getVoucherDetails()
       .toPromise()
       .then((result: any) => {
         console.log("All",result);
+        this.allData = this.builddata(result.vouchers).map((row: any) => ({
+          applicationId: row['applicationId'],
+          nic: row['nic'],
+          dateApplied: row['dateApplied'],
+          dateAppliedTable: this.datepipe.transform(row['dateApplied'], 'dd-MM-yyyy'),
+          dateAppliedForSort: this.datepipe.transform(row['dateApplied'], 'yyyy-MM-dd'),
+          // status: row['status'],
+          status:Boolean(row['status']) ? 'Paid' : 'Unpaid',
+          dueAmount: parseFloat(row['dueAmount']).toFixed(2)
+        }));
+        this.data = this.allData;
+        this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+        //console.log("this.data", this.data);
         this.AllVouchers = this.builddata(result.vouchers);
         this.vouchers = new MatTableDataSource(this.AllVouchers);
         this.vouchers.paginator = this.paginator;
@@ -181,19 +245,17 @@ export class PaymentReconcilationComponent implements OnInit {
             let dateApplied= this.datepipe.transform(data.dateApplied,'yyyy-MM-dd');
             let fromDate =this.datepipe.transform(this.fromDate,'yyyy-MM-dd')
             let toDate = this.datepipe.transform(this.toDate,'yyyy-MM-dd')
-            // console.log("dateApplied ",dateApplied);
-            // console.log("fromDate ",fromDate);
-            // console.log(data.dateApplied.toString());
-            // console.log(this.toDate.toString());
-            // return data.dateApplied >= this.fromDate && data.dateApplied <= this.toDate;
             return dateApplied! >= fromDate! && dateApplied! <= toDate!;
           }
           return true;
         };
+
         // console.log(this.AllVouchers[0].dateApplied)
         this.vouchersPaymentTypes = Array(this.AllVouchers.length).fill('0');
       });
   }
+
+
 
   updateVoucher(applicationId: any,paymentTypeId:any) {
     console.log("Application Id : " + applicationId);
@@ -233,6 +295,10 @@ export class PaymentReconcilationComponent implements OnInit {
       }
     }
     return data;
+  }
+
+  myFunction(date:any){
+    let latest_date =this.datepipe.transform(date, 'yyyy-MM-dd');
   }
 
 }

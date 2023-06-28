@@ -6,134 +6,109 @@
       <li class="breadcrumb-item active" aria-current="page">Transcript type and result type</li>
     </ol>
   </nav>
-
 </mat-card>
-
-
-<div >
-
-      <div class="center" >
-        Transcript type and Result type
-      </div>
-
+<div>
+  <div class="content">
+    Transcript type and Result type
+  </div>
   <br>
-
-  <mat-card class="example-container" >
-
-    <div class="example-table-container" >
-      <div class="table-responsive">
-<br> <br>
-        <div id="table-div" style="overflow-x: auto;">
-          <table id="printTable"
-                 mat-table [dataSource]="eligibilityDT"
-                 style="background-color: #ffffff"
-                 class="example-container mat-elevation-z8" matSort>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
-
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-              <td mat-cell *matCellDef="let element">{{element.id}}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="tranTypeName">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Type Name</th>
-              <td mat-cell *matCellDef="let element">{{element['tranType']['name']}}</td>
-            </ng-container>
-
-            <!--      <ng-container matColumnDef="name">-->
-            <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>-->
-            <!--        <td mat-cell *matCellDef="let element">{{element.name}}</td>-->
-            <!--      </ng-container>-->
-
-            <ng-container matColumnDef="resultTypeName">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Result Type Name</th>
-              <td mat-cell *matCellDef="let element">{{element['resultType']['name']}}
-                <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-              </td>
-            </ng-container>
-
-
-          </table>
-        </div>
+  <mat-card class="example-card-1" style="background-color: #ffffff;">
+    <br>
+    <mat-card id="top-input-section">
+      <div id="top-input-section-inner">
         <br>
-        <div id="paginator-card">
-          <mat-card>
-            <mat-paginator #paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
-          </mat-card>
-        </div>
-
-
+        <mat-form-field class="form-fields" appearance="outline" style="width: 400px; margin-top: 5px;">
+          <mat-label>Transcript type name</mat-label>
+          <mat-autocomplete #autoTranscript="matAutocomplete" [class]="'blue-bg'"
+                            (optionSelected)="getTranscriptType($event.option.value)">
+            <mat-option *ngFor="let filteredTranscriptType of filteredTranscriptTypes"
+                        [value]="genTranscriptTypeValue(filteredTranscriptType)">
+              {{ filteredTranscriptType.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <input class="input-custom" matInput type="text" id="ttype" placeholder="Transcript Type Name"
+                 [(ngModel)]="transcriptInput" (input)="filterTranscriptType()"
+                 [matAutocomplete]="autoTranscript" name="ttypem">
+          <!--                    <button matSuffix mat-icon-button aria-label="Search">-->
+          <!--                      <mat-icon>search</mat-icon>-->
+          <!--                    </button>-->
+        </mat-form-field>
+        &nbsp;&nbsp;
+        <button (click)="goToAddNewTranscriptType()" mat-mini-fab color="primary"
+                aria-label="Example icon button with a plus icon" type="button">
+          <mat-icon>add</mat-icon>
+        </button>
         <br>
-        <div class="container">
-
-          <hr/>
-
-
-          <div style="overflow-x: auto;">
-
-            <br>
-
-
-            <div>
-              <mat-card  class="example-card" style= "background-color: #ffffff; margin-left: 20px; margin-right: 20px">
-                <!--      &nbsp;&nbsp;<mat-label> Transcript Type : </mat-label>&nbsp;-->
-
-                  <mat-form-field class="form-fields" appearance="outline" style="width: 400px; margin-top: 5px;">
-                    <mat-label>Transcript type name</mat-label>
-                    <mat-autocomplete #autoTranscript="matAutocomplete" [class]="'blue-bg'" (optionSelected)="getTranscriptType($event.option.value)">
-                      <mat-option *ngFor="let filteredTranscriptType of filteredTranscriptTypes" [value]="genTranscriptTypeValue(filteredTranscriptType)">
-                        {{ filteredTranscriptType.name }}
-                      </mat-option>
-                    </mat-autocomplete>
-                    <input matInput type="text" id="ttype" placeholder="Transcript Type Name" [(ngModel)]="transcriptInput" (input)="filterTranscriptType()"
-                           [matAutocomplete]="autoTranscript" name="ttypem" >&nbsp;&nbsp;&nbsp;
-<!--                    <button matSuffix mat-icon-button aria-label="Search">-->
-<!--                      <mat-icon>search</mat-icon>-->
-<!--                    </button>-->
-
-                  </mat-form-field>
-
-
-                &nbsp;&nbsp;<button (click)="goToAddNewTranscriptType()" type="button" mat-raised-button color="primary" >Add new</button> <br>
-
-
-                <br>
-
-                <!--      &nbsp;&nbsp;<mat-label> Result Type &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;</mat-label>&nbsp;-->
-                <mat-form-field class="form-fields" appearance="outline" style="width: 400px; margin-top: 5px;" >
-                  <mat-label>Result Type Name</mat-label>
-                  <mat-autocomplete #autoResult="matAutocomplete" [class]="'blue-bg'" (optionSelected)="getResultType($event.option.value)">
-                    <mat-option *ngFor="let filteredResultType of filteredResultTypes" [value]="genResultTypeValue(filteredResultType)">
-                      {{ filteredResultType.name }}
-                    </mat-option>
-                  </mat-autocomplete>
-                  <input matInput type="text" id="rtype" placeholder="Result Type Name" [(ngModel)]="resultInput" (input)="filterResultType()"
-                         [matAutocomplete]="autoResult" name="rtypem" value="filteredResultType.id">&nbsp;&nbsp;&nbsp;
-
-<!--                  <button matSuffix mat-icon-button aria-label="Search">-->
-<!--                    <mat-icon>search</mat-icon>-->
-<!--                  </button>-->
-
-                </mat-form-field>
-
-                &nbsp;&nbsp;<button (click)="goToAddNewResultType()" type="button" mat-raised-button color="primary" >Add new</button> <br>
-
-
-                <br>
-
-                <div>
-                  <button type="button" mat-raised-button color="primary" style="width: 75px; margin-bottom: 5px;" (click)="saveTranscriptEligibility()">Save</button>&nbsp;
-
-                  &nbsp;&nbsp;<button type="button" mat-raised-button color="primary" style="margin-bottom: 5px;" (click)="onClear()">Cancel</button>
-
-                </div>
-              </mat-card>
-            </div>
-
-
-          </div>
-        </div>
+        <!--      &nbsp;&nbsp;<mat-label> Result Type &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;</mat-label>&nbsp;-->
+        <mat-form-field class="form-fields" appearance="outline" style="width: 400px; margin-top: 5px;">
+          <mat-label>Result Type Name</mat-label>
+          <mat-autocomplete #autoResult="matAutocomplete" [class]="'blue-bg'"
+                            (optionSelected)="getResultType($event.option.value)">
+            <mat-option *ngFor="let filteredResultType of filteredResultTypes"
+                        [value]="genResultTypeValue(filteredResultType)">
+              {{ filteredResultType.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <input class="input-custom" matInput type="text" id="rtype" placeholder="Result Type Name"
+                 [(ngModel)]="resultInput" (input)="filterResultType()"
+                 [matAutocomplete]="autoResult" name="rtypem" value="filteredResultType.id">
+          <!--                  <button matSuffix mat-icon-button aria-label="Search">-->
+          <!--                    <mat-icon>search</mat-icon>-->
+          <!--                  </button>-->
+        </mat-form-field>
+        &nbsp;&nbsp;
+        <button (click)="goToAddNewResultType()" mat-mini-fab color="primary"
+                aria-label="Example icon button with a plus icon" type="button">
+          <mat-icon>add</mat-icon>
+        </button>
+        <br>
+        <button type="button" mat-raised-button color="primary" style="width: 75px; margin-bottom: 5px;"
+                (click)="saveTranscriptEligibility()">Save
+        </button>&nbsp;
+        <button type="button" mat-raised-button color="primary" style="margin-bottom: 5px;" (click)="onClear()">Cancel
+        </button>
       </div>
+      <br>
+    </mat-card>
+    <br><br>
+  </mat-card>
+  <mat-card class="example-container">
+    <br> <br>
+    <div id="table-div" style="overflow-x: auto;">
+      <table id="printTable"
+             mat-table [dataSource]="eligibilityDT"
+             style="background-color: #ffffff"
+             class="example-container mat-elevation-z8" matSort>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="tranTypeName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Type Name</th>
+          <td mat-cell *matCellDef="let element">{{element['tranType']['name']}}</td>
+        </ng-container>
+        <!--      <ng-container matColumnDef="name">-->
+        <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>-->
+        <!--        <td mat-cell *matCellDef="let element">{{element.name}}</td>-->
+        <!--      </ng-container>-->
+        <ng-container matColumnDef="resultTypeName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Result Type Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{element['resultType']['name']}}
+            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+          </td>
+        </ng-container>
+      </table>
     </div>
+    <br>
+    <div id="paginator-card">
+      <mat-card>
+        <mat-paginator #paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
+      </mat-card>
+    </div>
+    <br>
+  </mat-card>
+  <br>
+</div>

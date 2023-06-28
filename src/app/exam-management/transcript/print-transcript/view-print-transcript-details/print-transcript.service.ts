@@ -12,11 +12,21 @@ const REQUEST_TRANSCRIPT_API_OLD_OMIS = environment.base_url_old_omis+'/api/old_
 })
 export class PrintTranscriptService {
 
+  get programmes(): any {
+    return this._programmes;
+  }
+
+  set programmes(value: any) {
+    this._programmes = value;
+  }
+
   constructor(private http: HttpClient, private router: Router) { }
 
+  private _programmes : any;
 
+//vr
   getAllProgrammes(): Observable<any> {
-    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'programme/get_all_programmes');
+    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'programmes');
     return new Observable(observable => {
       observable.next(result.toPromise().then((result: any) => {
         observable.next(result);
@@ -60,7 +70,7 @@ export class PrintTranscriptService {
 
   //transcripts/find_transcript
   searchResponseToAPI(form: FormGroup) : Observable<any> {
-    console.log(form.value);
+    console.log("form value",form.value);
     let result = this.http.post(GENERATE_TRANSCRIPT_API + 'transcripts/find_print_transcript', form.value, {
       responseType: 'json',
     });
@@ -71,6 +81,7 @@ export class PrintTranscriptService {
           .toPromise()
           .then((result: any) => {
             observable.next(result);
+            console.log("form value get backend",result);
             observable.complete();
             // observable.next('success:Your account has been created successfully. Please check the email to find the username and password.');
 
