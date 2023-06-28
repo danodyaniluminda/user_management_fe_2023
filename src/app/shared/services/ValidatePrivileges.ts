@@ -9,6 +9,7 @@ import {
 import {Observable} from 'rxjs';
 import {Injectable, OnInit} from '@angular/core';
 import {PermissionService} from "./permission.service";
+import {AuthenticationService} from "../_services";
 
 
 // CanActivate route gurd decodes if a route can be activated or not.
@@ -20,14 +21,14 @@ import {PermissionService} from "./permission.service";
 
 export class PermissionGuardService implements CanActivateChild {
 
-  constructor(private router: Router, private permissionService: PermissionService) {
+  constructor(private router: Router, private permissionService: PermissionService,private authenticationService: AuthenticationService) {
   }
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.getPermission(state);
   }
   private async getPermission(state: RouterStateSnapshot): Promise<boolean> {
     return await this.permissionService
-      .getPermission()
+      .getPermission(this.authenticationService.currentUserValue.role)
       .toPromise()
       .then((res: any) => {
         return this.validate(res, state);
