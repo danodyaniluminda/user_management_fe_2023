@@ -57,5 +57,24 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
         DataTablesModule,
         NgxDatatableModule
     ]
+  // imports: [
+  //   CommonModule,
+  //   UserManagementRoutingModule,
+  //   FormsModule,
+  //   MatButtonModule,
+  //   MatCardModule,
+  //   MatFormFieldModule,
+  //   MatIconModule,
+  //   MatInputModule,
+  //   MatOptionModule,
+  //   MatPaginatorModule,
+  //   MatSelectModule,
+  //   MatSortModule,
+  //   MatTableExporterModule,
+  //   MatTableModule,
+  //   MatTooltipModule,
+  //   NgxMatSelectSearchModule,
+  //   NgxDatatableModule
+  // ]
 })
 export class UserManagementModule { }

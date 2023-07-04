@@ -12,14 +12,21 @@ export class PermissionService {
   constructor(private http :HttpClient) { }
 
   permission:[];
-  getPermission(): Observable<any> {
+  getPermission(roleName:string): Observable<any> {
+    // console.log(roleName);
     if (this.permission && this.permission.length>0){
       return of(this.permission)
     }
-    return  this.http.get(GENERATE_TRANSCRIPT_API + 'get_permissions', {params: new HttpParams().append("role_name", 'admin')})
+    return  this.http.get(GENERATE_TRANSCRIPT_API + 'get_permissions', {params: new HttpParams().append("role_name", roleName)})
       .pipe(tap((result:any)=>{
         this.permission = result;
       }));
+  }
+
+  setPermission(){
+    this.permission = [];
+    console.log(this.permission);
+
   }
 
 }

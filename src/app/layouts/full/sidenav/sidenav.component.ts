@@ -7,6 +7,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {PermissionService} from "../../../shared/services/permission.service";
+import {AuthenticationService} from "../../../shared/_services";
 
 interface SideNavToggle {
   screenWidth: number;
@@ -46,17 +47,18 @@ export class SidenavComponent implements OnInit {
   private rootLevel: INavbarData[];
   private permissions: INavbarData[];
 
-  constructor(public router: Router, private http:HttpClient,private sideNavService:PermissionService) {
+  constructor(public router: Router, private http:HttpClient,private sideNavService:PermissionService,private authenticationService: AuthenticationService) {
     // http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'getMenu').subscribe((res)=>this.rootLevel = res);
     // this.http.get<INavbarData[]>(GENERATE_TRANSCRIPT_API + 'get_permissions', {params: new HttpParams().append("role_name", 'admin')}).subscribe((res) =>this.subItem = res);
   }
   ngOnInit(): void {
+    // location.reload();
     this.getPermissions();
   }
 
   getPermissions() {
     this.sideNavService
-      .getPermission()
+      .getPermission(this.authenticationService.currentUserValue.role)
       .toPromise()
       .then((res: any) => {
         this.permissions = res;
