@@ -193,15 +193,3 @@ export class ViewTranscriptRequestDetailsComponent implements OnInit {
 
 }
 
-
-import { AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
-
-export function noSpaceValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const value = control.value;
-    if (value && value.trim().length === 0) {
-      return { noSpace: true };
-    }
-    return null;
-  };
-}

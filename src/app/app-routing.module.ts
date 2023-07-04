@@ -12,16 +12,19 @@ import {NotFoundComponent} from "./layouts/error/not-found/not-found.component";
 import {TranscriptViewComponent} from './layouts/transcript-details/transcript-view.component';
 import {DashboardAccess, PermissionGuardService} from "./shared/services/ValidatePrivileges";
 import {AccessDeniedComponent} from "./layouts/error/access-denied/access-denied.component";
+import {LoginComponent} from "./shared/login/login.component";
+import {AuthGuard} from "./shared/_helpers/auth.guard";
 
 const routes: Routes = [
   {
     path: 'transcript-view',
     component: TranscriptViewComponent
   },
+  { path: 'login', component: LoginComponent },
   {
     path: '',
     component: FullComponent,
-    canActivateChild: [PermissionGuardService],
+    canActivateChild: [PermissionGuardService,AuthGuard],
     children: [
       {
         path: '',
@@ -53,12 +56,11 @@ const routes: Routes = [
         component:AccessDeniedComponent
 
       },
-      {
-        path: '**',
-        component: NotFoundComponent
-      }
+
     ]
   },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '**', redirectTo: '/' }
 
 ];
 

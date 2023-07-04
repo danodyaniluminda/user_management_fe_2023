@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { CommonModule, LocationStrategy, PathLocationStrategy, DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
 
@@ -29,6 +29,10 @@ import { GatewayManagementModule } from "./gateway-management/gateway-management
 import { TranscriptViewComponent } from './layouts/transcript-details/transcript-view.component';
 import {DashboardAccess, PermissionGuardService} from "./shared/services/ValidatePrivileges";
 import { AccessDeniedComponent } from './layouts/error/access-denied/access-denied.component';
+import { LoginComponent } from './shared/login/login.component';
+import {BasicAuthInterceptor} from "./shared/_helpers/basic-auth.interceptor";
+import {ErrorInterceptor} from "./shared/_helpers/error.interceptor";
+import {fakeBackendProvider} from "./shared/_helpers";
 
 @NgModule({
   declarations: [
@@ -41,7 +45,8 @@ import { AccessDeniedComponent } from './layouts/error/access-denied/access-deni
     NotFoundComponent,
     SamplePipe,
     TranscriptViewComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +73,12 @@ import { AccessDeniedComponent } from './layouts/error/access-denied/access-deni
       useClass: PathLocationStrategy
     },
     DashboardAccess,
-    PermissionGuardService
+    PermissionGuardService,
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
