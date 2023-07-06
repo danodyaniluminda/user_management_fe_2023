@@ -35,7 +35,7 @@ export class VerifyAndGenerateResultSheetService {
 
     let queryParams = new HttpParams();
     queryParams = queryParams.append("applicant_registration_number", registrationNumber).append("is_engineering", false);
-    
+
     let result = this.http.get(
       OLD_OMIS_API + '/get_certificate_details_by_applicant_registration_number_and_is_engineering',
       {params : queryParams });
@@ -76,6 +76,8 @@ export class VerifyAndGenerateResultSheetService {
           result.toPromise()
           .then((result:any) => {
             console.log(result);
+            console.log("Transcript Id : ", transcriptId);
+            console.log("Transcript Result Status Type Id : ", transcriptResultStatusTypeId);
             observable.next(result);
             observable.complete();
           })
@@ -114,7 +116,7 @@ export class VerifyAndGenerateResultSheetService {
                 observable.complete();
               }
             )
-  
+
           );
         }
       );

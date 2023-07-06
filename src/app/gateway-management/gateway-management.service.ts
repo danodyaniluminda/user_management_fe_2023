@@ -24,7 +24,7 @@ export class GatewayManagementService {
 
 
   getAllGatewayRoutes():Observable<any> | null{
-    let result = this.http.get(GATEWAY_API + '/gateway_routes/get_all_gateway_routes_with_roles');
+    let result = this.http.get(GATEWAY_API + '/gateway_routes/get_all_gateway_routes');
     return new Observable(
       observable => {
         result.toPromise()

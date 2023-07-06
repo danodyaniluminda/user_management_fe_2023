@@ -106,12 +106,12 @@
                     <tr class="info-row">
                       <td class="info-heading">Roles Allowed</td>
                       <td class="info-heading">:</td>
-                      <td *ngIf="!showEditArray[rowIndex]" class="info-data">{{row.rolesAllowed}}</td>
+                      <td *ngIf="!showEditArray[rowIndex]" class="info-data">{{row.allowedRoleNames}}</td>
                       <td *ngIf="showEditArray[rowIndex]" class="info-data">
                         <div class="edit-roles-wrapper">
                           <p id="edit-roles-label">Roles Allowed</p>
                           <div *ngFor="let role of gatewayRoutesModel.allRoles">
-                            <mat-checkbox color='primary'>{{role.roleName}}</mat-checkbox>
+                            <mat-checkbox [checked]="(row.allowedRoleIDs).includes(role.id)" color='primary'>{{role.roleName}}</mat-checkbox>
                           </div>
                         </div>
                       </td>
@@ -136,12 +136,8 @@
                   Delete
                 </button>
 
-                <br>
-                <div style="margin-left: 100px;margin-top: 50px" *ngIf="showEditArray[rowIndex]">
-                  <label> Name : </label> <input type="text" value="{{row.name}}">
-                </div>
 
-                <br>
+                <br><br><br>
 
                 <span>.</span>
               </div>
