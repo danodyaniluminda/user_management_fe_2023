@@ -281,12 +281,26 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text: "Student Name                          :",
+                            text: "Student Name",
                           }),
                         ]
                       })
                       ],
                 }),
+                new TableCell({
+
+                  children: [
+                   new Paragraph({
+                      children: [
+                        new TextRun({
+                          font:"Book Antiqua",
+                          size:22,
+                          text: ": ",
+                        }),
+                      ]
+                    })
+                    ],
+              }),
                 new TableCell({
                   columnSpan:3,
                     children: [
@@ -295,7 +309,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text:data.personalDetails.titles+'.',
+                            text:'  '+data.personalDetails.titles+'.',
                           }),
                           new TextRun({
                             text:this.camelCaseText(data.personalDetails.denotedByInitials)+' ',
@@ -341,11 +355,25 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text: "Student Registration No.        :",
+                            text: "Student Registration No.",
                           }),
                         ]
                       })],
                 }),
+                new TableCell({
+
+                  children: [
+                   new Paragraph({
+                      children: [
+                        new TextRun({
+                          font:"Book Antiqua",
+                          size:22,
+                          text: ": ",
+                        }),
+                      ]
+                    })
+                    ],
+              }),
                 new TableCell({
                   columnSpan:3,
                     children: [
@@ -354,7 +382,7 @@ export class After_senate_approvalService {
                           new TextRun({
                             font:"Book Antiqua",
                             size:22,
-                            text: data.personalDetails.registrationNumber!,
+                            text:'  '+data.personalDetails.registrationNumber!,
                           }),
                         ]
                       })],
@@ -374,11 +402,25 @@ export class After_senate_approvalService {
                         new TextRun({
                           font:"Book Antiqua",
                           size:22,
-                          text: "Medium                                     :",
+                          text: "Medium",
                         }),
                       ]
                     })],
               }),
+              new TableCell({
+
+                children: [
+                 new Paragraph({
+                    children: [
+                      new TextRun({
+                        font:"Book Antiqua",
+                        size:22,
+                        text: ": ",
+                      }),
+                    ]
+                  })
+                  ],
+            }),
               new TableCell({
                 columnSpan:3,
                   children: [
@@ -387,7 +429,7 @@ export class After_senate_approvalService {
                         new TextRun({
                           font:"Book Antiqua",
                           size:22,
-                          text: data.personalDetails.mediumText!,
+                          text:'  '+data.personalDetails.mediumText!,
                         }),
                       ]
                     })],
@@ -403,11 +445,25 @@ export class After_senate_approvalService {
                       new TextRun({
                         font:"Book Antiqua",
                         size:22,
-                        text: "Grade Point Average (GPA)   :",
+                        text: "Grade Point Average (GPA)",
                       }),
                     ]
                   })],
             }),
+            new TableCell({
+
+              children: [
+               new Paragraph({
+                  children: [
+                    new TextRun({
+                      font:"Book Antiqua",
+                      size:22,
+                      text: ": ",
+                    }),
+                  ]
+                })
+                ],
+          }),
             new TableCell({
               columnSpan:3,
                 children: [
@@ -416,7 +472,7 @@ export class After_senate_approvalService {
                       new TextRun({
                         font:"Book Antiqua",
                         size:22,
-                        text: data.personalDetails.calculatedGPALevel +" out of 4.00" ,
+                        text:'  '+data.personalDetails.calculatedGPALevel +" out of 4.00" ,
                       }),
                     ]
                   })
@@ -433,11 +489,25 @@ export class After_senate_approvalService {
                     new TextRun({
                       font:"Book Antiqua",
                       size:22,
-                      text: "Effective Date                            :",
+                      text: "Effective Date",
                     }),
                   ]
                 })],
           }),
+          new TableCell({
+
+            children: [
+             new Paragraph({
+                children: [
+                  new TextRun({
+                    font:"Book Antiqua",
+                    size:22,
+                    text: ": ",
+                  }),
+                ]
+              })
+              ],
+        }),
           new TableCell({
             columnSpan:3,
               children: [
@@ -446,7 +516,7 @@ export class After_senate_approvalService {
                     new TextRun({
                       font:"Book Antiqua",
                       size:22,
-                      text: "2023-02-01",
+                      text:'  '+"2023-02-01",
                     }),
                   ]
                 })
@@ -462,11 +532,25 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:22,
-                    text: "Final Award                               :",
+                    text: "Final Award",
                   }),
                 ]
               })],
         }),
+        new TableCell({
+
+          children: [
+           new Paragraph({
+              children: [
+                new TextRun({
+                  font:"Book Antiqua",
+                  size:22,
+                  text: ": ",
+                }),
+              ]
+            })
+            ],
+      }),
         new TableCell({
           columnSpan:3,
             children: [
@@ -475,7 +559,7 @@ export class After_senate_approvalService {
                   new TextRun({
                     font:"Book Antiqua",
                     size:22,
-                    text: data.personalDetails.classDescription,
+                    text:'  '+data.personalDetails.classDescription,
                   }),
                 ]
               })
