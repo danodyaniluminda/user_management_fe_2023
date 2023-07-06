@@ -1,141 +1,129 @@
-<br><br><br>
-
-
-
-  <div>
-
-    <mat-card *ngIf="verifyAndGenerateResultSheetModel.showDetails" id="name-card">
-      <div class="row" id="ni-row">
-        <label class="label-type-1">Name With Initials</label>
-        <label class="label-type-2">
-          {{verifyAndGenerateResultSheetModel.personalDetails.titleText}}&nbsp;&nbsp;.
-          {{verifyAndGenerateResultSheetModel.personalDetails.initials}}&nbsp;&nbsp;
+<br>
+<div>
+  <div *ngIf="verifyAndGenerateResultSheetModel.showDetails" id="name-card">
+    <br><br>
+    <table id="personal-details-table">
+      <tr>
+        <td class="pdt-title">Name with Initials</td>
+        <td class="pdt-colon">:</td>
+        <td class="pdt-data">
+          {{verifyAndGenerateResultSheetModel.personalDetails.titles}}.
+          {{verifyAndGenerateResultSheetModel.personalDetails.initials}}
           {{verifyAndGenerateResultSheetModel.personalDetails.lastName}}&nbsp;&nbsp;
-        </label>
-      </div>
-      <div class="row" id="fname-row">
-        <label class="label-type-1">Fullname</label>
-        <label class="label-type-2">
-          {{verifyAndGenerateResultSheetModel.personalDetails.titleText}}&nbsp;&nbsp;.
-          {{verifyAndGenerateResultSheetModel.personalDetails.denotedByInitials}}&nbsp;&nbsp;
-        </label>
-      </div>
-      <div class="row" id="pname-row">
-        <label class="label-type-1">Programme</label>
-        <label class="label-type-2">
-          {{verifyAndGenerateResultSheetModel.personalDetails.programmeTitle}}
-        </label>
-      </div>
-      <div class="row" id="stype-row">
-        <label class="label-type-1">Service Type</label>
-        <label class="label-type-2">
-          {{verifyAndGenerateResultSheetModel.serviceType}}
-        </label>
-      </div>
-      <div class="row" id="ttype-row">
-        <label class="label-type-1">Transcript Type</label>
-        <label class="label-type-2">
-          {{verifyAndGenerateResultSheetModel.transcriptType}}
-        </label>
-      </div>
-    </mat-card>
-
-
-    <table mat-table [dataSource]="verifyAndGenerateResultSheetModel.courseDetailsTDS"
-      class="example-container mat-elevation-z8" matSort>
-
-
-      <ng-container matColumnDef="courseLevel">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> course Level </th>
-        <td mat-cell *matCellDef="let element">{{element.courseLevel}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="courseCode">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Code</th>
-        <td mat-cell *matCellDef="let element">{{element.courseCode}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="courseTitle">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Course Name</th>
-        <td mat-cell *matCellDef="let element">{{element.courseTitle}}
-          <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
         </td>
-      </ng-container>
-
-      <ng-container matColumnDef="courseCredit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>No Of Credits</th>
-        <td mat-cell *matCellDef="let element">{{element.courseCredit}}</td>
-      </ng-container>
-
-
-      <ng-container matColumnDef="gradeDescription">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Grade</th>
-        <td mat-cell *matCellDef="let element">{{element.gradeDescription}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="gradeGpValue">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>GP Value</th>
-        <td mat-cell *matCellDef="let element">{{element.gradeGpValue}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="programmeStatusText">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Programme Status</th>
-        <td mat-cell *matCellDef="let element">{{element.programmeStatusText}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="progressLogAcademicYear">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Academic Year</th>
-        <td mat-cell *matCellDef="let element">{{element.progressLogAcademicYear}}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="verifyAndGenerateResultSheetModel.displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: verifyAndGenerateResultSheetModel.displayedColumns;"></tr>
-
+      </tr>
+      <tr>
+        <td class="pdt-title">Full Name</td>
+        <td class="pdt-colon">:</td>
+        <td class="pdt-data">
+          {{verifyAndGenerateResultSheetModel.personalDetails.titles}}.
+          {{verifyAndGenerateResultSheetModel.personalDetails.denotedByInitials}}&nbsp;&nbsp;
+        </td>
+      </tr>
+      <tr>
+        <td class="pdt-title">Programme</td>
+        <td class="pdt-colon">:</td>
+        <td class="pdt-data">
+          {{verifyAndGenerateResultSheetModel.personalDetails.programmeTitle}}
+        </td>
+      </tr>
+      <tr>
+        <td class="pdt-title">Service Type</td>
+        <td class="pdt-colon">:</td>
+        <td class="pdt-data">
+          {{verifyAndGenerateResultSheetModel.serviceType}}
+        </td>
+      </tr>
+      <tr>
+        <td class="pdt-title">Transcript Type</td>
+        <td class="pdt-colon">:</td>
+        <td class="pdt-data">
+          {{verifyAndGenerateResultSheetModel.transcriptType}}&nbsp;&nbsp;
+        </td>
+      </tr>
     </table>
-
-    <div id="paginator-card">
-      <mat-card>
-      <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
-    </mat-card>
-    </div>
-
-    <mat-card id="verified-card" *ngIf="verifyAndGenerateResultSheetModel.resultVerified">
-      <h2>Results Already Verified</h2>
-    </mat-card>
-
-    <mat-card id="bottom-card">
-
-      <div id="bottom-div">
-        <label>Results Verification Status</label>
-        <span id="radio-span">
-          <mat-radio-group [(ngModel)]="verifyAndGenerateResultSheetModel.verificationOrResultsToBeCorrectedValue" aria-label="Select an option">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <mat-radio-button [value]=1>Results to be Corrected</mat-radio-button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <mat-radio-button [value]=2>Verify Results</mat-radio-button>
-          </mat-radio-group>
-        </span>
-        <br>
-
-        <div style="float:right;">
-          <button (click)="verifyResults(4)" *ngIf="verifyAndGenerateResultSheetModel.verificationOrResultsToBeCorrectedValue==1" mat-raised-button color="primary">Not verified </button>
-
-          <button (click)="verifyResults(3)" *ngIf="verifyAndGenerateResultSheetModel.verificationOrResultsToBeCorrectedValue==2" mat-raised-button color="primary">Verify</button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <button (click)="cancel()" mat-raised-button color="primary">Cancel</button>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <br>
-
-      </div>
-
-    </mat-card>
-
-
-
-
-
+    <br><br>
   </div>
-
-
-<br><br>
+  <div id="mat-table-container">
+    <table id="course-details" mat-table [dataSource]="verifyAndGenerateResultSheetModel.courseDetailsTDS"
+         class="mat-elevation-z8" matSort>
+    <ng-container matColumnDef="courseLevel">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> <b>Course Level</b></th>
+      <td mat-cell *matCellDef="let element">{{element.courseLevel}}</td>
+    </ng-container>
+    <ng-container matColumnDef="courseCode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Course Code</b></th>
+      <td mat-cell *matCellDef="let element">{{element.courseCode}}</td>
+    </ng-container>
+    <ng-container matColumnDef="courseTitle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Course Name</b></th>
+      <td mat-cell *matCellDef="let element">
+        {{element.courseTitle}}
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="courseCredit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>No Of Credits</b></th>
+      <td mat-cell *matCellDef="let element">{{element.courseCredit}}</td>
+    </ng-container>
+    <ng-container matColumnDef="gradeDescription">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Grade</b></th>
+      <td mat-cell *matCellDef="let element">{{element.gradeDescription}}</td>
+    </ng-container>
+    <ng-container matColumnDef="gradeGpValue">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>GP Value</b></th>
+      <td mat-cell *matCellDef="let element">{{element.gradeGpValue}}</td>
+    </ng-container>
+    <ng-container matColumnDef="programmeStatusText">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Programme Status</b></th>
+      <td mat-cell *matCellDef="let element">{{element.programmeStatusText}}</td>
+    </ng-container>
+    <ng-container matColumnDef="progressLogAcademicYear">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b>Academic Year</b></th>
+      <td mat-cell *matCellDef="let element">{{element.progressLogAcademicYear}}</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="verifyAndGenerateResultSheetModel.displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: verifyAndGenerateResultSheetModel.displayedColumns;"></tr>
+  </table>
+  </div>
+  <br>
+  <div id="paginator-card" *ngIf="false">
+    <mat-card>
+      <mat-paginator #paginator [pageSize]="10000" [pageSizeOptions]="[5,10, 50, 100, 10000]"
+                     showFirstLastButtons></mat-paginator>
+    </mat-card>
+  </div>
+  <div id="verified-card" *ngIf="verifyAndGenerateResultSheetModel.resultVerified">
+    <h2 id="verified-card-heading">Results Already Verified</h2>
+  </div>
+  <mat-card id="bottom-card">
+    <div id="bottom-div">
+      <label id="rvs-label">Results Verification Status</label><br>
+      <div id="radio-span">
+        <mat-radio-group id="verify-radio"
+                         [(ngModel)]="verifyAndGenerateResultSheetModel.verificationOrResultsToBeCorrectedValue"
+                         aria-label="Select an option">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <mat-radio-button [value]=1>Results to be Corrected</mat-radio-button>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <mat-radio-button [value]=2>Verify Results</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br>
+      <div id="bottom-btn-div" style="float:right;">
+        <button (click)="verifyResults(4)"
+                *ngIf="verifyAndGenerateResultSheetModel.verificationOrResultsToBeCorrectedValue==1" mat-raised-button
+                color="primary">Not verified
+        </button>
+        <button (click)="verifyResults(3)"
+                *ngIf="verifyAndGenerateResultSheetModel.verificationOrResultsToBeCorrectedValue==2" mat-raised-button
+                color="primary">Verify
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button (click)="cancel()" mat-raised-button color="primary">Cancel</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+      <br>
+    </div>
+  </mat-card>
+</div>
