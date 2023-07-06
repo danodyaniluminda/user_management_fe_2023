@@ -5,6 +5,7 @@ import { Component, AfterViewInit } from '@angular/core';
 	templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements AfterViewInit {
+  panelOpenState = false;
 
 	ngAfterViewInit() { }
 

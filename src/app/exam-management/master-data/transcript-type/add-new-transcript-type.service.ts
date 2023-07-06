@@ -32,7 +32,7 @@ export class AddNewTranscriptTypeService {
   }
 
   getAllProgrammes(): Observable<any> {
-    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'programme/get_all_programmes');
+    let result = this.http.get(GENERATE_TRANSCRIPT_API + 'programmes');
     return new Observable(observable => {
       observable.next(result.toPromise().then((result: any) => {
         observable.next(result);
@@ -67,7 +67,7 @@ export class AddNewTranscriptTypeService {
           observable.complete();
         }else{
           // alert(result);
-          Swal.fire('Success...','Record Added Successfully', 'success').
+          Swal.fire('Success !','Record Added Successfully.', 'success').
           then((result) => {
             if(result){
               location.reload();

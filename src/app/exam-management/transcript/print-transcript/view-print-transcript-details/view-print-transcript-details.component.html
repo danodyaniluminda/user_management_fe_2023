@@ -25,6 +25,9 @@
               <button matSuffix mat-icon-button aria-label="Search">
                 <mat-icon>search</mat-icon>
               </button>
+              <mat-error>
+                Spaces are not allowed.
+              </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
@@ -79,7 +82,7 @@
               <mat-option >Select All</mat-option>
 
               <mat-option *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
-                {{programme.name}}
+                {{programme.programmeCode}} - {{programme.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -90,7 +93,7 @@
     <br>
 
     <div class="export-container">
-      <button (click)="search()" mat-raised-button color="primary">Search</button>        &nbsp;
+      <button (click)="search()" [disabled]="!form.valid" mat-raised-button color="primary">Search</button>        &nbsp;
       <button mat-raised-button color="primary" onclick="window.location.reload()">Refresh</button>
     </div>
 
@@ -101,7 +104,7 @@
 <!--    </div>-->
     <br>
   </mat-card>
-
+<!--  <pre>{{transcripts|json}}</pre>-->
 
   <br>
 <mat-card class="example-container" *ngIf="showTable">
@@ -122,6 +125,7 @@
         </tr>
         </thead>
         <tbody>
+
         <tr *ngFor="let transcript of transcripts">
           <td style="width: 20%;">{{ transcript.programmeName }}</td>
           <td>{{ transcript.serviceType }}</td>

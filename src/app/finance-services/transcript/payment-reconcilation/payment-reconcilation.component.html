@@ -30,7 +30,7 @@
         </form>
 
         <div class="export-container">
-          <button (click)="applyFilter()" mat-raised-button color="primary">Search</button>        &nbsp;
+          <button (click)="applyFilter()" mat-raised-button color="primary" [disabled]="!fromDate && !toDate">Search</button>        &nbsp;
           <button mat-raised-button color="primary" onclick="window.location.reload()">Refresh</button>
         </div>
       </mat-card-content>

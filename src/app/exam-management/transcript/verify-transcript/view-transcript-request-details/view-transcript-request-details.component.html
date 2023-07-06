@@ -5,7 +5,7 @@
     <div class="form-content">
       <br>
       <form class="date-block" [formGroup]="form">
-        <mat-grid-list cols="2" rowHeight="60px" gutterSize="4px">
+        <mat-grid-list cols="2" rowHeight="62px" gutterSize="4px">
           <mat-grid-tile>
             <mat-form-field class="form-fields" appearance="outline">
               <mat-label>NIC or Reg number</mat-label>
@@ -13,7 +13,11 @@
               <button matSuffix mat-icon-button aria-label="Search">
                 <mat-icon>search</mat-icon>
               </button>
+              <mat-error *ngIf="form.get('nic')?.hasError">
+                Spaces are not allowed.
+              </mat-error>
             </mat-form-field>
+
           </mat-grid-tile>
 
           <mat-grid-tile>
@@ -63,8 +67,7 @@
                 </mat-spinner>
               </mat-card>
               <mat-label  >Select Programme</mat-label>
-              <mat-select *ngIf="showSelect"  (click)="programmeChange()" #singleSelect
-                          formControlName="programme">
+              <mat-select *ngIf="showSelect"  (click)="programmeChange()" #singleSelect formControlName="programme">
 
                 <mat-option>
                   <ngx-mat-select-search [formControl]="programmeFilterCtrl"  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
@@ -73,7 +76,7 @@
                 </mat-option>
                 <mat-option >Select All</mat-option>
                 <mat-option  *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
-                  {{programme.name}}
+                  {{programme.programmeCode}} - {{programme.name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -97,7 +100,7 @@
 <!--        </div>-->
 
         <div class="export-container">
-          <button (click)="search()" mat-raised-button color="primary">Search</button>        &nbsp;
+          <button (click)="search()" [disabled]="!form.valid" mat-raised-button color="primary">Search</button>        &nbsp;
           <button mat-raised-button color="primary" onclick="window.location.reload()">Refresh</button>
         </div>
         <br>
