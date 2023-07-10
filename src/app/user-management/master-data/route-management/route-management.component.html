@@ -1,68 +1,6 @@
-<!--<mat-card>-->
-<!--  <nav aria-label="breadcrumb">-->
-<!--    <ol class="breadcrumb">-->
-<!--      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>-->
-<!--      <li class="breadcrumb-item active">Master data</li>-->
-<!--      <li class="breadcrumb-item active" aria-current="page">Route Management</li>-->
-<!--    </ol>-->
-<!--  </nav>-->
-<!--<div class="content">-->
-
-<!--  <mat-card  class="example-container" >-->
-<!--    <mat-card-content>-->
-<!--      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">-->
-<!--        Add New Route-->
-<!--      </div>-->
-<!--    </mat-card-content>-->
-<!--  </mat-card>-->
-<!--</div>-->
-<!--<br>-->
-<!--<mat-card  class="example-container" >-->
-<!--  <div class="container">-->
-<!--    <mat-card-content>-->
-<!--      <form class="date-block" ></form>-->
-<!--      <div>-->
-<!--        <mat-form-field class="form-fields" appearance="outline"  style="width: 600px; margin-left: 10px; "  >-->
-<!--          <mat-label>Route Name</mat-label>-->
-<!--          <input  matInput placeholder="Route Name"-->
-<!--                  type="text"-->
-<!--                 id="ttype"-->
-<!--                 name="ttype">-->
-<!--        </mat-form-field> <br>-->
-<!--      </div>-->
-<!--      <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">-->
-<!--        <mat-label> Select Category</mat-label>-->
-<!--        <mat-select-->
-<!--        >-->
-<!--          <mat-option>-->
-<!--            <ngx-mat-select-search placeholderLabel="Find category..." noEntriesFoundLabel="'No matching programme found'">-->
-<!--              <mat-icon ngxMatSelectSearchClear>delete</mat-icon>-->
-<!--            </ngx-mat-select-search>-->
-<!--          </mat-option>-->
-<!--          <mat-option >Select All</mat-option>-->
-
-<!--          <mat-option >-->
-
-<!--          </mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
-
-<!--      <br>-->
-
-<!--      <div style="text-align: left;">-->
-<!--        <button [disabled]=""   mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Save</button>-->
-<!--        &nbsp;-->
-<!--        <button   mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Cancel</button>-->
-<!--      </div>-->
-<!--    </mat-card-content>-->
-
-<!--</div>-->
-<!--</mat-card>-->
-
 <div id="root-container">
   <mat-card id="root-card">
     <br>
-
     <mat-card>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -71,189 +9,126 @@
           <li class="breadcrumb-item active" aria-current="page">Route Management</li>
         </ol>
       </nav>
-
     </mat-card>
     <div class="content">
       &nbsp;&nbsp;&nbsp;Route Management
     </div>
     <br>
-
-    <!-- Start Table Division -->
+    <div class="content">
+      <button type="button" (click)="showAddDivision=!showAddDivision" mat-raised-button color="primary" style="width: 200px;margin-left: 10px;">Add New Route</button>
+      <mat-card *ngIf="showAddDivision" class="example-container" >
+        <div class="container">
+          <mat-card-content>
+            <div class="content">
+              &nbsp;&nbsp;&nbsp;
+            </div>
+            <form class="date-block" ></form>
+            <br />
+            <div>
+              <mat-form-field style="text-transform: uppercase;"class="form-fields" appearance="outline"  style="width: 600px; margin-left: 5px;" >
+                <mat-label>Route Name</mat-label>
+                <input  matInput type="text" placeholder="Route Name"
+                        id="ttype"
+                       name="ttypem">
+              </mat-form-field>
+            </div>
+            <div  class="row">
+              <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
+                <mat-label> Select Category</mat-label>
+                <mat-select
+                >
+                  <mat-option>
+                    <ngx-mat-select-search  placeholderLabel="Find category..." noEntriesFoundLabel="'No matching category found'">
+                      <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+                    </ngx-mat-select-search>
+                  </mat-option>
+                  <mat-option >Select All</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div  class="row">
+              <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
+                <mat-label>Active Status</mat-label>
+                <mat-select [(value)]="dataModified['active']" name="active"  >
+                  <mat-option [value]=true>Active</mat-option>
+                  <mat-option [value]=false>Inactive</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+           <br>
+            <div>
+              <button type="button" mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Add</button>
+              <button type="button" mat-raised-button color="primary" style="width: 75px;margin-left: 10px;">Cancel</button>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
+    <br>
     <div id="table-div">
-
-      <!-- Horizontal Line -->
-      <hr/>
-
-      <br><br>
       <div class="row">
         <div class="col-sm-12">
-
-          <!-- Table starts -->
           <ngx-datatable tableClass="table table-striped table-bordered table-hover"
                          [tableId]="'checkboxWithRowDetail'" [data]="data" [options]="options"
                          [columns]="columns">
-            <!-- if you dont want checkbox -->
-            <!-- delete (checkboxClick)="onCheckboxClick($event)" -->
-
-            <!-- Table title start -->
-            <ngx-caption>
-              <div class="row">
-                <div class="col-sm-12 col-xs-12 col-12 ">
-                  <b style="margin-left: 20px">
-                    Routes
-                  </b>
-                </div>
-              </div>
-            </ngx-caption>
-            <!-- Table title ends -->
-
-            <!-- Row expansion area starts -->
             <ng-template #rowExpansion let-row let-rowIndex="rowIndex">
+              <table class="info-table">
+                <tr class="info-row">
+                  <td class="info-heading">ID</td><td class="info-heading">:</td>
+                  <td>{{row.id}}</td>
+                </tr>
+                <tr class="info-row">
+                  <td class="info-heading">Route Name</td><td class="info-heading">:</td>
+                  <td *ngIf="!showEditArray[rowIndex]">{{row.routeLink}}</td>
+                  <td *ngIf="showEditArray[rowIndex]">
+                    <mat-form-field class="mat-form-field-input" appearance="outline" floatLabel="always">
+                      <mat-label>Route Name</mat-label>
+                      <input [(ngModel)]="dataModified[rowIndex]['routeLink']" matInput autocomplete="off" placeholder="Route Name">
+                    </mat-form-field>
+                  </td>
+                </tr>
+                <tr class="info-row">
+                  <td class="info-heading">Category</td><td class="info-heading">:</td>
+                  <td *ngIf="!showEditArray[rowIndex]">{{row.categoryName}}</td>
+                  <td *ngIf="showEditArray[rowIndex]">
+                    <mat-form-field class="mat-form-field-select" appearance="outline" floatLabel="always">
+                      <mat-label>Category </mat-label>
+                      <mat-select [(value)]="dataModified[rowIndex]['categoryId_id']" name="categoryName"  placeholder="Category ">
+                        <mat-option *ngFor="let category of allCategories" [value]=category.id>{{category.categoryName}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>w
+                <tr class="info-row">
+                  <td class="info-heading">Active Status</td><td class="info-heading">:</td>
+                  <td *ngIf="!showEditArray[rowIndex]">{{row.active}}</td>
+                  <td *ngIf="showEditArray[rowIndex]">
+                    <mat-form-field class="mat-form-field-select" appearance="outline" floatLabel="always">
+                      <mat-label>Active Status</mat-label>
+                      <mat-select [(value)]="dataModified[rowIndex]['active']" name="active"  placeholder="Active Status">
+                        <mat-option [value]=true>Active</mat-option>
+                        <mat-option [value]=false>Inactive</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </td>
+                </tr>
 
-              <br><br>
-              <h6 style="color: #2f3d4a;margin-left: 50px">ID : {{row.id}}</h6>
-              <h6 style="color: #2f3d4a;margin-left: 50px">Route Name : {{row.routeLink}}</h6>
-              <h6 style="color: #2f3d4a;margin-left: 50px">Category : {{row.category}}</h6>
-              <h6 style="color: #2f3d4a;margin-left: 50px">Active Status : {{row.activestatus}}</h6>
-              <br>
-
-              <button (click)="showEditArray[rowIndex]=!showEditArray[rowIndex]" style="width:100px;margin-left: 50px" class="btn btn-primary">
-                <mat-icon>edit</mat-icon>
+              </table>
+              <button (click)="showEditArray[rowIndex]=!showEditArray[rowIndex]" style="width:100px;"
+                      class="btn btn-primary">
+                Edit
               </button>
-              <button style="width:100px;margin-left: 20px" type="button" class="btn btn-danger">
-                <mat-icon>delete</mat-icon>
+              <button style="width:100px;margin-left: 20px" type="button" class="btn btn-primary">
+                Cancel
               </button>
-
               <br>
-              <div style="margin-left: 100px;margin-top: 50px" *ngIf="showEditArray[rowIndex]">
-                <label> Name : </label> <input type="text" value="{{row.name}}">
-              </div>
-
-<!--</mat-card>-->
-<!--<div class="content">-->
-<!--  &nbsp;&nbsp;&nbsp;Add New Route-->
-<!--</div>-->
-<!--<br>-->
               <br>
-
-<!--<div class="content">-->
-<!--  <mat-card  class="example-container" >-->
-<!--    <div class="container">-->
               <span>.</span>
-
             </ng-template>
-
-
-            <!-- Row expansion area ends -->
-
-
           </ngx-datatable>
-          <!-- Table ends -->
-
         </div>
       </div>
     </div>
-    <!-- End Table Division -->
-
-
-<!--      <mat-card-content>-->
-<!--        <form class="date-block" ></form>-->
-<!--        <br />-->
-<!--        <div>-->
-<!--          <mat-form-field style="text-transform: uppercase;"class="form-fields" appearance="outline" style="width: 600px; margin-left: 5px;" >-->
-<!--            <mat-label>Route Name</mat-label>-->
-<!--            <input matInput type="text" placeholder="Transcript Name"-->
-<!--                   (keyup)="showRouteNameError()"-->
-<!--                   [(ngModel)]="routeName"-->
-<!--                   (input)="filterRoute($event)"-->
-<!--                   id="ttype"-->
-<!--                   name="ttypem">-->
-<!--          </mat-form-field> <br>-->
-<!--          <label *ngIf="showTranscriptNameError()" class="text-danger"> &nbsp; Special characters and numbers are not allowed.</label>-->
-<!--        </div>-->
-<!--        <div class="row">-->
-<!--          <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">-->
-<!--            <mat-label> Select Category</mat-label>-->
-<!--            <mat-select [(ngModel)]="categoryId"  (click)="categoryChange($event.target)"-->
-<!--            >-->
-<!--              <mat-option>-->
-<!--                <ngx-mat-select-search [formControl]="categoryFilterCtrl"  placeholderLabel="Find Category..." noEntriesFoundLabel="'No matching programme found'">-->
-<!--                  <mat-icon ngxMatSelectSearchClear>delete</mat-icon>-->
-<!--                </ngx-mat-select-search>-->
-<!--              </mat-option>-->
-<!--              <mat-option >Select All</mat-option>-->
-<!--              <mat-option *ngFor="let category of filteredCategorys | async" [value]="category.id" >-->
-<!--                {{category.name}}-->
-<!--              </mat-option>-->
-<!--            </mat-select>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--        <br>-->
-<!--        <div>-->
-<!--          <button [disabled]="addButtonDisabled" (click)="addNewRoute() "type="button" mat-raised-button color="primary" style="width: 75px;margin-left: 5px;">Add</button>-->
-<!--          &nbsp;-->
-<!--          <button   (click)="close()" type="button" mat-raised-button color="primary">Cancel</button>-->
-    <br>
-    <!-- Horizontal Line -->
-    <hr/>
-    <br>
-
-    <div style="margin-top:20px;margin-left: 50px; color: #4f5459" class="row">
-      <h5>
-        <h4>Bottom Division</h4>
-        <ul style="list-style-type: square;color: #5b6269">
-          <li>Item 1</li>
-          <li>Item 2</li>
-        </ul>
-      </h5>
-    </div>
-
-
     <br>
   </mat-card>
 </div>
-
-
-<!--        </div>-->
-<!--      </mat-card-content>-->
-<!--    </div>-->
-<!--  </mat-card>-->
-<!--</div>-->
-<!--<br>-->
-<!--<br>-->
-<!--<mat-card class="example-container">-->
-<!--  <br>-->
-<!--  &lt;!&ndash;     <pre>{{resultStatuses|json}}</pre>&ndash;&gt;-->
-<!--  <div class="table-responsive">-->
-<!--    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover" *ngIf="showTable"  >-->
-<!--      <thead>-->
-<!--      <tr>-->
-<!--        <th>Id</th>-->
-<!--        <th>Route Name</th>-->
-<!--        <th>Category </th>-->
-<!--        <th>Active Status</th>-->
-<!--        <th>Edit</th>-->
-<!--        <th>Delete</th>-->
-<!--      </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr *ngFor="let route of routes">-->
-<!--        <td>{{ route.id }}</td>-->
-<!--        <td>{{ route.name }}</td>-->
-<!--        <td>{{ route.active }}</td>-->
-<!--        <td>{{ getCategoryName(route.id) }}</td>-->
-<!--        <td>-->
-<!--          <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Edit" >-->
-<!--            <mat-icon>edit_forever</mat-icon>-->
-<!--          </button>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--          <button mat-icon-button color="warn" aria-label="Example icon button with a filter list icon" matTooltip="Remove" >-->
-<!--            <mat-icon>delete_forever</mat-icon>-->
-<!--          </button>-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
-<!--</mat-card>-->
