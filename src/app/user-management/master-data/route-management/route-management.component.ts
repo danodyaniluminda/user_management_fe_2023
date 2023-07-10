@@ -219,9 +219,10 @@
 // }
 //
 
-import { Component, OnInit } from '@angular/core';
-import { ViewChild, TemplateRef } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ViewChild, TemplateRef} from '@angular/core';
 import {newArray} from "@angular/compiler/src/util";
+import {RouteManagementService} from "./route-management.service";
 
 @Component({
   selector: 'user-route-management',
@@ -229,22 +230,24 @@ import {newArray} from "@angular/compiler/src/util";
   styleUrls: ['./route-management.component.css']
 })
 
-export class RouteManagementComponent implements OnInit  {
+export class RouteManagementComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    private routeManagementService:RouteManagementService
+  ) {
 
   }
 
   //Below are the variables of table
-  @ViewChild('rowExpansion', { static: true }) rowExpansion: TemplateRef<any>;
+  @ViewChild('rowExpansion', {static: true}) rowExpansion: TemplateRef<any>;
   options = {}
-  data:any = [];
-  showEditArray:boolean[] = [];
+  data: any = [];
+  showEditArray: boolean[] = [];
   columns = [
-    { key: 'id', title: "ID", width: 50, sorting: true },
-    { key: 'routename', title: 'Route Name', width: 100},
-    { key: 'category', title: 'Category', width: 300, sorting: true, noWrap: { head: true, body: true } },
-    { key: 'activestatus', title: 'Active Status', width: 200, noWrap: { head: true, body: true } },
+    {key: 'id', title: "ID", width: 50, sorting: true},
+    {key: 'routeLink', title: 'Route Name', width: 100},
+    {key: 'categoryName', title: 'Category', width: 300, sorting: true, noWrap: {head: true, body: true}},
+    {key: 'active', title: 'Active Status', width: 200, noWrap: {head: true, body: true}},
 
   ];
 
@@ -255,25 +258,51 @@ export class RouteManagementComponent implements OnInit  {
     this.options = {
       //delete check box true if you dont want checkbox
       checkboxes: true,
-      rowDetailTemplate:this.rowExpansion
+      rowDetailTemplate: this.rowExpansion
     }
 
+    this.fetchAllCategorys();
 
 
-}
-    //Get data from backend
-    // setTimeout(() => {
-    //
-    //   //Get data from backend
-    //   this.data = this.getData();
-    //
-    //   //Create boolean array
-    //   this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
-    //
-    // }, 3000);
+  }
+
+  fetchAllCategorys() {
+    this.routeManagementService
+      .getAllRoutes()
+      .toPromise()
+      .then((result: any) => {
+        if(!!result){
+          result = result.map((row:any) => ({
+            id:row['id'],
+            routeLink:row['routeLink'],
+            categoryId:row['categoryId'],
+            categoryId_id:row['categoryId']['id'],
+            categoryName:row['categoryId']['categoryName'],
+            active:row['active']
+          }))
+          result = result.sort((a: { id: number; }, b: { id: number; }) => a.id-b.id);
+          console.log(result);
+          this.data = result;
+        }
+      })
+      .catch((exception:any) => {
+        alert(exception);
+      });
+  }
+
+  //Get data from backend
+  // setTimeout(() => {
+  //
+  //   //Get data from backend
+  //   this.data = this.getData();
+  //
+  //   //Create boolean array
+  //   this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
+  //
+  // }, 3000);
 
 
- // }
+  // }
 
   // onCheckboxClick(selectCheckBoxArr:any) {
   //   alert(JSON.stringify(selectCheckBoxArr));
@@ -433,8 +462,6 @@ export class RouteManagementComponent implements OnInit  {
   //     }
   //   ];
   // }
-
-
 
 
 }

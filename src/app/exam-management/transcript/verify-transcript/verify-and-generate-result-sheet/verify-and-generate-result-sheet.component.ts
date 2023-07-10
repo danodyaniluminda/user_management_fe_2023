@@ -29,11 +29,10 @@ export class VerifyAndGenerateResultSheetComponent implements OnInit , AfterView
     private router: Router
     ) { }
 
-    @HostListener('window:focus') onFocus() {
-      console.log('window focus');
-
-      window.location.reload();
-    }
+    // @HostListener('window:focus') onFocus() {
+    //   console.log('window focus');
+    //   window.location.reload();
+    // }
 
   ngAfterViewInit(): void {
     this.verifyAndGenerateResultSheetModel.courseDetailsTDS.paginator = this.paginator;
@@ -123,7 +122,7 @@ export class VerifyAndGenerateResultSheetComponent implements OnInit , AfterView
 
         console.log("Verify @ Componenet : ",result);
         Swal.fire({
-          title:'Success',
+          title:'Success!',
           html:result['message'],
           icon:'success'
         }).then( () => {

@@ -1,35 +1,36 @@
-// import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs';
-// import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-// import Swal from 'sweetalert2';
-// import { environment } from 'src/environments/environment';
-//
-// const GENERATE_TRANSCRIPT_API = environment.base_url + '/api/user_management/';
-//
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class routeManagementService {
-//
-//   constructor(private http: HttpClient) { }
-//
-//   getAllRoute(): Observable<any> {
-//
-//     let result = this.http.get(GENERATE_TRANSCRIPT_API + 'route/get_all_routes');
-//     return new Observable(observable => {
-//       observable.next(result.toPromise().then((result: any) => {
-//         console.log("Routes : ", result);
-//         observable.next(result);
-//         observable.complete();
-//       })
-//         .catch(error => {
-//           observable.next((error['error'].message));
-//           observable.complete();
-//         }));
-//     });
-//
-//
-//   }
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
+
+const USER_MANAGEMENT_API = environment.base_url_user_mgt;
+const ROUTE_API = USER_MANAGEMENT_API + '/api/v1/routes';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RouteManagementService {
+
+  constructor(private http: HttpClient) { }
+
+  getAllRoutes(): Observable<any> {
+
+    let result = this.http.get(ROUTE_API + '/get_all_routes');
+    return new Observable(observable => {
+      observable.next(result.toPromise().then((result: any) => {
+        console.log("Routes : ", result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          observable.next((error['error']));
+          observable.complete();
+        }));
+    });
+
+
+  }
 //
 //   getAllCategorys(): Observable<any> {
 //     let result = this.http.get(GENERATE_TRANSCRIPT_API + 'category/get_all_categorys');
@@ -144,4 +145,4 @@
 //
 //
 //
-// }
+}
