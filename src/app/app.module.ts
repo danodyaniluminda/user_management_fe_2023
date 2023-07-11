@@ -33,6 +33,7 @@ import { LoginComponent } from './shared/login/login.component';
 import {BasicAuthInterceptor} from "./shared/_helpers/basic-auth.interceptor";
 import {ErrorInterceptor} from "./shared/_helpers/error.interceptor";
 import {fakeBackendProvider} from "./shared/_helpers";
+import {CompletionModuleModule} from "./completion-module/completion-module.module";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {fakeBackendProvider} from "./shared/_helpers";
     ExamManagementModule,
     FinanceServicesModule,
     UserManagementModule,
-    GatewayManagementModule
+    GatewayManagementModule,
+    CompletionModuleModule
   ],
   providers: [
     {
