@@ -3,6 +3,29 @@ import {INavbarData} from "./helper";
 export const navbarData: INavbarData[] =
   [
     {
+      "label": "Completion module",
+      "routeLink": "completion-module",
+      "hasPermission":false,
+      "icon": "account_balance",
+      "items": [
+        {
+          "label": "Generate Result",
+          "routeLink": "completion-module/generate-result",
+          "icon": 'description',
+          "hasPermission": false,
+          "items": [
+            {
+              "label": "Completion module",
+              "routeLink": "/completion-module/generate-result/completion-module",
+              "icon": "account_balance",
+              "hasPermission":false,
+              "items": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "label": "Finance services",
       "routeLink": "finance-services",
       "hasPermission":false,

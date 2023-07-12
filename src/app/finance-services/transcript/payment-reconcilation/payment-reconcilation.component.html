@@ -132,7 +132,7 @@
             <br>
             <div class="row">
               <div class="col-sm-2">
-                <select class="form-select" style="height: 28px;"  #paytype (change)="onPaymentTypeChange(row,paytype.value,rowIndex)">
+                <select class="form-select" style="height: 28px;"  #paytype (change)="onPaymentTypeChange(row,paytype.value,rowIndex)" matTooltip="Please select payment type">
                   <option selected disabled>Select Payment Type</option>
                   <option value="1">Online</option>
                   <option value="3">Shroff Counter</option>

@@ -52,6 +52,10 @@ const routes: Routes = [
         loadChildren: ()=> import('./gateway-management/gateway-management.module').then(m => m.GatewayManagementModule)
       },
       {
+        path: 'completion-module',
+        loadChildren: ()=> import('./completion-module/completion-module.module').then(m => m.CompletionModuleModule)
+      },
+      {
         path: 'access-denied',
         component:AccessDeniedComponent
 
