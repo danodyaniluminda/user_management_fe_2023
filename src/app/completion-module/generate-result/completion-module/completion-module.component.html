@@ -1,1 +1,82 @@
-<p>completion-module works!</p>
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">Generate Result</li>
+      <li class="breadcrumb-item active" aria-current="page">Completion Model</li>
+    </ol>
+  </nav>
+
+</mat-card>
+<div class="content">
+  &nbsp;&nbsp;&nbsp;Completion Model
+</div>
+<br>
+
+<div class="content">
+ <mat-card  class="example-container" >
+    <div class="container">
+<mat-card-content>
+  <form class="date-block" ></form>
+  <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
+    <mat-label> Select Programme</mat-label>
+    <mat-select
+    >
+      <mat-option>
+        <ngx-mat-select-search  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
+          <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option >Select All</mat-option>
+
+      <mat-option >
+
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <br>
+        <div style="text-align: left;">
+          &nbsp; <button [disabled]="addButtonDisabled" (click)="addNewProgram()"  mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Add</button>
+
+        </div>
+
+      </mat-card-content>
+    </div>
+  </mat-card>
+</div>
+
+<br>
+<mat-card class="example-container">
+  <br>
+  <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="showTable">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Criteria</th>
+        <th>Run</th>
+        <th>View Result</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td> </td>
+        <td> </td>
+        <td>
+          <button  mat-raised-button color="primary" type="submit" >Run</button>
+        </td>
+        <td> </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</mat-card>
+
+
+
+
+
+
+
+
