@@ -72,10 +72,12 @@
                          [tableId]="'checkboxWithRowDetail'" [data]="data" [options]="options"
                          [columns]="columns">
             <ng-template #rowExpansion let-row let-rowIndex="rowIndex">
+<!--              {{row}}-->
+
               <table class="info-table">
                 <tr class="info-row">
                   <td class="info-heading">ID</td><td class="info-heading">:</td>
-                  <td>{{row.id}}</td>
+<!--                  <td>{{row.id}}</td>-->
                 </tr>
                 <tr class="info-row">
                   <td class="info-heading">Route Name</td><td class="info-heading">:</td>
@@ -98,7 +100,7 @@
                       </mat-select>
                     </mat-form-field>
                   </td>
-                </tr>w
+                </tr>
                 <tr class="info-row">
                   <td class="info-heading">Active Status</td><td class="info-heading">:</td>
                   <td *ngIf="!showEditArray[rowIndex]">{{row.active}}</td>
