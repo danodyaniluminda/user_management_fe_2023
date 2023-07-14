@@ -32,19 +32,20 @@ export class RouteManagementService {
 
   }
 //
-//   getAllCategorys(): Observable<any> {
-//     let result = this.http.get(GENERATE_TRANSCRIPT_API + 'category/get_all_categorys');
-//     return new Observable(observable => {
-//       observable.next(result.toPromise().then((result: any) => {
-//         observable.next(result);
-//         observable.complete();
-//       })
-//         .catch(error => {
-//           observable.next((error['error'].message));
-//           observable.complete();
-//         }));
-//     });
-//   }
+  getAllCategories(): Observable<any> {
+    //http://localhost:8081/api/user_management/category/get_all_categories
+    let result = this.http.get(USER_MANAGEMENT_API + '/api/user_management/category/get_all_categories');
+    return new Observable(observable => {
+      observable.next(result.toPromise().then((result: any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          observable.next((error['error'].message));
+          observable.complete();
+        }));
+    });
+  }
 //
 //   addNewRoute(name:string,categoryId:number=0,active:string,): Observable<any> {
 //     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');

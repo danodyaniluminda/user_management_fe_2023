@@ -7,8 +7,6 @@
 
 }
 
-
-
 .mat-card:not([class*=mat-elevation-z]) {
 
 }
@@ -66,15 +64,6 @@ table {
 .mat-column-result_type {
   flex: 0 0 15%;
 }
-
-/*mat-paginator {*/
-/*  color: black;*/
-/*}*/
-
-/*[hidden] {*/
-/*  display: none !important;*/
-/*}*/
-
 .example-container {
   position: relative;
   max-width: 1500px;
@@ -177,154 +166,25 @@ table {
   /*max-height: 400px;*/
   overflow: auto;
 }
+.info-table{
+  border: none;
+}
 
+.info-table td{
+  border: none;
+}
 
+.info-table tr:nth-child(odd){
+  background: none;
+}
 
+.info-table tr:hover{
+  background: none;
+}
 
-
-
-/*th{*/
-/*  text-align: center;*/
-/*}*/
-/*.center-cell{*/
-/*  text-align: center;*/
-/*}*/
-/*#status-cell{*/
-/*  text-align: left;*/
-/*  padding-left: 50px;*/
-/*}*/
-/*#ttype{*/
-/*  width: 693px;*/
-/*}*/
-
-
-/*table {*/
-/*  width: 100%;*/
-/*}*/
-
-/*.example-card {*/
-/*  max-width: 1108px;*/
-/*}*/
-
-/*.mat-column-no {*/
-/*  flex: 0 0 15%;*/
-/*}*/
-
-/*.mat-column-id {*/
-/*  flex: 0 0 15%;*/
-/*}*/
-
-/*.mat-column-old_omis_id {*/
-/*  flex: 0 0 15%;*/
-/*}*/
-
-/*.mat-column-result_type {*/
-/*  flex: 0 0 15%;*/
-/*}*/
-/*.example-container {*/
-/*  position: relative;*/
-/*  max-width: 1500px;*/
-/*  background-color: #ffffff;*/
-/*}*/
-
-/*.content {*/
-/*  margin-left: auto;*/
-/*  margin-right: auto;*/
-/*}*/
-
-/*table {*/
-/*  width: 97%;*/
-/*  max-height: 500px;*/
-/*  overflow: auto;*/
-/*  margin-left: 20px;*/
-/*  margin-right: 20px;*/
-/*}*/
-
-/*.example-container {*/
-/*  position: relative;*/
-/*  max-width: 1500px;*/
-/*}*/
-
-/*.content {*/
-/*  font-weight: bolder;*/
-/*  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";*/
-/*  font-size: 20px;*/
-/*  text-align: left;*/
-/*  margin-left: 2px;*/
-/*}*/
-
-/*.form-content{*/
-/*  margin-left: 15px;*/
-/*  margin-right: 15px;*/
-/*}*/
-/*mat-form-field {*/
-/*  font-size: 13px;*/
-/*}*/
-
-/*mat-label {*/
-/*  font-weight: bolder;*/
-/*}*/
-
-/*table {*/
-/*  width: 97%;*/
-/*  max-height: 500px;*/
-/*  overflow: auto;*/
-/*  margin-left: 20px;*/
-/*  margin-right: 20px;*/
-/*}*/
-
-/*.example-loading-shade {*/
-/*  position: absolute;*/
-/*  top: 0;*/
-/*  left: 0;*/
-/*  bottom: 56px;*/
-/*  right: 0;*/
-/*  background: rgba(0, 0, 0, 0.15);*/
-/*  z-index: 1;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: center;*/
-/*}*/
-
-/*.example-rate-limit-reached {*/
-/*  max-width: 360px;*/
-/*  text-align: center;*/
-/*}*/
-
-/*!* Column Widths *!*/
-/*.mat-column-number,*/
-/*.mat-column-state {*/
-/*  max-width: 64px;*/
-/*}*/
-
-/*.mat-column-created {*/
-/*  max-width: 124px;*/
-/*}*/
-/*.example-field-row {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: space-around;*/
-/*}*/
-
-/*.form-fields {*/
-/*  width: 800px;*/
-/*}*/
-
-/*@media only screen and (max-width: 768px) {*/
-/*  !* For mobile phones: *!*/
-/*  mat-select,mat-grid-list{*/
-/*    width: 100px;*/
-
-/*  }*/
-/*}*/
-/*.example-table-container {*/
-/*  position: relative;*/
-/*  min-height: 200px;*/
-/*  !*max-height: 400px;*!*/
-/*  overflow: auto;*/
-/*}*/
-
-
-
-
-
+.info-row{
+  color: #2f3d4a;
+}
+.info-heading{
+  width: fit-content;
+}
