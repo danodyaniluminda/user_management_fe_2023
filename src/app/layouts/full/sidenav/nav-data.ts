@@ -8,8 +8,9 @@ export const navbarData: INavbarData[] =
       "hasPermission":false,
       "icon": "account_balance",
       "items": [
-        {
-          "label": "Generate Result",
+       
+        
+        {  "label": "Generate Result",
           "routeLink": "completion-module/generate-result",
           "icon": 'description',
           "hasPermission": false,
@@ -20,9 +21,17 @@ export const navbarData: INavbarData[] =
               "icon": "account_balance",
               "hasPermission":false,
               "items": []
-            }
+            },
+            {        
+              "label": "Table Management",
+              "routeLink": "/completion-module/table-management",
+              "icon": "description",
+              "hasPermission":false,
+              "items": [],
+            },
           ]
-        }
+        },
+
       ]
     },
     {
