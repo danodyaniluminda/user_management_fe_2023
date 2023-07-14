@@ -21,6 +21,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -51,7 +52,9 @@ import { ReactiveFormsModule } from '@angular/forms';
         ReactiveFormsModule,
         NgxMatSelectSearchModule,
         DataTablesModule,
-        NgxDatatableModule
+        NgxDatatableModule,
+        FormsModule
+        
   ]
 })
 export class CompletionModuleModule { }

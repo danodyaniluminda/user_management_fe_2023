@@ -14,16 +14,19 @@
     <div style="text-align: center;">
       <mat-form-field appearance="outline" class="form-fields" style="width: 350px;margin-left: 20px;">
         <mat-label> Select Table</mat-label>
-        <mat-select>
-          <mat-option>
+        <mat-select [(ngModel)]="selectedTable"(selectionChange)="onTableSelect()">
+          <mat-option *ngFor="let completionTable of completionTableList" [value]="completionTable" >
+            {{ completionTable.name }}
+          </mat-option>
+         <!-- <mat-option>
             <ngx-mat-select-search placeholderLabel="Find Table Name"
               noEntriesFoundLabel="'No matching programme found'">
               <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
             </ngx-mat-select-search>
-          </mat-option>
-          <mat-option>Select All</mat-option>
+          </mat-option> -->
+          <mat-option value="all" >Select All</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> 
       <button [disabled]="" mat-raised-button color="primary" style="width: 100px;margin-left: 20px;">Download</button>
     </div>
 
@@ -32,12 +35,13 @@
       <button  mat-raised-button color="primary" style="width: 75px;margin-left: 20px;" (click)="browseTable()">Browse</button>
       &nbsp;
       <button mat-raised-button color="primary" style="width: 100px;margin-left: 162px;">Clear Table</button>
-      <button mat-raised-button color="primary" style="width: 100px;margin-left: 20px;" (click)="fileInput.files && uploadFile(fileInput.files[0])">Upload</button>
+      <button mat-raised-button color="primary" style="width: 100px; margin-left: 20px;" (click)="selectedFile && uploadFile(selectedFile)">Upload</button>
     </div>
     <br>
     <div>
       <mat-label style="margin-left: 162px;" >Uploaded File: {{ selectedFileName }}</mat-label>
     </div>
     <div>
-      <mat-label style="margin-left: 162px;" >Uploaded Records:</mat-label>
+      <mat-label style="margin-left: 162px;" id="dataCountLabel"></mat-label>
+
     </div>
