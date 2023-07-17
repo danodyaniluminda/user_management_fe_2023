@@ -20,7 +20,7 @@
   <form class="date-block" ></form>
   <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
     <mat-label> Select Programme</mat-label>
-    <mat-select
+    <mat-select [(ngModel)]="programmeId"  (click)="programmeChange($event.target)"
     >
       <mat-option>
         <ngx-mat-select-search  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
@@ -29,8 +29,8 @@
       </mat-option>
       <mat-option >Select All</mat-option>
 
-      <mat-option >
-
+      <mat-option *ngFor="let programme of filteredProgrammes | async" [value]="programme.id">
+        {{programme.programName}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -54,7 +54,7 @@
 <mat-card class="example-container">
   <br>
   <div class="table-responsive">
-    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="showTable">
+    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="true">
       <thead>
       <tr>
         <th>Id</th>
