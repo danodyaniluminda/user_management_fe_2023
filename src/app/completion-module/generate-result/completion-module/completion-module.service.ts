@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import {FormGroup} from "@angular/forms";
 
-const GENERATE_STATUS_API = environment.base_url +'/api/generateResult';
+const GENERATE_STATUS_API = environment.graduation_completion +'/api/generateResult';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,28 @@ export class AddNewCompletionService {
         }));
     });
 
+  }
+
+  getCriteriaByProgrameId(programeid : any){
+    const url = GENERATE_STATUS_API + '/getCritriaByProgrammeID';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+
+        // this.model.oneDayDates = result;
+
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
   }
 
 }
