@@ -1,3 +1,93 @@
+import {Component, OnInit} from '@angular/core';
+import {ViewChild, TemplateRef} from '@angular/core';
+import {newArray} from "@angular/compiler/src/util";
+import {RouteManagementService} from "./route-management.service";
+@Component({
+  selector: 'user-route-management',
+  templateUrl: './route-management.component.html',
+  styleUrls: ['./route-management.component.css']
+})
+export class RouteManagementComponent implements OnInit {
+  constructor(
+    private routeManagementService:RouteManagementService
+  ) {
+
+  }
+  //Below are the variables of table
+  @ViewChild('rowExpansion', {static: true}) rowExpansion: TemplateRef<any>;
+  options = {}
+  data: any = [];
+  dataModified: any = [];
+  showEditArray: boolean[] = [];
+  showAddDivision: boolean = false;
+  allCategories: any = [];
+
+  columns = [
+    {key: 'id', title: "ID", width: 50, sorting: true},
+    {key: 'routeLink', title: 'Route Name', width: 100},
+    {key: 'categoryName', title: 'Category', width: 300, sorting: true, noWrap: {head: true, body: true}},
+    {key: 'active', title: 'Active Status', width: 200, noWrap: {head: true, body: true}},
+    {key: 'archive', title: 'Action', width: 200, noWrap: {head: true, body: true}},
+  ];
+  ngOnInit(): void {
+
+    //Set table options
+    this.options = {
+      //delete check box true if you dont want checkbox
+      checkboxes: true,
+      rowDetailTemplate: this.rowExpansion
+    }
+    this.fetchAllRoutes();
+    this.fetchAllCategories();
+
+
+  }
+  fetchAllRoutes() {
+    this.routeManagementService
+      .getAllRoutes()
+      .toPromise()
+      .then((result: any) => {
+        if(!!result){
+          result = result.map((row:any) => ({
+            id:row['id'],
+            routeLink:row['routeLink'],
+            categoryId:row['categoryId'],
+            categoryId_id:row['categoryId']['id'],
+            categoryName:row['categoryId']['categoryName'],
+            active:row['active'],
+            archive:row['archive'],
+          }))
+          result = result.sort((a: { id: number; }, b: { id: number; }) => a.id-b.id);
+          console.log(result);
+          this.dataModified = result;
+          this.data = result;
+        }
+      })
+      .catch((exception:any) => {
+        alert(exception);
+      });
+  }
+
+  fetchAllCategories() {
+    this.routeManagementService
+      .getAllCategories()
+      .toPromise()
+      .then((result: any) => {
+        console.log(result);
+        this.allCategories = result;
+      })
+      .catch((exception:any) => {
+        alert(exception);
+      });
+  }
+
+}
+
+
+
+
+
+
 // import {Component, OnInit, ViewChild} from '@angular/core';
 // import Swal from "sweetalert2";
 // import {Router} from "@angular/router";
@@ -218,251 +308,4 @@
 //
 // }
 //
-
-import {Component, OnInit} from '@angular/core';
-import {ViewChild, TemplateRef} from '@angular/core';
-import {newArray} from "@angular/compiler/src/util";
-import {RouteManagementService} from "./route-management.service";
-
-@Component({
-  selector: 'user-route-management',
-  templateUrl: './route-management.component.html',
-  styleUrls: ['./route-management.component.css']
-})
-
-export class RouteManagementComponent implements OnInit {
-
-  constructor(
-    private routeManagementService:RouteManagementService
-  ) {
-
-  }
-
-  //Below are the variables of table
-  @ViewChild('rowExpansion', {static: true}) rowExpansion: TemplateRef<any>;
-  options = {}
-  data: any = [];
-  showEditArray: boolean[] = [];
-  columns = [
-    {key: 'id', title: "ID", width: 50, sorting: true},
-    {key: 'routeLink', title: 'Route Name', width: 100},
-    {key: 'categoryName', title: 'Category', width: 300, sorting: true, noWrap: {head: true, body: true}},
-    {key: 'active', title: 'Active Status', width: 200, noWrap: {head: true, body: true}},
-
-  ];
-
-
-  ngOnInit(): void {
-
-    //Set table options
-    this.options = {
-      //delete check box true if you dont want checkbox
-      checkboxes: true,
-      rowDetailTemplate: this.rowExpansion
-    }
-
-    this.fetchAllCategorys();
-
-
-  }
-
-  fetchAllCategorys() {
-    this.routeManagementService
-      .getAllRoutes()
-      .toPromise()
-      .then((result: any) => {
-        if(!!result){
-          result = result.map((row:any) => ({
-            id:row['id'],
-            routeLink:row['routeLink'],
-            categoryId:row['categoryId'],
-            categoryId_id:row['categoryId']['id'],
-            categoryName:row['categoryId']['categoryName'],
-            active:row['active']
-          }))
-          result = result.sort((a: { id: number; }, b: { id: number; }) => a.id-b.id);
-          console.log(result);
-          this.data = result;
-        }
-      })
-      .catch((exception:any) => {
-        alert(exception);
-      });
-  }
-
-  //Get data from backend
-  // setTimeout(() => {
-  //
-  //   //Get data from backend
-  //   this.data = this.getData();
-  //
-  //   //Create boolean array
-  //   this.showEditArray = Array.from({ length: this.data.length }, (value, index) => false);
-  //
-  // }, 3000);
-
-
-  // }
-
-  // onCheckboxClick(selectCheckBoxArr:any) {
-  //   alert(JSON.stringify(selectCheckBoxArr));
-  // }
-
-  // public getData(){
-  //   return [
-  //     {
-  //       "id": "1",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "2",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "3",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "4",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "5",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "6",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "7",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "8",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "9",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "10",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "11",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "12",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "13",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "14",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "15",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "16",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "17",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "18",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "19",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "20",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "21",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "22",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "23",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "24",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     },
-  //     {
-  //       "id": "25",
-  //       "routename": "exam",
-  //       "category": "Exam management",
-  //       "activestatus": "true"
-  //     }
-  //   ];
-  // }
-
-
-}
 
