@@ -5,8 +5,10 @@ import {Router} from "@angular/router";
 import {ReplaySubject, Subject, takeUntil} from "rxjs";
 import {FormControl} from "@angular/forms";
 
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+// import * as XLSX from 'xlsx';
+import {saveAs} from 'file-saver';
+import {tsCastToAny} from "@angular/compiler-cli/src/ngtsc/typecheck/src/ts_util";
+
 @Component({
   selector: 'completion-completion-module',
   templateUrl: './completion-module.component.html',
@@ -20,15 +22,17 @@ export class CompletionModuleComponent implements OnInit {
 
   jsonData = {
     data: [
-      { applicationId: 463563, courseId: 5728 },
-      { applicationId: 463019, courseId: 447 },
-      { applicationId: 463711, courseId: 5728 },
-      { applicationId: 463928, courseId: 447 }
+      {applicationId: 463563, courseId: 5728},
+      {applicationId: 463019, courseId: 447},
+      {applicationId: 463711, courseId: 5728},
+      {applicationId: 463928, courseId: 447}
     ]
   };
+  critieaData: any;
+
   constructor(
     private addNewCompletionService: AddNewCompletionService,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -42,6 +46,7 @@ export class CompletionModuleComponent implements OnInit {
   ngOnInit(): void {
     this.fetchAllProgrammes();
 
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       responsive: false,
@@ -51,13 +56,12 @@ export class CompletionModuleComponent implements OnInit {
   }
 
   exportToExcel(): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-    saveAs(excelData, 'data.xlsx');
+    // const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+    // const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
+    // const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
+    // const excelData: Blob = new Blob([excelBuffer], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'});
+    // saveAs(excelData, 'data.xlsx');
   }
-
 
 
   fetchAllProgrammes() {
@@ -75,104 +79,96 @@ export class CompletionModuleComponent implements OnInit {
       });
   }
 
+  getCriteriaByProgrameId(programeid: any) {
+    (this.addNewCompletionService
+      .getCriteriaByProgrameId(programeid))
+      .toPromise()
+      .then((message: any) => {
+        console.log(message)
+        this.critieaData = message;
+        // this.loading = false;
+// console.log("this.loading",this.loading)
+//         this.oneDayDates = this.model.oneDayDates;
+      })
+  }
+
+
   programmeChange(target: any) {
-  this.programmeId = target.value;
-  console
-.
+    this.programmeId = target.value;
+    console
+      .log(this
 
-  log(this
+        .programmes
+      );
 
-.
-  programmes
-);
+    this
+      .filteredProgrammes
+      .next(this
 
-  this
-.
-  filteredProgrammes
-.
+        .programmes
+      );
+    this
+      .programmeFilterCtrl
+      .valueChanges
+      .pipe(takeUntil
 
-  next(this
-
-.
-  programmes
-);
-  this
-.
-  programmeFilterCtrl
-.
-  valueChanges
-.
-
-  pipe(takeUntil
-
-(
-  this
-.
-  _onDestroy
-))
-.
-
-  subscribe(
-
-() => {
-  this
-.
-
-  filterProgrammes();
-}
-
-)
-;
-}
-
-filterProgrammes()
-{
-  if (!this.programmes) {
-    return;
+      (
+        this
+          ._onDestroy
+      ))
+      .subscribe(
+        () => {
+          this
+            .filterProgrammes();
+        }
+      )
+    ;
   }
-  let search = this.programmeFilterCtrl.value;
-  if (!search) {
-    this.filteredProgrammes.next(this.programmes.slice());
-    return;
-  } else {
-    search = search.toLowerCase();
+
+  filterProgrammes() {
+    if (!this.programmes) {
+      return;
+    }
+    let search = this.programmeFilterCtrl.value;
+    if (!search) {
+      this.filteredProgrammes.next(this.programmes.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredProgrammes.next(
+      this.programmes.filter((programme: {
+        programName: string;
+      }) => programme.programName.toLowerCase().indexOf(search) > -1)
+    );
   }
-  this.filteredProgrammes.next(
-    this.programmes.filter((programme: {
-      programName: string;
-    }) => programme.programName.toLowerCase().indexOf(search) > -1)
-  );
-}
 
 
-addNewProgram()
-{
+  addNewProgram() {
 
-}
+  }
 
 
-run(id
-:
-number
-)
-{
+  run(id
+        :
+        number
+  ) {
 
-}
+  }
 
-camelCaseText(word
-:
-string
-):
-string
-{
-  const words = word.split(' ');
+  camelCaseText(word
+                  :
+                  string
+  ):
+    string {
+    const words = word.split(' ');
 
-  const camelCaseWords = words.map((word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-  });
+    const camelCaseWords = words.map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    });
 
-  return camelCaseWords.join(' ');
-}
+    return camelCaseWords.join(' ');
+  }
 
 
 }
