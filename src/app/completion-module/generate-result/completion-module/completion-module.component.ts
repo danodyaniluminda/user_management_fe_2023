@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {ReplaySubject, Subject, takeUntil} from "rxjs";
 import {FormControl} from "@angular/forms";
 
-// import * as XLSX from 'xlsx';
+ import * as XLSX from 'xlsx';
 import {saveAs} from 'file-saver';
 import {tsCastToAny} from "@angular/compiler-cli/src/ngtsc/typecheck/src/ts_util";
 
@@ -56,11 +56,11 @@ export class CompletionModuleComponent implements OnInit {
   }
 
   exportToExcel(): void {
-    // const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
-    // const workbook: XLSX.WorkBook = {Sheets: {'data': worksheet}, SheetNames: ['data']};
-    // const excelBuffer: any = XLSX.write(workbook, {bookType: 'xlsx', type: 'array'});
-    // const excelData: Blob = new Blob([excelBuffer], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8'});
-    // saveAs(excelData, 'data.xlsx');
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Not Converted Course List.xlsx');
   }
 
 
