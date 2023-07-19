@@ -2,8 +2,13 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import Swal from "sweetalert2";
 import {AddNewCompletionService} from "./completion-module.service";
 import {Router} from "@angular/router";
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import {ReplaySubject, Subject, takeUntil} from "rxjs";
+import {FormControl} from "@angular/forms";
+
+ import * as XLSX from 'xlsx';
+import {saveAs} from 'file-saver';
+import {tsCastToAny} from "@angular/compiler-cli/src/ngtsc/typecheck/src/ts_util";
+
 @Component({
   selector: 'completion-completion-module',
   templateUrl: './completion-module.component.html',
@@ -11,29 +16,36 @@ import { saveAs } from 'file-saver';
 })
 export class CompletionModuleComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
-  resultStatuses: any[] = [];
-  resultStatus: any[];
-  resultStatusName:string;
-  resultStatusNo:string;
   showTable: Boolean = false;
-  addButtonDisabled :boolean=true;
+  addButtonDisabled: boolean = true;
+
+
   jsonData = {
     data: [
-      { applicationId: 463563, courseId: 5728 },
-      { applicationId: 463019, courseId: 447 },
-      { applicationId: 463711, courseId: 5728 },
-      { applicationId: 463928, courseId: 447 }
+      {applicationId: 463563, courseId: 5728},
+      {applicationId: 463019, courseId: 447},
+      {applicationId: 463711, courseId: 5728},
+      {applicationId: 463928, courseId: 447}
     ]
   };
-  constructor(
-    private addNewCompletionService:AddNewCompletionService,
-    private router:Router
-  ) { }
+  critieaData: any;
 
+  constructor(
+    private addNewCompletionService: AddNewCompletionService,
+    private router: Router,
+  ) {
+  }
+
+  programmeId: number = -1;
+  programmes: any[];
+
+  public filteredProgrammes: ReplaySubject<any> = new ReplaySubject<any>(1);
+  public programmeFilterCtrl: FormControl = new FormControl('');
+  protected _onDestroy = new Subject<void>();
 
   ngOnInit(): void {
-    this.fetchAllResultStatuss();
-    this.search();
+    this.fetchAllProgrammes();
+
 
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -52,73 +64,103 @@ export class CompletionModuleComponent implements OnInit {
   }
 
 
-  fetchAllResultStatuss(){
-    this.addNewCompletionService.getAllResultStatus()
+  fetchAllProgrammes() {
+    this.addNewCompletionService
+      .getAllProgrammes()
       .toPromise()
-      .then((result:any) => {
-        this.resultStatuses = result;
+      .then((result: any) => {
+        this.filteredProgrammes.next(this.programmes);
+        console.log("All-programmes", result);
+        this.programmes = result;
+        //this.programmeId = this.programmes[0].id;
       })
-      .catch((exception:any) => {
+      .catch((exception: any) => {
         alert(exception);
       });
   }
 
-  filterProgram($event:any){
-    this.addButtonDisabled = false;
-    let key = $event.target.value;
-    let filtered = this.resultStatuses.filter(status => status.name.includes(key));
-    console.log(filtered);
-
-  }
-  onResultTypeClick(){
-    this.addButtonDisabled = false;
-  }
-
-  addNewProgram(){
-    // if(this.resultStatusName==undefined || this.resultStatusName.trim().length==0){
-    //   Swal.fire('Please enter the result type', 'Result type is empty!', 'error');
-    //
-    //   return;
-    // }
-    // this.resultStatusName = this.camelCaseText(this.resultStatusName.trim());
-    //
-    // let filteredresultStatuss = this.resultStatuses.filter((tt: {name:any, type: any}) => tt.name == this.resultStatusName.trim());
-    // if(filteredresultStatuss.length>0){
-    //   Swal.fire('Oops!', 'Entered details are already exists! ', 'error');
-    //
-    //   return;
-    // }
-    //
-    // console.log("AddNewResultStatus -> " , this.resultStatusName + " & " + this.resultStatusNo);
-    //
-    // {
-    //   this.addNewCompletionService.addNewResultStatus(this.resultStatusName,this.resultStatusNo)
-    //     .toPromise()
-    //     .then((result:any) => {
-    //       console.log(result);
-    //     })
-    //     .catch((exception:any) => {
-    //       alert(exception);
-    //     });
-    // }
-  }
-
-  search() {
-    this.showTable=false;
-    this.addNewCompletionService
-      .searchResponseToAPI()
+  getCriteriaByProgrameId(programeid: any) {
+    (this.addNewCompletionService
+      .getCriteriaByProgrameId(programeid))
       .toPromise()
       .then((message: any) => {
-        this.resultStatus = message;
-        console.log("test",message);
-        this.showTable = true;
-      });
+        console.log(message)
+        this.critieaData = message;
+        // this.loading = false;
+// console.log("this.loading",this.loading)
+//         this.oneDayDates = this.model.oneDayDates;
+      })
   }
-  run(id:number) {
+
+
+  programmeChange(target: any) {
+    this.programmeId = target.value;
+    console
+      .log(this
+
+        .programmes
+      );
+
+    this
+      .filteredProgrammes
+      .next(this
+
+        .programmes
+      );
+    this
+      .programmeFilterCtrl
+      .valueChanges
+      .pipe(takeUntil
+
+      (
+        this
+          ._onDestroy
+      ))
+      .subscribe(
+        () => {
+          this
+            .filterProgrammes();
+        }
+      )
+    ;
+  }
+
+  filterProgrammes() {
+    if (!this.programmes) {
+      return;
+    }
+    let search = this.programmeFilterCtrl.value;
+    if (!search) {
+      this.filteredProgrammes.next(this.programmes.slice());
+      return;
+    } else {
+      search = search.toLowerCase();
+    }
+    this.filteredProgrammes.next(
+      this.programmes.filter((programme: {
+        programName: string;
+      }) => programme.programName.toLowerCase().indexOf(search) > -1)
+    );
+  }
+
+
+  addNewProgram() {
 
   }
 
-  camelCaseText(word:string): string {
+
+  run(id
+        :
+        number
+  ) {
+
+  }
+
+  camelCaseText(word
+                  :
+                  string
+  ):
+    string {
     const words = word.split(' ');
 
     const camelCaseWords = words.map((word) => {

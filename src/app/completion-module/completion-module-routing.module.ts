@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {CompletionModuleComponent} from "./generate-result/completion-module/completion-module.component";
+import { TableManagementComponent } from './table-management/table-management.component';
+
 
 const routes: Routes = [
 
@@ -13,6 +15,12 @@ const routes: Routes = [
         component : CompletionModuleComponent
       },
     ]
+  },
+
+  {
+    path:'table-management',
+    component: TableManagementComponent
+
   },
 ];
 
