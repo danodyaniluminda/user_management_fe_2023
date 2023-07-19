@@ -48,7 +48,7 @@ export class CompletionModuleComponent implements OnInit {
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-    saveAs(excelData, 'data.xlsx');
+    saveAs(excelData, 'Not Converted Course List.xlsx');
   }
 
 
