@@ -17,6 +17,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "strictPropertyInitialization": false,
+    "allowSyntheticDefaultImports": true,
 
     "sourceMap": true,
     "declaration": false,
