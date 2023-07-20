@@ -18,16 +18,9 @@ export class CompletionModuleComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   showTable: Boolean = false;
   addButtonDisabled: boolean = true;
+  showExportButton: boolean = false;
 
-
-  jsonData = {
-    data: [
-      {applicationId: 463563, courseId: 5728},
-      {applicationId: 463019, courseId: 447},
-      {applicationId: 463711, courseId: 5728},
-      {applicationId: 463928, courseId: 447}
-    ]
-  };
+  jsonData :any;
   critieaData: any;
 
   constructor(
@@ -54,6 +47,28 @@ export class CompletionModuleComponent implements OnInit {
     };
 
   }
+  
+
+runContinueCourseCritriaChecking(programeid: any) {(
+  this.addNewCompletionService
+    .runContinueCourseCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+
+      }
+      if(result.status=='NOT_MATCH'){
+        this.jsonData=result;
+        this.showExportButton= true;
+       // this.exportToExcel(result.data);
+      }
+
+      // this.loading = false;
+// console.log("this.loading",this.loading)
+//         this.oneDayDates = this.model.oneDayDates;
+    })
+}
 
   exportToExcel(): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
