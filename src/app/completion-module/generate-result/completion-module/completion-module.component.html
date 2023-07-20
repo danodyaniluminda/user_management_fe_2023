@@ -40,11 +40,7 @@
 <!--          &nbsp; <button [disabled]="addButtonDisabled" (click)="addNewProgram()"  mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Add</button>-->
 
 <!--        </div>-->
-        <div style="text-align: right;">
-          &nbsp; <button (click)="exportToExcel()">Export to Excel</button>
 
-
-        </div>
       </mat-card-content>
     </div>
   </mat-card>
@@ -64,13 +60,18 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of critieaData">
+      <tr *ngFor="let data of critieaData; let firstRow = first">
         <td>{{ data.id }}</td>
         <td>{{ data.criteria.criteriaName }}</td>
         <td>
-          <button  mat-raised-button color="primary" type="submit" >Run</button>
+
+          <button  mat-raised-button color="primary" type="submit" (click)="runContinueCourseCritriaChecking(data.program.id)">Run</button>
         </td>
-        <td> </td>
+        <td>
+          <ng-container *ngIf="firstRow && showExportButton">
+            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>
+          </ng-container>
+        </td>
       </tr>
       </tbody>
     </table>
