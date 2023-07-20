@@ -16,15 +16,8 @@
         <mat-label> Select Table</mat-label>
         <mat-select [(ngModel)]="selectedTable"(selectionChange)="onTableSelect()">
           <mat-option *ngFor="let completionTable of completionTableList" [value]="completionTable" >
-            {{ completionTable.name }}
+            {{ completionTable.label }}
           </mat-option>
-         <!-- <mat-option>
-            <ngx-mat-select-search placeholderLabel="Find Table Name"
-              noEntriesFoundLabel="'No matching programme found'">
-              <mat-icon ngxMatSelectSearchClear>delete</mat-icon>
-            </ngx-mat-select-search>
-          </mat-option> -->
-          <mat-option value="all" >Select All</mat-option>
         </mat-select>
       </mat-form-field> 
       <button [disabled]="" mat-raised-button color="primary" style="width: 100px;margin-left: 20px;">Download</button>
@@ -35,13 +28,14 @@
       <button  mat-raised-button color="primary" style="width: 75px;margin-left: 20px;" (click)="browseTable()">Browse</button>
       &nbsp;
       <button mat-raised-button color="primary" style="width: 100px;margin-left: 162px;">Clear Table</button>
-      <button mat-raised-button color="primary" style="width: 100px; margin-left: 20px;" (click)="selectedFile && uploadFile(selectedFile)">Upload</button>
+      <button mat-raised-button color="primary" style="width: 100px; margin-left: 20px;" (click)="uploadbutton()">Upload</button>
     </div>
     <br>
     <div>
-      <mat-label style="margin-left: 162px;" >Uploaded File: {{ selectedFileName }}</mat-label>
+      <mat-label>Last Uploaded File Details</mat-label>
+      <mat-label style="margin-left: 20px;" id="selectFileLabel" ></mat-label>
     </div>
     <div>
-      <mat-label style="margin-left: 162px;" id="dataCountLabel"></mat-label>
+      <mat-label style="margin-left: 207px;" id="dataCountLabel"></mat-label>
 
     </div>
