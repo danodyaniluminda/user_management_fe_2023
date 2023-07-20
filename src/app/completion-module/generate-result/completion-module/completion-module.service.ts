@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import {FormGroup} from "@angular/forms";
 
 const GENERATE_STATUS_API = environment.graduation_completion +'/api/generateResult';
-
+const CONTINUE_COURSE_API = environment.graduation_completion +'/api/graduation-completion/continuingCourse';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,6 +44,25 @@ export class AddNewCompletionService {
 
         // this.model.oneDayDates = result;
 
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  runContinueCourseCritiria(programeid : any){
+    const url = CONTINUE_COURSE_API + '/checkCntCourse';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
         observable.next(result);
         observable.complete();
       })
