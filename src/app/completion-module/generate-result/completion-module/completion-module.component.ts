@@ -24,6 +24,7 @@ export class CompletionModuleComponent implements OnInit {
   jsonData :any;
   critieaData: any;
   message:any;
+  loading: boolean;
 
   constructor(
     private addNewCompletionService: AddNewCompletionService,
@@ -55,7 +56,7 @@ export class CompletionModuleComponent implements OnInit {
     } else if (data.criteria.id === 2) {
       this.function1(data);
     }else if (data.criteria.id === 3) {
-      this.function2(data);
+      this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
     }else if (data.criteria.id === 4) {
       this.function3(data);
     } else {
@@ -123,6 +124,40 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
 
+  runOpenElectiveCheckLevel3CritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runOpenElectiveCheckLevel3Critiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.updateFailedOrPassedCritiaOpenElectiveCheckLevel3(programeid);
+        this.getCriteriaByProgrameId(programeid);
+      }
+      if(result.status=='NOT_MATCH'){
+        this.jsonData=result;
+        this.showExportButton= true;
+        this.showContinueCourseErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaOpenElectiveCheckLevel3(programeid: any) {(
+    this.addNewCompletionService
+      .updateFailedOrPassedCritiaOpenElectiveCheckLevel3(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showContinueCourseSuccessMsg=true;
+        this.message=result.message;
+
+      }
+
+    })
+  }
+
   fetchAllProgrammes() {
     this.addNewCompletionService
       .getAllProgrammes()
@@ -138,14 +173,16 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       });
   }
 
-  getCriteriaByProgrameId(programeid: any) {
-    (this.addNewCompletionService
+  async getCriteriaByProgrameId(programeid: any) {
+    this.loading = false;
+    this.critieaData=[];
+    (await this.addNewCompletionService
       .getCriteriaByProgrameId(programeid))
       .toPromise()
-      .then((message: any) => {
-        console.log(message)
-        this.critieaData = message;
-        // this.loading = false;
+      .then((data: any) => {
+        console.log(data)
+        this.critieaData = data;
+        this.loading = true;
 // console.log("this.loading",this.loading)
 //         this.oneDayDates = this.model.oneDayDates;
       })
