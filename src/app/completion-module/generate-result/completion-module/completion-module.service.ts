@@ -83,6 +83,7 @@ export class AddNewCompletionService {
 
     return new Observable(observable => {
       observable.next(data.then((result:any) => {
+        console.log("result",result);
         observable.next(result);
         observable.complete();
       })
