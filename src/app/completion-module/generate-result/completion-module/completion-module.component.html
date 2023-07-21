@@ -30,7 +30,7 @@
       <mat-option >Select All</mat-option>
 
       <mat-option *ngFor="let programme of filteredProgrammes | async" (click)="getCriteriaByProgrameId(programme.id)" [value]="programme.id">
-        {{programme.programName}}
+        {{programme.programCode}} - {{programme.programName}} {{programme.programName}}
       </mat-option>
     </mat-select>
   </mat-form-field>
