@@ -60,7 +60,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of critieaData; let firstRow = first">
+      <tr *ngFor="let data of critieaData; let firstRow = first ">
         <td>{{ data.id }}</td>
         <td>{{ data.criteria.criteriaName }}</td>
         <td>
@@ -78,6 +78,34 @@
           <ng-container *ngIf="firstRow && showContinueCourseErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
+
+
+
+          <ng-container *ngIf="firstRow && showExportButtonOpenElectiveCheckLevel3">
+            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel3SuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel3ErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+
+          <ng-container *ngIf="firstRow && showExportButtonOpenElectiveCheckLevel5">
+            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel5SuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel5ErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
         </td>
       </tr>
       </tbody>

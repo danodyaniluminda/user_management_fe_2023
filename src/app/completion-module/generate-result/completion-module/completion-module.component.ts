@@ -21,6 +21,12 @@ export class CompletionModuleComponent implements OnInit {
   showExportButton: boolean = false;
   showContinueCourseErrorMsg: boolean = false;
   showContinueCourseSuccessMsg: boolean = false;
+  showExportButtonOpenElectiveCheckLevel3: boolean = false;
+  showOpenElectiveCheckLevel3ErrorMsg: boolean = false;
+  showOpenElectiveCheckLevel3SuccessMsg: boolean = false;
+  showExportButtonOpenElectiveCheckLevel5: boolean = false;
+  showOpenElectiveCheckLevel5ErrorMsg: boolean = false;
+  showOpenElectiveCheckLevel5SuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
   message:any;
@@ -58,7 +64,11 @@ export class CompletionModuleComponent implements OnInit {
     }else if (data.criteria.id === 3) {
       this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
     }else if (data.criteria.id === 4) {
+      this.function2(data);
+    }else if (data.criteria.id === 5) {
       this.function3(data);
+    }else if (data.criteria.id === 6) {
+      this.runOpenElectiveCheckLevel5CritriaChecking(data.program.id);
     } else {
       // Implement other cases as needed
     }
@@ -136,8 +146,8 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       }
       if(result.status=='NOT_MATCH'){
         this.jsonData=result;
-        this.showExportButton= true;
-        this.showContinueCourseErrorMsg=true;
+        this.showExportButtonOpenElectiveCheckLevel3= true;
+        this.showOpenElectiveCheckLevel3ErrorMsg=true;
         this.message=result.message;
       }
     })
@@ -150,7 +160,41 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     .then((result: any) => {
       console.log(result);
       if(result.status=='SUCCESS'){
-        this.showContinueCourseSuccessMsg=true;
+        this.showOpenElectiveCheckLevel3SuccessMsg=true;
+        this.message=result.message;
+
+      }
+
+    })
+  }
+
+  runOpenElectiveCheckLevel5CritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runOpenElectiveCheckLevel5Critiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.updateFailedOrPassedCritiaOpenElectiveCheckLevel5(programeid);
+        this.getCriteriaByProgrameId(programeid);
+      }
+      if(result.status=='NOT_MATCH'){
+        this.jsonData=result;
+        this.showExportButtonOpenElectiveCheckLevel5= true;
+        this.showOpenElectiveCheckLevel5ErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaOpenElectiveCheckLevel5(programeid: any) {(
+    this.addNewCompletionService
+      .updateFailedOrPassedCritiaOpenElectiveCheckLevel5(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showOpenElectiveCheckLevel5SuccessMsg=true;
         this.message=result.message;
 
       }
