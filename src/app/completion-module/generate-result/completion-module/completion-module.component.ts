@@ -21,6 +21,9 @@ export class CompletionModuleComponent implements OnInit {
   showExportButton: boolean = false;
   showContinueCourseErrorMsg: boolean = false;
   showContinueCourseSuccessMsg: boolean = false;
+  showExportButtonOpenElectiveCheckLevel3: boolean = false;
+  showOpenElectiveCheckLevel3ErrorMsg: boolean = false;
+  showOpenElectiveCheckLevel3SuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
   message:any;
@@ -136,8 +139,8 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       }
       if(result.status=='NOT_MATCH'){
         this.jsonData=result;
-        this.showExportButton= true;
-        this.showContinueCourseErrorMsg=true;
+        this.showExportButtonOpenElectiveCheckLevel3= true;
+        this.showOpenElectiveCheckLevel3ErrorMsg=true;
         this.message=result.message;
       }
     })
@@ -150,7 +153,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     .then((result: any) => {
       console.log(result);
       if(result.status=='SUCCESS'){
-        this.showContinueCourseSuccessMsg=true;
+        this.showOpenElectiveCheckLevel3SuccessMsg=true;
         this.message=result.message;
 
       }
