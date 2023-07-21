@@ -7,6 +7,7 @@ import {FormGroup} from "@angular/forms";
 
 const GENERATE_STATUS_API = environment.graduation_completion +'/api/generateResult';
 const CONTINUE_COURSE_API = environment.graduation_completion +'/api/graduation-completion/continuingCourse';
+const OPEN_ELECTIVE_CHECK_LEVEL_3 = environment.graduation_completion +'/api/graduation-completion/optional-course-credits';
 @Injectable({
   providedIn: 'root'
 })
@@ -92,4 +93,46 @@ export class AddNewCompletionService {
         }));
     });
   }
+
+  runOpenElectiveCheckLevel3Critiria(programeid : any){
+    const url = OPEN_ELECTIVE_CHECK_LEVEL_3 + '/check-courses-need-to-be-converted';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+    queryParams = queryParams.append("level", 3);
+
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  updateFailedOrPassedCritiaOpenElectiveCheckLevel3 (programeid : any){
+    const url = OPEN_ELECTIVE_CHECK_LEVEL_3 + '/check-open-elective-coursed-level-tree';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
 }
