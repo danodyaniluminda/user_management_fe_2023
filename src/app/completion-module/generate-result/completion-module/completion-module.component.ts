@@ -4,7 +4,7 @@ import {AddNewCompletionService} from "./completion-module.service";
 import {Router} from "@angular/router";
 import {ReplaySubject, Subject, takeUntil} from "rxjs";
 import {FormControl} from "@angular/forms";
-
+import {MatChipsModule} from '@angular/material/chips';
  import * as XLSX from 'xlsx';
 import {saveAs} from 'file-saver';
 import {tsCastToAny} from "@angular/compiler-cli/src/ngtsc/typecheck/src/ts_util";
@@ -19,9 +19,11 @@ export class CompletionModuleComponent implements OnInit {
   showTable: Boolean = false;
   addButtonDisabled: boolean = true;
   showExportButton: boolean = false;
-
+  showContinueCourseErrorMsg: boolean = false;
+  showContinueCourseSuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
+  message:any;
 
   constructor(
     private addNewCompletionService: AddNewCompletionService,
@@ -47,7 +49,37 @@ export class CompletionModuleComponent implements OnInit {
     };
 
   }
-  
+  runFunction(data: any) {
+    if (data.criteria.id === 1) {
+      this.runContinueCourseCritriaChecking(data.program.id);
+    } else if (data.criteria.id === 2) {
+      this.function1(data);
+    }else if (data.criteria.id === 3) {
+      this.function2(data);
+    }else if (data.criteria.id === 4) {
+      this.function3(data);
+    } else {
+      // Implement other cases as needed
+    }
+  }
+  function1(data: any) {
+    // Implement your function 1 logic here, using the row data if necessary
+    console.log('Running Function 1 for row with ID:', data.id);
+    alert(data.criteria.criteriaName);
+  }
+
+  function2(data: any) {
+    // Implement your function 2 logic here, using the row data if necessary
+    console.log('Running Function 2 for row with ID:', data.id);
+    alert(data.criteria.criteriaName);
+  }
+
+  function3(data: any) {
+    // Implement your function 2 logic here, using the row data if necessary
+    console.log('Running Function 2 for row with ID:', data.id);
+    alert(data.criteria.criteriaName);
+  }
+
 
 runContinueCourseCritriaChecking(programeid: any) {(
   this.addNewCompletionService
@@ -56,17 +88,29 @@ runContinueCourseCritriaChecking(programeid: any) {(
     .then((result: any) => {
       console.log(result);
       if(result.status=='SUCCESS'){
-
+        this.updateFailedOrPassedCritiaStudent(programeid);
       }
       if(result.status=='NOT_MATCH'){
         this.jsonData=result;
         this.showExportButton= true;
-       // this.exportToExcel(result.data);
+        this.showContinueCourseErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+}
+
+updateFailedOrPassedCritiaStudent(programeid: any) {(
+  this.addNewCompletionService
+    .updateFailedOrPassedCritiaStudent(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showContinueCourseSuccessMsg=true;
+        this.message=result.message;
+
       }
 
-      // this.loading = false;
-// console.log("this.loading",this.loading)
-//         this.oneDayDates = this.model.oneDayDates;
     })
 }
 
