@@ -72,4 +72,23 @@ export class AddNewCompletionService {
     });
   }
 
+
+  updateFailedOrPassedCritiaStudent(programeid : any){
+    const url = CONTINUE_COURSE_API + '/updateFailedOrPassedCritiaStudent';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
 }
