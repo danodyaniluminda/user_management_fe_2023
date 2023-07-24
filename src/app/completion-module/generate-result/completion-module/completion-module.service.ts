@@ -226,7 +226,7 @@ export class AddNewCompletionService {
     const url = REGULAR_COURSE_CHECK + '/check-courses-need-to-be-converted';
     let queryParams = new HttpParams();
 
-    queryParams = queryParams.append("id", programeid);
+    queryParams = queryParams.append("programId", programeid);
 
 
 
@@ -246,8 +246,9 @@ export class AddNewCompletionService {
   updateFailedOrPassedCritiaRegularCourseCheck (programeid : any){
     const url = REGULAR_COURSE_CHECK  + '/check-regular-course-credits-passed';
     let queryParams = new HttpParams();
-
-    queryParams = queryParams.append("id", programeid);
+    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("noOfCreditsRequired", 24);
+    queryParams = queryParams.append("level", 3);
 
     const data = this.http.get(url, {params: queryParams}).toPromise();
 
