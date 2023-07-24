@@ -274,9 +274,14 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     .toPromise()
     .then((result: any) => {
       console.log(result);
-      if(result.status=='SUCCESS'){
+      if(result.status==true){
         this.updateFailedOrPassedCritiaRegularCourseCheck(programeid);
         this.getCriteriaByProgrameId(programeid);
+        this.message="Total Applications : " + result.allApplicationIdsCount
+          + ", Total Passed (Without Contradiction) : " + result.totalCreditsExactlyMatchRequiredCreditsApplicationIdsCount +
+          ", Total Passed Contradictions : " + result.totalCreditsGreaterThanRequiredCreditsApplicationIdsCount + ", " +
+          ", Total Fail : " + result.totalCreditsLessThanRequiredCreditsApplicationIdsCount + " .";
+        this.showRegularCourseCheckSuccessMsg = true;
       }
       if(result.status=='NOT_MATCH'){
         this.jsonData=result;
@@ -287,19 +292,20 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     })
   }
 
-  updateFailedOrPassedCritiaRegularCourseCheck(programeid: any) {(
-    this.addNewCompletionService
-      .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
-    .toPromise()
-    .then((result: any) => {
-      console.log(result);
-      if(result.status=='SUCCESS'){
-        this.showRegularCourseCheckSuccessMsg=true;
-        this.message=result.message;
-
-      }
-
-    })
+  updateFailedOrPassedCritiaRegularCourseCheck(programeid: any) {
+    // (
+    // this.addNewCompletionService
+    //   .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    // .toPromise()
+    // .then((result: any) => {
+    //   console.log(result);
+    //   if(result.status=='SUCCESS'){
+    //     this.showRegularCourseCheckSuccessMsg=true;
+    //     this.message=result.message;
+    //
+    //   }
+    //
+    // })
   }
 
   exportToExcelRegularCourseCheck(): void {

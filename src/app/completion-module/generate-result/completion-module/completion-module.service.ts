@@ -222,28 +222,28 @@ export class AddNewCompletionService {
     });
   }
 
-  runRegularCourseCheckCritiria(programeid : any){
-    const url = REGULAR_COURSE_CHECK + '/check-courses-need-to-be-converted';
-    let queryParams = new HttpParams();
+  // runRegularCourseCheckCritiria(programeid : any){
+  //   const url = REGULAR_COURSE_CHECK + '/check-courses-need-to-be-converted';
+  //   let queryParams = new HttpParams();
+  //
+  //   queryParams = queryParams.append("programId", programeid);
+  //
+  //
+  //
+  //   const data = this.http.get(url, {params: queryParams}).toPromise();
+  //
+  //   return new Observable(observable => {
+  //     observable.next(data.then((result:any) => {
+  //       observable.next(result);
+  //       observable.complete();
+  //     })
+  //       .catch(error => {
+  //         console.log(error);
+  //       }));
+  //   });
+  // }
 
-    queryParams = queryParams.append("programId", programeid);
-
-
-
-    const data = this.http.get(url, {params: queryParams}).toPromise();
-
-    return new Observable(observable => {
-      observable.next(data.then((result:any) => {
-        observable.next(result);
-        observable.complete();
-      })
-        .catch(error => {
-          console.log(error);
-        }));
-    });
-  }
-
-  updateFailedOrPassedCritiaRegularCourseCheck (programeid : any){
+  runRegularCourseCheckCritiria (programeid : any){
     const url = REGULAR_COURSE_CHECK  + '/check-regular-course-credits-passed';
     let queryParams = new HttpParams();
     queryParams = queryParams.append("programId", 164);
