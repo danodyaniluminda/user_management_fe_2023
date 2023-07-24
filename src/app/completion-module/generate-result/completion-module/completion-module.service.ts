@@ -10,6 +10,7 @@ const CONTINUE_COURSE_API = environment.graduation_completion +'/api/graduation-
 const OPEN_ELECTIVE_CHECK_LEVEL_3 = environment.graduation_completion +'/api/graduation-completion/optional-course-credits';
 const OPEN_ELECTIVE_CHECK_LEVEL_5 = environment.graduation_completion +'/api/graduation-completion/optional-course-credits';
 const GPA_CALCULATION = environment.graduation_completion +'/api/graduation-completion/gpa_calculation';
+const REGULAR_COURSE_CHECK = environment.graduation_completion +'/api/graduation-completion/regular-course-credits';
 @Injectable({
   providedIn: 'root'
 })
@@ -203,6 +204,47 @@ export class AddNewCompletionService {
 
   updateFailedOrPassedCritiaGpaCalculation (programeid : any){
     const url = GPA_CALCULATION  + '';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  runRegularCourseCheckCritiria(programeid : any){
+    const url = REGULAR_COURSE_CHECK + '/check-courses-need-to-be-converted';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  updateFailedOrPassedCritiaRegularCourseCheck (programeid : any){
+    const url = REGULAR_COURSE_CHECK  + '/check-regular-course-credits-passed';
     let queryParams = new HttpParams();
 
     queryParams = queryParams.append("id", programeid);

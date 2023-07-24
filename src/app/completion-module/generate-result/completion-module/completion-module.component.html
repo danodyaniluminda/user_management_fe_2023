@@ -79,6 +79,18 @@
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
+          <ng-container *ngIf="index==2 && showExportButtonGpaCalculation">
+            &nbsp; <button (click)="exportToExcelRegularCourseCheck()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==2 && showGpaCalculationSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==2 && showGpaCalculationErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
           <ng-container *ngIf="index==3 && showExportButtonOpenElectiveCheckLevel3">
             &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel3()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
@@ -115,6 +127,7 @@
           <ng-container *ngIf="index==6 && showGpaCalculationErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
+
 
         </td>
       </tr>

@@ -30,6 +30,9 @@ export class CompletionModuleComponent implements OnInit {
   showExportButtonGpaCalculation: boolean = false;
   showGpaCalculationErrorMsg: boolean = false;
   showGpaCalculationSuccessMsg: boolean = false;
+  showExportButtonRegularCourseCheck: boolean = false;
+  showRegularCourseCheckErrorMsg: boolean = false;
+  showRegularCourseCheckSuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
   message:any;
@@ -63,11 +66,11 @@ export class CompletionModuleComponent implements OnInit {
     if (data.criteria.id === 1) {
       this.runContinueCourseCritriaChecking(data.program.id);
     } else if (data.criteria.id === 2) {
-      this.function1(data);
+      this.runRegularCourseCheckCritriaChecking(data.program.id);
     }else if (data.criteria.id === 3) {
       this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
     }else if (data.criteria.id === 4) {
-      this.function2(data);
+      this.runGpaCalculationCritriaChecking(data.program.id);
     }else if (data.criteria.id === 5) {
       this.function3(data);
     }else if (data.criteria.id === 6) {
@@ -264,6 +267,50 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
     saveAs(excelData, 'Not Converted Gpa Calculation List.xlsx');
   }
+
+  runRegularCourseCheckCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runRegularCourseCheckCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.updateFailedOrPassedCritiaRegularCourseCheck(programeid);
+        this.getCriteriaByProgrameId(programeid);
+      }
+      if(result.status=='NOT_MATCH'){
+        this.jsonData=result;
+        this.showExportButtonRegularCourseCheck= true;
+        this.showRegularCourseCheckErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaRegularCourseCheck(programeid: any) {(
+    this.addNewCompletionService
+      .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showRegularCourseCheckSuccessMsg=true;
+        this.message=result.message;
+
+      }
+
+    })
+  }
+
+  exportToExcelRegularCourseCheck(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Not Converted Regular Course Check List.xlsx');
+  }
+
+
 
 
 
