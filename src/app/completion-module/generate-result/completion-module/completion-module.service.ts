@@ -5,8 +5,11 @@ import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import {FormGroup} from "@angular/forms";
 
-const GENERATE_STATUS_API = environment.base_url +'/api/v1/transcript_admin/';
-
+const GENERATE_STATUS_API = environment.graduation_completion +'/api/generateResult';
+const CONTINUE_COURSE_API = environment.graduation_completion +'/api/graduation-completion/continuingCourse';
+const OPEN_ELECTIVE_CHECK_LEVEL_3 = environment.graduation_completion +'/api/graduation-completion/optional-course-credits';
+const OPEN_ELECTIVE_CHECK_LEVEL_5 = environment.graduation_completion +'/api/graduation-completion/optional-course-credits';
+const GPA_CALCULATION = environment.graduation_completion +'/api/graduation-completion/gpa_calculation';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,9 +17,9 @@ export class AddNewCompletionService {
 
   constructor(private http: HttpClient) { }
 
-  getAllResultStatus(): Observable<any> {
+  getAllProgrammes(): Observable<any> {
 
-    let result = this.http.get(GENERATE_STATUS_API + 'trancript_result_type/get_all_trancript_result_type');
+    let result = this.http.get(GENERATE_STATUS_API + '/getAllProgrammes');
     return new Observable(observable => {
       observable.next(result.toPromise().then((result: any) => {
         console.log("Result Status : ", result);
@@ -29,100 +32,195 @@ export class AddNewCompletionService {
         }));
     });
 
-
   }
 
-
-  addNewResultStatus(name:string, no:string): Observable<any> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  getCriteriaByProgrameId(programeid : any){
+    const url = GENERATE_STATUS_API + '/getCritriaByProgrammeID';
     let queryParams = new HttpParams();
-    console.log(name)
-    console.log(no)
 
+    queryParams = queryParams.append("id", programeid);
 
-    let bodyJson = {
-      "name":name,
-      "no":no,
+    const data = this.http.get(url, {params: queryParams}).toPromise();
 
-    }
-    let result = this.http.post(GENERATE_STATUS_API + 'trancript_result_type/add_new_trancript_result_type',bodyJson ,{ headers: headers, responseType: 'text'});
     return new Observable(observable => {
-      observable.next(result.toPromise().then((result: any) => {
-        console.log("Result: ", result);
+      observable.next(data.then((result:any) => {
 
-        if(result.toLowerCase().trim().startsWith("success")){
-          observable.next(result);
-          observable.next(result);
-          observable.complete();
-          Swal.fire('Success !','Record Added Successfully.', 'success');
-          setTimeout(() =>{ location.reload();},3000);
-        }else{
-          Swal.fire('Error...','error', 'error');
-        }
+        // this.model.oneDayDates = result;
 
+        observable.next(result);
+        observable.complete();
       })
         .catch(error => {
-          observable.next((error['error'].message));
-          Swal.fire('Error...','error', 'error');
-          observable.complete();
-          location.reload();
-        }));
-    });
-
-
-  }
-
-  searchResponseToAPI() : Observable<any> {
-    // console.log(form.value);
-    let result = this.http.get(GENERATE_STATUS_API + 'trancript_result_type/get_all_trancript_result_type', {
-      responseType: 'json',
-    });
-
-    return new Observable((observable) => {
-      observable.next(
-        result
-          .toPromise()
-          .then((result: any) => {
-            observable.next(result);
-            observable.complete();
-            // observable.next('success:Your account has been created successfully. Please check the email to find the username and password.');
-
-          })
-          .catch((error) => {
-            console.log(error);
-            observable.next(error['error']);
-            observable.complete();
-          })
-      );
-    });
-  }
-
-  archiveResultStatus(id:number): Observable<any>{
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("id",id);
-    let result = this.http.get(GENERATE_STATUS_API + 'trancript_result_type/archive_transcript_result_type' ,{params:queryParams,responseType: 'text'});
-    return new Observable(observable => {
-      observable.next(result.toPromise().then((result: any) => {
-        console.log("Result: ", result);
-
-        if(result.toLowerCase().trim().startsWith("success")){
-          // Swal.fire('Success...','Record Deleted Successfully', 'success');
-          observable.next(result);
-          observable.next(result);
-          observable.complete();
-          setTimeout(() =>{ location.reload();},3000);
-        }else{
-          Swal.fire('Error...','error', 'error');
-        }
-
-      })
-        .catch(error => {
-          observable.next((error['error'].message));
-          Swal.fire('Error...','error', 'error');
-          observable.complete();
-          window.location.reload();
+          console.log(error);
         }));
     });
   }
+
+  runContinueCourseCritiria(programeid : any){
+    const url = CONTINUE_COURSE_API + '/checkCntCourse';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+
+  updateFailedOrPassedCritiaStudent(programeid : any){
+    const url = CONTINUE_COURSE_API + '/updateFailedOrPassedCritiaStudent';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  runOpenElectiveCheckLevel3Critiria(programeid : any){
+    const url = OPEN_ELECTIVE_CHECK_LEVEL_3 + '/check-courses-need-to-be-converted';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+    queryParams = queryParams.append("level", 3);
+
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  updateFailedOrPassedCritiaOpenElectiveCheckLevel3 (programeid : any){
+    const url = OPEN_ELECTIVE_CHECK_LEVEL_3 + '/check-open-elective-coursed-level-tree';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log("error",error);
+        }));
+    });
+  }
+
+  runOpenElectiveCheckLevel5Critiria(programeid : any){
+    const url = OPEN_ELECTIVE_CHECK_LEVEL_5 + '/check-courses-need-to-be-converted';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+    queryParams = queryParams.append("level", 5);
+
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  updateFailedOrPassedCritiaOpenElectiveCheckLevel5 (programeid : any){
+    const url = OPEN_ELECTIVE_CHECK_LEVEL_5 + '/check-open-elective-coursed-level-five';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+
+
+  runGpaCalculationCritiria(programeid : any){
+    const url = GPA_CALCULATION + '';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  updateFailedOrPassedCritiaGpaCalculation (programeid : any){
+    const url = GPA_CALCULATION  + '';
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("id", programeid);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+
 
 }

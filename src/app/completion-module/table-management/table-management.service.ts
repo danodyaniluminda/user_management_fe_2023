@@ -1,5 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, map } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
+
+const TABLE_MANAGEMENT = environment.graduation_completion + '/api/graduation-completion/table-management/';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,39 +17,45 @@ export class TableManagementService {
   constructor(private http: HttpClient) {  }
 
 
+ // File Upload when click upload button (Parse jsonData object)
+ uploadFile(data: any,selectedTable:any) {
+  if (selectedTable && data && data.length > 0) {
+    console.log(data);
+    const requestPayload = data;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    const newLocal = TABLE_MANAGEMENT + `Updatetables/${selectedTable.name}`;
 
-  uploadFile(file: File) {
-    const formData: FormData = new FormData();
-    formData.append('file', file, file.name);
-
-    const headers = new HttpHeaders();
-   
-
-    this.http.post('http://localhost:8099/api/graduation-completion/table-management/Updatetables/', formData, { headers: headers })
-      .subscribe(
-        response => {
-          console.log('File uploaded successfully!', response);
-  
-        },
-        error => {
-          console.error('Error uploading file:', error);
-
-        }
-      );
+    this.http.post(newLocal, requestPayload, {
+      headers: headers,
+      responseType: 'text'
+    })
+    .toPromise()
+    .then(response => {
+      console.log(response);
+      Swal.fire({
+        title: 'Success!',
+        text: 'Table Uploaded Successfully.',
+        icon: 'success',
+      }).then(() => {
+        location.reload();
+      });
+    })
+    .catch(error => {
+      console.log(error);
+      Swal.fire('Error...', 'An error occurred.', 'error');
+    });
+  } else {
+    Swal.fire('Error...', 'Select Correct Table or Excel File ', 'error');
+    console.log('Error sending to the backend');
   }
-
-  getTables() {
-   
-        this.http.get<any[]>('http://localhost:8099/api/graduation-completion/table-management/tables').subscribe(
-          (completionTableList: any[]) => {
-            this.completionTableList = completionTableList;
-            console.log(this.completionTableList);
-          },
-          (error) => {
-            console.error('Error:', error);
-          }
-        );
-      }
+}
+//Get Completion Table List ( used filter for show only valid== true)
+getTables(): Observable<any[]> {
+  return this.http.get<any[]>(TABLE_MANAGEMENT + 'GetAllTables')
+    .pipe(
+      map(completionTableList => completionTableList.filter(item => item.valid === true))
+    );
+}
   }
 
 

@@ -20,7 +20,7 @@
   <form class="date-block" ></form>
   <mat-form-field appearance="outline" class="form-fields" style="width: 600px;margin-left: 20px;">
     <mat-label> Select Programme</mat-label>
-    <mat-select
+    <mat-select [(ngModel)]="programmeId"  (click)="programmeChange($event.target)"
     >
       <mat-option>
         <ngx-mat-select-search  placeholderLabel="Find programme..." noEntriesFoundLabel="'No matching programme found'">
@@ -29,22 +29,18 @@
       </mat-option>
       <mat-option >Select All</mat-option>
 
-      <mat-option >
-
+      <mat-option *ngFor="let programme of filteredProgrammes | async" (click)="getCriteriaByProgrameId(programme.id)" [value]="programme.id">
+        {{programme.programCode}} - {{programme.programName}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
   <br>
-        <div style="text-align: left;">
-          &nbsp; <button [disabled]="addButtonDisabled" (click)="addNewProgram()"  mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Add</button>
+<!--        <div style="text-align: left;">-->
+<!--          &nbsp; <button [disabled]="addButtonDisabled" (click)="addNewProgram()"  mat-raised-button color="primary" style="width: 75px;margin-left: 8px;">Add</button>-->
 
-        </div>
-        <div style="text-align: right;">
-          &nbsp; <button (click)="exportToExcel()">Export to Excel</button>
+<!--        </div>-->
 
-
-        </div>
       </mat-card-content>
     </div>
   </mat-card>
@@ -54,7 +50,7 @@
 <mat-card class="example-container">
   <br>
   <div class="table-responsive">
-    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="showTable">
+    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="loading">
       <thead>
       <tr>
         <th>Id</th>
@@ -64,13 +60,63 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td> </td>
-        <td> </td>
+      <tr *ngFor="let data of critieaData; let index = index">
+        <td>{{ data.id }}</td>
+        <td>{{ data.criteria.criteriaName }}</td>
         <td>
-          <button  mat-raised-button color="primary" type="submit" >Run</button>
+          <button  mat-raised-button color="primary" type="submit" (click)="runFunction(data)" [disabled]=!data.active>Run</button>
         </td>
-        <td> </td>
+        <td>
+          <ng-container *ngIf="index==1 && showExportButton">
+            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==1 && showContinueCourseSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==1 && showContinueCourseErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==3 && showExportButtonOpenElectiveCheckLevel3">
+            &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel3()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==3 && showOpenElectiveCheckLevel3SuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==3 && showOpenElectiveCheckLevel3ErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+
+          <ng-container *ngIf="index==5 && showExportButtonOpenElectiveCheckLevel5">
+            &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel5()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==5 && showOpenElectiveCheckLevel5SuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==5 && showOpenElectiveCheckLevel5ErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==6 && showExportButtonGpaCalculation">
+            &nbsp; <button (click)="exportToExcelGpaCalculation()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==6 && showGpaCalculationSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==6 && showGpaCalculationErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+        </td>
       </tr>
       </tbody>
     </table>

@@ -54,7 +54,7 @@ import { FormsModule } from '@angular/forms';
         DataTablesModule,
         NgxDatatableModule,
         FormsModule
-        
+
   ]
 })
 export class CompletionModuleModule { }
