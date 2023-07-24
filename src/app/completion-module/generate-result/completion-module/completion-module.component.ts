@@ -4,7 +4,7 @@ import {AddNewCompletionService} from "./completion-module.service";
 import {Router} from "@angular/router";
 import {ReplaySubject, Subject, takeUntil} from "rxjs";
 import {FormControl} from "@angular/forms";
-
+import {MatChipsModule} from '@angular/material/chips';
  import * as XLSX from 'xlsx';
 import {saveAs} from 'file-saver';
 import {tsCastToAny} from "@angular/compiler-cli/src/ngtsc/typecheck/src/ts_util";
@@ -19,9 +19,18 @@ export class CompletionModuleComponent implements OnInit {
   showTable: Boolean = false;
   addButtonDisabled: boolean = true;
   showExportButton: boolean = false;
-
+  showContinueCourseErrorMsg: boolean = false;
+  showContinueCourseSuccessMsg: boolean = false;
+  showExportButtonOpenElectiveCheckLevel3: boolean = false;
+  showOpenElectiveCheckLevel3ErrorMsg: boolean = false;
+  showOpenElectiveCheckLevel3SuccessMsg: boolean = false;
+  showExportButtonOpenElectiveCheckLevel5: boolean = false;
+  showOpenElectiveCheckLevel5ErrorMsg: boolean = false;
+  showOpenElectiveCheckLevel5SuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
+  message:any;
+  loading: boolean;
 
   constructor(
     private addNewCompletionService: AddNewCompletionService,
@@ -47,7 +56,41 @@ export class CompletionModuleComponent implements OnInit {
     };
 
   }
-  
+  runFunction(data: any) {
+    if (data.criteria.id === 1) {
+      this.runContinueCourseCritriaChecking(data.program.id);
+    } else if (data.criteria.id === 2) {
+      this.function1(data);
+    }else if (data.criteria.id === 3) {
+      this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
+    }else if (data.criteria.id === 4) {
+      this.function2(data);
+    }else if (data.criteria.id === 5) {
+      this.function3(data);
+    }else if (data.criteria.id === 6) {
+      this.runOpenElectiveCheckLevel5CritriaChecking(data.program.id);
+    } else {
+      // Implement other cases as needed
+    }
+  }
+  function1(data: any) {
+    // Implement your function 1 logic here, using the row data if necessary
+    console.log('Running Function 1 for row with ID:', data.id);
+    alert(data.criteria.criteriaName);
+  }
+
+  function2(data: any) {
+    // Implement your function 2 logic here, using the row data if necessary
+    console.log('Running Function 2 for row with ID:', data.id);
+    alert(data.criteria.criteriaName);
+  }
+
+  function3(data: any) {
+    // Implement your function 2 logic here, using the row data if necessary
+    console.log('Running Function 2 for row with ID:', data.id);
+    alert(data.criteria.criteriaName);
+  }
+
 
 runContinueCourseCritriaChecking(programeid: any) {(
   this.addNewCompletionService
@@ -56,17 +99,29 @@ runContinueCourseCritriaChecking(programeid: any) {(
     .then((result: any) => {
       console.log(result);
       if(result.status=='SUCCESS'){
-
+        this.updateFailedOrPassedCritiaStudent(programeid);
       }
       if(result.status=='NOT_MATCH'){
         this.jsonData=result;
         this.showExportButton= true;
-       // this.exportToExcel(result.data);
+        this.showContinueCourseErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+}
+
+updateFailedOrPassedCritiaStudent(programeid: any) {(
+  this.addNewCompletionService
+    .updateFailedOrPassedCritiaStudent(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showContinueCourseSuccessMsg=true;
+        this.message=result.message;
+
       }
 
-      // this.loading = false;
-// console.log("this.loading",this.loading)
-//         this.oneDayDates = this.model.oneDayDates;
     })
 }
 
@@ -78,6 +133,74 @@ runContinueCourseCritriaChecking(programeid: any) {(
     saveAs(excelData, 'Not Converted Course List.xlsx');
   }
 
+
+  runOpenElectiveCheckLevel3CritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runOpenElectiveCheckLevel3Critiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.updateFailedOrPassedCritiaOpenElectiveCheckLevel3(programeid);
+        this.getCriteriaByProgrameId(programeid);
+      }
+      if(result.status=='NOT_MATCH'){
+        this.jsonData=result;
+        this.showExportButtonOpenElectiveCheckLevel3= true;
+        this.showOpenElectiveCheckLevel3ErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaOpenElectiveCheckLevel3(programeid: any) {(
+    this.addNewCompletionService
+      .updateFailedOrPassedCritiaOpenElectiveCheckLevel3(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showOpenElectiveCheckLevel3SuccessMsg=true;
+        this.message=result.message;
+
+      }
+
+    })
+  }
+
+  runOpenElectiveCheckLevel5CritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runOpenElectiveCheckLevel5Critiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.updateFailedOrPassedCritiaOpenElectiveCheckLevel5(programeid);
+        this.getCriteriaByProgrameId(programeid);
+      }
+      if(result.status=='NOT_MATCH'){
+        this.jsonData=result;
+        this.showExportButtonOpenElectiveCheckLevel5= true;
+        this.showOpenElectiveCheckLevel5ErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaOpenElectiveCheckLevel5(programeid: any) {(
+    this.addNewCompletionService
+      .updateFailedOrPassedCritiaOpenElectiveCheckLevel5(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showOpenElectiveCheckLevel5SuccessMsg=true;
+        this.message=result.message;
+
+      }
+
+    })
+  }
 
   fetchAllProgrammes() {
     this.addNewCompletionService
@@ -94,14 +217,16 @@ runContinueCourseCritriaChecking(programeid: any) {(
       });
   }
 
-  getCriteriaByProgrameId(programeid: any) {
-    (this.addNewCompletionService
+  async getCriteriaByProgrameId(programeid: any) {
+    this.loading = false;
+    this.critieaData=[];
+    (await this.addNewCompletionService
       .getCriteriaByProgrameId(programeid))
       .toPromise()
-      .then((message: any) => {
-        console.log(message)
-        this.critieaData = message;
-        // this.loading = false;
+      .then((data: any) => {
+        console.log(data)
+        this.critieaData = data;
+        this.loading = true;
 // console.log("this.loading",this.loading)
 //         this.oneDayDates = this.model.oneDayDates;
       })

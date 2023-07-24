@@ -30,7 +30,7 @@
       <mat-option >Select All</mat-option>
 
       <mat-option *ngFor="let programme of filteredProgrammes | async" (click)="getCriteriaByProgrameId(programme.id)" [value]="programme.id">
-        {{programme.programName}}
+        {{programme.programCode}} - {{programme.programName}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -50,7 +50,7 @@
 <mat-card class="example-container">
   <br>
   <div class="table-responsive">
-    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="true">
+    <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="loading">
       <thead>
       <tr>
         <th>Id</th>
@@ -60,17 +60,52 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of critieaData; let firstRow = first">
+      <tr *ngFor="let data of critieaData; let firstRow = first ">
         <td>{{ data.id }}</td>
         <td>{{ data.criteria.criteriaName }}</td>
         <td>
-
-          <button  mat-raised-button color="primary" type="submit" (click)="runContinueCourseCritriaChecking(data.program.id)">Run</button>
+          <button  mat-raised-button color="primary" type="submit" (click)="runFunction(data)" [disabled]=!data.active>Run</button>
         </td>
         <td>
           <ng-container *ngIf="firstRow && showExportButton">
-            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>
+            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
+
+          <ng-container *ngIf="firstRow && showContinueCourseSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showContinueCourseErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+
+
+          <ng-container *ngIf="firstRow && showExportButtonOpenElectiveCheckLevel3">
+            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel3SuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel3ErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+
+          <ng-container *ngIf="firstRow && showExportButtonOpenElectiveCheckLevel5">
+            &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel5SuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="firstRow && showOpenElectiveCheckLevel5ErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
         </td>
       </tr>
       </tbody>
