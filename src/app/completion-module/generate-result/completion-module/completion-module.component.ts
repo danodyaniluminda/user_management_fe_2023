@@ -27,6 +27,9 @@ export class CompletionModuleComponent implements OnInit {
   showExportButtonOpenElectiveCheckLevel5: boolean = false;
   showOpenElectiveCheckLevel5ErrorMsg: boolean = false;
   showOpenElectiveCheckLevel5SuccessMsg: boolean = false;
+  showExportButtonGpaCalculation: boolean = false;
+  showGpaCalculationErrorMsg: boolean = false;
+  showGpaCalculationSuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
   message:any;
@@ -158,14 +161,23 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       .updateFailedOrPassedCritiaOpenElectiveCheckLevel3(programeid))
     .toPromise()
     .then((result: any) => {
-      console.log(result);
-      if(result.status=='SUCCESS'){
+      console.log("updateFailedOrPassedCritiaOpenElectiveCheckLevel3",result.message);
+      if(result.message=='success'){
         this.showOpenElectiveCheckLevel3SuccessMsg=true;
         this.message=result.message;
+        console.log("updateFailedOrPassedCritiaOpenElectiveCheckLevel3",result.message);
 
       }
 
     })
+  }
+
+  exportToExcelOpenElectiveCheckLevel3(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Not Converted Open Elective Check Level 3 List.xlsx');
   }
 
   runOpenElectiveCheckLevel5CritriaChecking(programeid: any) {(
@@ -193,7 +205,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     .toPromise()
     .then((result: any) => {
       console.log(result);
-      if(result.status=='SUCCESS'){
+      if(result.status=='success'){
         this.showOpenElectiveCheckLevel5SuccessMsg=true;
         this.message=result.message;
 
@@ -201,6 +213,60 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
 
     })
   }
+
+  exportToExcelOpenElectiveCheckLevel5(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Not Converted Open Elective Check Level 5 List.xlsx');
+  }
+
+
+  runGpaCalculationCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runGpaCalculationCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.updateFailedOrPassedCritiaGpaCalculation(programeid);
+        this.getCriteriaByProgrameId(programeid);
+      }
+      if(result.status=='NOT_MATCH'){
+        this.jsonData=result;
+        this.showExportButtonGpaCalculation= true;
+        this.showGpaCalculationErrorMsg=true;
+        this.message=result.message;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaGpaCalculation(programeid: any) {(
+    this.addNewCompletionService
+      .updateFailedOrPassedCritiaGpaCalculation(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status=='SUCCESS'){
+        this.showGpaCalculationSuccessMsg=true;
+        this.message=result.message;
+
+      }
+
+    })
+  }
+
+  exportToExcelGpaCalculation(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Not Converted Gpa Calculation List.xlsx');
+  }
+
+
+
 
   fetchAllProgrammes() {
     this.addNewCompletionService
