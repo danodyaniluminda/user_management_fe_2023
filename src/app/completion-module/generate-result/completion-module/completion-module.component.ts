@@ -235,6 +235,8 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       if(result.status=='SUCCESS'){
         this.updateFailedOrPassedCritiaGpaCalculation(programeid);
         this.getCriteriaByProgrameId(programeid);
+        this.message=" Total Passed Contradictions : " + result.executeUpdate + ", " ;
+        this.showGpaCalculationSuccessMsg = true;
       }
       if(result.status=='NOT_MATCH'){
         this.jsonData=result;
