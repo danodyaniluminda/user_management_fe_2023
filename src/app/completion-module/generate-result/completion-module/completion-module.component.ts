@@ -279,17 +279,15 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       if(result.status==true){
         this.updateFailedOrPassedCritiaRegularCourseCheck(programeid);
         this.getCriteriaByProgrameId(programeid);
-        this.message="Total Applications : " + result.allApplicationIdsCount
-          + ", Total Passed (Without Contradiction) : " + result.totalCreditsExactlyMatchRequiredCreditsApplicationIdsCount +
-          ", Total Passed Contradictions : " + result.totalCreditsGreaterThanRequiredCreditsApplicationIdsCount + ", " +
-          ", Total Fail : " + result.totalCreditsLessThanRequiredCreditsApplicationIdsCount + " .";
+        this.message= result.message;
         this.showRegularCourseCheckSuccessMsg = true;
       }
-      if(result.status=='NOT_MATCH'){
-        this.jsonData=result;
+      if(result.conflict==true){
+        //const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+        this.jsonData=result.conflictExcel;
+        this.message=result.message;
         this.showExportButtonRegularCourseCheck= true;
         this.showRegularCourseCheckErrorMsg=true;
-        this.message=result.message;
       }
     })
   }
@@ -311,11 +309,11 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
   exportToExcelRegularCourseCheck(): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-    saveAs(excelData, 'Not Converted Regular Course Check List.xlsx');
+    saveAs(excelData, 'Regular Course Check List.xlsx');
   }
 
 
