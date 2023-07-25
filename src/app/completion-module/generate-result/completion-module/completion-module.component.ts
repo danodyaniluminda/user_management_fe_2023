@@ -231,11 +231,11 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       .runGpaCalculationCritiria(programeid))
     .toPromise()
     .then((result: any) => {
-      console.log(result);
-      if(result.status=='SUCCESS'){
+      console.log("Result GPA",result);
+      if(result.status=='Success'){
         this.updateFailedOrPassedCritiaGpaCalculation(programeid);
         this.getCriteriaByProgrameId(programeid);
-        this.message=" Total Passed Contradictions : " + result.executeUpdate + ", " ;
+        this.message=" Total Passed Contradictions : " + result.message + ", " ;
         this.showGpaCalculationSuccessMsg = true;
       }
       if(result.status=='NOT_MATCH'){
@@ -253,7 +253,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     .toPromise()
     .then((result: any) => {
       console.log(result);
-      if(result.status=='SUCCESS'){
+      if(result.status=='Success'){
         this.showGpaCalculationSuccessMsg=true;
         this.message=result.message;
 
