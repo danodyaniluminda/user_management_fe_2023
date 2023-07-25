@@ -182,7 +182,7 @@ export class AddNewCompletionService {
 
 
   runGpaCalculationCritiria(programeid : any){
-    const url = GPA_CALCULATION + '';
+    const url = GPA_CALCULATION + '/check_considered_application';
     let queryParams = new HttpParams();
 
     queryParams = queryParams.append("id", programeid);
@@ -203,10 +203,10 @@ export class AddNewCompletionService {
   }
 
   updateFailedOrPassedCritiaGpaCalculation (programeid : any){
-    const url = GPA_CALCULATION  + '';
+    const url = GPA_CALCULATION  + '/calculate_gpa';
     let queryParams = new HttpParams();
 
-    queryParams = queryParams.append("id", programeid);
+    queryParams = queryParams.append("programId", 164);
 
     const data = this.http.get(url, {params: queryParams}).toPromise();
 
