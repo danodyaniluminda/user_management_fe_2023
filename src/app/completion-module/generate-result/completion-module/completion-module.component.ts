@@ -254,6 +254,8 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     .then((result: any) => {
       console.log(result);
       if(result.status=='Success'){
+        this.getCriteriaByProgrameId(programeid);
+        this.message=" Total  : " + result.message + ", " ;
         this.showGpaCalculationSuccessMsg=true;
         this.message=result.message;
 
