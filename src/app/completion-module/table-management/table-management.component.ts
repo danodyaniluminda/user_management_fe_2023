@@ -20,6 +20,7 @@ export class TableManagementComponent implements OnInit {
   selectedTable: any;
   selectedFile: any;
   uploaData: unknown[];
+  isFileSelected: boolean = false;
 
 
 
@@ -54,6 +55,7 @@ export class TableManagementComponent implements OnInit {
     if (selectFileLabel) {
       selectFileLabel.innerText = 'Selected File Name: ' + this.selectedFileName || '';
     }
+    this.isFileSelected = true;
   }
 
   readFileContents(file: File): void {   // Read the uploaded excel and convert it to json model object
@@ -101,5 +103,10 @@ export class TableManagementComponent implements OnInit {
   // Show Selected TAble in consol
   onTableSelect(): void {
     console.log('Selected Table:', this.selectedTable);
+  }
+
+  clearTable(){
+
+    this.selectedTable = ''
   }
 }
