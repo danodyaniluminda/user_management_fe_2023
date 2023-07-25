@@ -206,7 +206,7 @@ export class AddNewCompletionService {
     const url = GPA_CALCULATION  + '/calculate_gpa';
     let queryParams = new HttpParams();
 
-    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("id", programeid);
 
     const data = this.http.get(url, {params: queryParams}).toPromise();
 
