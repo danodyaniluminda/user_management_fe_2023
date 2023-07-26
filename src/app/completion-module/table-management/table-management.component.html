@@ -20,15 +20,15 @@
           </mat-option>
         </mat-select>
       </mat-form-field> 
-      <button [disabled]="" mat-raised-button color="primary" style="width: 100px;margin-left: 20px;">Download</button>
+      <button [disabled]="" mat-raised-button color="primary" style="width: 100px;margin-left: 20px;"[disabled]="!selectedTable">Download</button>
     </div>
 
     <div style="text-align: center;">
       <input type="file" accept=".xlsx" (change)="onFileSelected($event)" style="display: none" #fileInput>
-      <button  mat-raised-button color="primary" style="width: 75px;margin-left: 20px;" (click)="browseTable()">Browse</button>
+      <button  mat-raised-button color="primary" style="width: 75px;margin-left: 20px;" (click)="browseTable()" [disabled]="!selectedTable">Browse</button>
       &nbsp;
-      <button mat-raised-button color="primary" style="width: 100px;margin-left: 162px;">Clear Table</button>
-      <button mat-raised-button color="primary" style="width: 100px; margin-left: 20px;" (click)="uploadbutton()">Upload</button>
+      <button mat-raised-button color="primary" style="width: 100px;margin-left: 162px;"(click)="clearTable()"[disabled]="!selectedTable">Clear Table</button>
+      <button mat-raised-button color="primary" style="width: 100px; margin-left: 20px;" (click)="uploadbutton()" [disabled]="!(selectedTable && isFileSelected)">Upload</button>
     </div>
     <br>
     <div>
