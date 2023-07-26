@@ -28,12 +28,16 @@ export class TableManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTables();
+
   }
 
   getTables(): void {
     this.tableManagementService.getTables().subscribe(
+      
       completionTableList => {
         this.completionTableList = completionTableList;
+        console.log(this.completionTableList)
+
       },
       error => {
         console.error('Error:', error);
