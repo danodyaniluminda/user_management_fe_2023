@@ -75,11 +75,11 @@ export class TableManagementComponent implements OnInit {
         this.uploaData = jsonData;
         const dataCount = jsonData.length;
 
-        // display no of records in file
-        const labelElement = document.getElementById('dataCountLabel');
-        if (labelElement) {
-          labelElement.innerText = `Records in the File: ${dataCount}`;
-        }
+        // // display no of records in file
+        // const labelElement = document.getElementById('dataCountLabel');
+        // if (labelElement) {
+        //   labelElement.innerText = `Records in the File: ${dataCount}`;
+        // }
 
 
 
@@ -109,8 +109,21 @@ export class TableManagementComponent implements OnInit {
     console.log('Selected Table:', this.selectedTable);
   }
 
-  clearTable(){
+  clearTable(): void {
+    this.selectedTable = null;
+    this.selectedFileName = undefined;
+    this.selectedFile = null;
+    this.uploaData = [];
+    this.isFileSelected = false;
 
-    this.selectedTable = ''
+    // Reset the file input element
+    if (this.fileInput && this.fileInput.nativeElement) {
+      this.fileInput.nativeElement.value = '';
+    }
+
+    const selectFileLabel = document.getElementById('selectFileLabel') as HTMLLabelElement | null;
+    if (selectFileLabel) {
+      selectFileLabel.innerText = '';
+    }
   }
 }

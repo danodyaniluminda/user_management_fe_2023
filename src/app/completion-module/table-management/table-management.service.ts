@@ -32,9 +32,10 @@ export class TableManagementService {
     .toPromise()
     .then(response => {
       console.log(response);
+      const recordsCount = data.length;
       Swal.fire({
         title: 'Success!',
-        text: 'Table Uploaded Successfully.',
+        text: `Table Uploaded Successfully. Total Records Uploaded: ${recordsCount}`,
         icon: 'success',
       }).then(() => {
         location.reload();
