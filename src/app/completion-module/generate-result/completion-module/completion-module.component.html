@@ -67,54 +67,67 @@
           <button  mat-raised-button color="primary" type="submit" (click)="runFunction(data)" [disabled]=!data.active>Run</button>
         </td>
         <td>
-          <ng-container *ngIf="index==1 && showExportButton">
+          <ng-container *ngIf="index==0 && showExportButton">
             &nbsp; <button (click)="exportToExcel()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
 
-          <ng-container *ngIf="index==1 && showContinueCourseSuccessMsg">
+          <ng-container *ngIf="index==0 && showContinueCourseSuccessMsg">
             &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==1 && showContinueCourseErrorMsg">
+          <ng-container *ngIf="index==0 && showContinueCourseErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==3 && showExportButtonOpenElectiveCheckLevel3">
+          <ng-container *ngIf="index==1 && showExportButtonRegularCourseCheck">
+            &nbsp; <button (click)="exportToExcelRegularCourseCheck()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==1 && showRegularCourseCheckSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==1 && showRegularCourseCheckErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==2 && showExportButtonOpenElectiveCheckLevel3">
             &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel3()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
 
-          <ng-container *ngIf="index==3 && showOpenElectiveCheckLevel3SuccessMsg">
+          <ng-container *ngIf="index==2 && showOpenElectiveCheckLevel3SuccessMsg">
             &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==3 && showOpenElectiveCheckLevel3ErrorMsg">
+          <ng-container *ngIf="index==2 && showOpenElectiveCheckLevel3ErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
 
-          <ng-container *ngIf="index==5 && showExportButtonOpenElectiveCheckLevel5">
+          <ng-container *ngIf="index==3 && showExportButtonOpenElectiveCheckLevel5">
             &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel5()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
 
-          <ng-container *ngIf="index==5 && showOpenElectiveCheckLevel5SuccessMsg">
+          <ng-container *ngIf="index==3 && showOpenElectiveCheckLevel5SuccessMsg">
             &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==5 && showOpenElectiveCheckLevel5ErrorMsg">
+          <ng-container *ngIf="index==3 && showOpenElectiveCheckLevel5ErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==6 && showExportButtonGpaCalculation">
+          <ng-container *ngIf="index==4 && showExportButtonGpaCalculation">
             &nbsp; <button (click)="exportToExcelGpaCalculation()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
 
-          <ng-container *ngIf="index==6 && showGpaCalculationSuccessMsg">
+          <ng-container *ngIf="index==4 && showGpaCalculationSuccessMsg">
             &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==6 && showGpaCalculationErrorMsg">
+          <ng-container *ngIf="index==4 && showGpaCalculationErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
+
 
         </td>
       </tr>

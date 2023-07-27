@@ -22,6 +22,7 @@ export class TableManagementComponent implements OnInit {
   selectedFile: any;
   uploaData: unknown[];
   download: any[];
+  isFileSelected: boolean = false;
 
 
 
@@ -35,6 +36,8 @@ export class TableManagementComponent implements OnInit {
     this.tableManagementService.getTables().subscribe(
       completionTableList => {
         this.completionTableList = completionTableList;
+        console.log(this.completionTableList)
+
       },
       error => {
         console.error('Error:', error);
@@ -56,6 +59,7 @@ export class TableManagementComponent implements OnInit {
     if (selectFileLabel) {
       selectFileLabel.innerText = 'Selected File Name: ' + this.selectedFileName || '';
     }
+    this.isFileSelected = true;
   }
 
   readFileContents(file: File): void {   // Read the uploaded excel and convert it to json model object
@@ -112,6 +116,13 @@ export class TableManagementComponent implements OnInit {
         console.log(this.download);
         if (this.selectedTable.download === true) {
           this.exportToExcel(download, this.selectedTable.label);
+          Swal.fire({
+            title: 'Success!',
+            text: 'Table Downloaded Successfully.',
+            icon: 'success',
+          }).then(() => {
+            location.reload();
+          });
         } else {
           console.log('Error');
           Swal.fire('Error...', 'You Dont Have Access to Download this Table ', 'error');
@@ -132,4 +143,9 @@ export class TableManagementComponent implements OnInit {
     saveAs(blob, `${fileName}.xlsx`);
   }
 
+
+  clearTable(){
+
+    this.selectedTable = ''
+  }
 }

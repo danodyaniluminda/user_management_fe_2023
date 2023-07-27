@@ -30,6 +30,9 @@ export class CompletionModuleComponent implements OnInit {
   showExportButtonGpaCalculation: boolean = false;
   showGpaCalculationErrorMsg: boolean = false;
   showGpaCalculationSuccessMsg: boolean = false;
+  showExportButtonRegularCourseCheck: boolean = false;
+  showRegularCourseCheckErrorMsg: boolean = false;
+  showRegularCourseCheckSuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
   message:any;
@@ -63,11 +66,11 @@ export class CompletionModuleComponent implements OnInit {
     if (data.criteria.id === 1) {
       this.runContinueCourseCritriaChecking(data.program.id);
     } else if (data.criteria.id === 2) {
-      this.function1(data);
+      this.runRegularCourseCheckCritriaChecking(data.program.id);
     }else if (data.criteria.id === 3) {
       this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
     }else if (data.criteria.id === 4) {
-      this.function2(data);
+      this.runGpaCalculationCritriaChecking(data.program.id);
     }else if (data.criteria.id === 5) {
       this.function3(data);
     }else if (data.criteria.id === 6) {
@@ -228,10 +231,12 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
       .runGpaCalculationCritiria(programeid))
     .toPromise()
     .then((result: any) => {
-      console.log(result);
-      if(result.status=='SUCCESS'){
+      console.log("Result GPA",result);
+      if(result.status=='Success'){
         this.updateFailedOrPassedCritiaGpaCalculation(programeid);
         this.getCriteriaByProgrameId(programeid);
+        this.message=" Total Passed Contradictions : " + result.message + ", " ;
+        this.showGpaCalculationSuccessMsg = true;
       }
       if(result.status=='NOT_MATCH'){
         this.jsonData=result;
@@ -248,7 +253,9 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     .toPromise()
     .then((result: any) => {
       console.log(result);
-      if(result.status=='SUCCESS'){
+      if(result.status=='Success'){
+        this.getCriteriaByProgrameId(programeid);
+        this.message=" Total  : " + result.message + ", " ;
         this.showGpaCalculationSuccessMsg=true;
         this.message=result.message;
 
@@ -264,6 +271,54 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
     saveAs(excelData, 'Not Converted Gpa Calculation List.xlsx');
   }
+
+  runRegularCourseCheckCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runRegularCourseCheckCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status==true){
+        this.updateFailedOrPassedCritiaRegularCourseCheck(programeid);
+        this.getCriteriaByProgrameId(programeid);
+        this.message= result.message;
+        this.showRegularCourseCheckSuccessMsg = true;
+      }
+      if(result.conflict==true){
+        //const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+        this.jsonData=result.conflictExcel;
+        this.message=result.message;
+        this.showExportButtonRegularCourseCheck= true;
+        this.showRegularCourseCheckErrorMsg=true;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaRegularCourseCheck(programeid: any) {
+    // (
+    // this.addNewCompletionService
+    //   .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    // .toPromise()
+    // .then((result: any) => {
+    //   console.log(result);
+    //   if(result.status=='SUCCESS'){
+    //     this.showRegularCourseCheckSuccessMsg=true;
+    //     this.message=result.message;
+    //
+    //   }
+    //
+    // })
+  }
+
+  exportToExcelRegularCourseCheck(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Regular Course Check List.xlsx');
+  }
+
+
 
 
 

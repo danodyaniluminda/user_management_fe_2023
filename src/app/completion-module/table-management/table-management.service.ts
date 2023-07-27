@@ -19,7 +19,7 @@ export class TableManagementService {
 
  // File Upload when click upload button (Parse jsonData object)
  uploadFile(data: any,selectedTable:any) {
-  if (selectedTable && data && data.length > 0) {
+  if (selectedTable.upload == true && data && data.length > 0) {
     console.log(data);
     const requestPayload = data;
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
@@ -51,6 +51,7 @@ export class TableManagementService {
 }
 //Get Completion Table List ( used filter for show only valid== true)
 getTables(): Observable<any[]> {
+  
   return this.http.get<any[]>(TABLE_MANAGEMENT + 'GetAllTables')
     .pipe(
       map(completionTableList => completionTableList.filter(item => item.valid === true))
