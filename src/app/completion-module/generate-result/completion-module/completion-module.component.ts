@@ -274,7 +274,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
 
   runRegularCourseCheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
-      .runRegularCourseCheckCritiria(programeid))
+      .runRegularS1CourseCheckCritiria(programeid))
     .toPromise()
     .then((result: any) => {
       console.log(result);
