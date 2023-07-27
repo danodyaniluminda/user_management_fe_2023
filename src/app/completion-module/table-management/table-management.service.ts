@@ -58,6 +58,9 @@ getTables(): Observable<any[]> {
       map(completionTableList => completionTableList.filter(item => item.valid === true))
     );
 }
+  downloadTable(tableName: string): Observable<any[]> {
+    return this.http.get<any[]>(TABLE_MANAGEMENT+`downloadtables/${tableName}`);
+  }
   }
 
 
