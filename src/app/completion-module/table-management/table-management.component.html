@@ -19,8 +19,8 @@
             {{ completionTable.label }}
           </mat-option>
         </mat-select>
-      </mat-form-field> 
-      <button [disabled]="" mat-raised-button color="primary" style="width: 100px;margin-left: 20px;">Download</button>
+      </mat-form-field>
+      <button (click)="downloadTable(selectedTable.name)" [disabled]="" mat-raised-button color="primary" style="width: 100px;margin-left: 20px;">Download</button>
     </div>
 
     <div style="text-align: center;">
