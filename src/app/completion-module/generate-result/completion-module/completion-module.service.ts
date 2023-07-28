@@ -309,7 +309,7 @@ export class AddNewCompletionService {
   }
 
   runGrades3CheckCritiria (programeid : any){
-    const url = THREE_GRADES_CHECK  + '';
+    const url = THREE_GRADES_CHECK  + '/level_three';
     let queryParams = new HttpParams();
     queryParams = queryParams.append("programId", 164);
     queryParams = queryParams.append("level", 3);
@@ -329,7 +329,7 @@ export class AddNewCompletionService {
   }
 
   runGrades4CheckCritiria (programeid : any){
-    const url = FOUR_GRADES_CHECK  + '';
+    const url = FOUR_GRADES_CHECK  + '/level_five';
     let queryParams = new HttpParams();
     queryParams = queryParams.append("programId", 164);
     queryParams = queryParams.append("level", 4);
@@ -349,7 +349,7 @@ export class AddNewCompletionService {
   }
 
   runGrades5CheckCritiria (programeid : any){
-    const url = FIVE_GRADES_CHECK  + '';
+    const url = FIVE_GRADES_CHECK  + '/level_five';
     let queryParams = new HttpParams();
     queryParams = queryParams.append("programId", 164);
     queryParams = queryParams.append("level", 5);

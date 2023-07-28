@@ -83,21 +83,21 @@ export class CompletionModuleComponent implements OnInit {
     }else if (data.criteria.id === 2) {
       this.runRegularCourseCheckCritriaChecking(data.program.id);
     }else if (data.criteria.id === 3) {
-      this.run4RegularCourseCheckCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 4) {
-      this.run5RegularCourseCheckCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 5) {
-      this.runOpenElectiveCheckLevel5CritriaChecking(data.program.id);
-    }else if (data.criteria.id === 6) {
-      this.runGpaCalculationCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 7) {
-      this.runGrades3CheckCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 8) {
       this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
-    }else if (data.criteria.id === 9) {
+    }else if (data.criteria.id === 4) {
+      this.runGpaCalculationCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 5) {
+      this.runGrades3CheckCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 6) {
+      this.runOpenElectiveCheckLevel5CritriaChecking(data.program.id);
+    }else if (data.criteria.id === 7) {
       this.runGrades4CheckCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 10) {
+    }else if (data.criteria.id === 8) {
       this.runGrades5CheckCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 9) {
+      this.run4RegularCourseCheckCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 10) {
+      this.run5RegularCourseCheckCritriaChecking(data.program.id);
     } else {
       // Implement other cases as needed
     }
@@ -121,6 +121,7 @@ export class CompletionModuleComponent implements OnInit {
   }
 
 
+  //CourseCritria
 runContinueCourseCritriaChecking(programeid: any) {(
   this.addNewCompletionService
     .runContinueCourseCritiria(programeid))
@@ -163,6 +164,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
 
+  //OpenElectiveCheckLevel3Critria
   runOpenElectiveCheckLevel3CritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runOpenElectiveCheckLevel3Critiria(programeid))
@@ -619,6 +621,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
         console.log(data)
         this.critieaData = data;
         this.loading = true;
+        this.showTable = true;
 // console.log("this.loading",this.loading)
 //         this.oneDayDates = this.model.oneDayDates;
       })
