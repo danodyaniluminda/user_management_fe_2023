@@ -23,6 +23,7 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { StudentManagementComponent } from './generate-result/student-management/student-management.component';
+import {MatTabsModule} from '@angular/material/tabs'
 
 
 
@@ -55,7 +56,8 @@ import { StudentManagementComponent } from './generate-result/student-management
         NgxMatSelectSearchModule,
         DataTablesModule,
         NgxDatatableModule,
-        FormsModule
+        FormsModule,
+        MatTabsModule
 
   ]
 })

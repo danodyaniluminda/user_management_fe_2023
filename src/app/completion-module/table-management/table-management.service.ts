@@ -35,7 +35,7 @@ export class TableManagementService {
       const recordsCount = data.length;
       Swal.fire({
         title: 'Success!',
-        text: `Table Uploaded Successfully. Total Records Uploaded: ${recordsCount}`,
+        text: `Table Uploaded Successfully. \nTotal Records Uploaded: ${recordsCount}`,
         icon: 'success',
       }).then(() => {
         location.reload();
