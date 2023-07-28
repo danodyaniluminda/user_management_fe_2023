@@ -47,7 +47,7 @@
 </div>
 
 <br>
-<mat-card class="example-container">
+<mat-card *ngIf="showTable" class="example-container">
   <br>
   <div class="table-responsive">
     <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="loading">
@@ -61,7 +61,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of critieaData; let index = index">
-        <td>{{ data.id }}</td>
+        <td>{{ data.sequenceId }}</td>
         <td>{{ data.criteria.criteriaName }}</td>
         <td>
           <button  mat-raised-button color="primary" type="submit" (click)="runFunction(data)" [disabled]=!data.active>Run</button>

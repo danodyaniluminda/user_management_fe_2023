@@ -121,6 +121,7 @@ export class CompletionModuleComponent implements OnInit {
   }
 
 
+  //CourseCritria
 runContinueCourseCritriaChecking(programeid: any) {(
   this.addNewCompletionService
     .runContinueCourseCritiria(programeid))
@@ -163,6 +164,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
 
+  //OpenElectiveCheckLevel3Critria
   runOpenElectiveCheckLevel3CritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runOpenElectiveCheckLevel3Critiria(programeid))
@@ -619,6 +621,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
         console.log(data)
         this.critieaData = data;
         this.loading = true;
+        this.showTable = true;
 // console.log("this.loading",this.loading)
 //         this.oneDayDates = this.model.oneDayDates;
       })
