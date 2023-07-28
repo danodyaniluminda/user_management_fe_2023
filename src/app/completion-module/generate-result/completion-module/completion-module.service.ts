@@ -11,6 +11,11 @@ const OPEN_ELECTIVE_CHECK_LEVEL_3 = environment.graduation_completion +'/api/gra
 const OPEN_ELECTIVE_CHECK_LEVEL_5 = environment.graduation_completion +'/api/graduation-completion/optional-course-credits';
 const GPA_CALCULATION = environment.graduation_completion +'/api/graduation-completion/gpa_calculation';
 const REGULAR_COURSE_CHECK = environment.graduation_completion +'/api/graduation-completion/regular-course-credits';
+const FOUR_REGULAR_COURSE_CHECK = environment.graduation_completion +'/api/graduation-completion/regular-course-credits';
+const FIVE_REGULAR_COURSE_CHECK = environment.graduation_completion +'/api/graduation-completion/regular-course-credits';
+const THREE_GRADES_CHECK = environment.graduation_completion +'/api/graduation-completion/grade_calculation';
+const FOUR_GRADES_CHECK = environment.graduation_completion +'/api/graduation-completion/grade_calculation';
+const FIVE_GRADES_CHECK = environment.graduation_completion +'/api/graduation-completion/grade_calculation';
 @Injectable({
   providedIn: 'root'
 })
@@ -243,11 +248,10 @@ export class AddNewCompletionService {
   //   });
   // }
 
-  runRegularCourseCheckCritiria (programeid : any){
-    const url = REGULAR_COURSE_CHECK  + '/check-regular-course-credits-passed';
+  runRegularS1CourseCheckCritiria (programeid : any){
+    const url = REGULAR_COURSE_CHECK  + '/check-s1-regular-course-credits-passed';
     let queryParams = new HttpParams();
     queryParams = queryParams.append("programId", 164);
-    queryParams = queryParams.append("noOfCreditsRequired", 24);
     queryParams = queryParams.append("level", 3);
 
     const data = this.http.get(url, {params: queryParams}).toPromise();
@@ -263,6 +267,107 @@ export class AddNewCompletionService {
         }));
     });
   }
+
+  run4RegularS1CourseCheckCritiria (programeid : any){
+    const url = FOUR_REGULAR_COURSE_CHECK  + '/check-s1-regular-course-credits-passed';
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("level", 4);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  run5RegularS1CourseCheckCritiria (programeid : any){
+    const url = FIVE_REGULAR_COURSE_CHECK  + '/check-s1-regular-course-credits-passed';
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("level", 5);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  runGrades3CheckCritiria (programeid : any){
+    const url = THREE_GRADES_CHECK  + '';
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("level", 3);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  runGrades4CheckCritiria (programeid : any){
+    const url = FOUR_GRADES_CHECK  + '';
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("level", 4);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
+  runGrades5CheckCritiria (programeid : any){
+    const url = FIVE_GRADES_CHECK  + '';
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("level", 5);
+
+    const data = this.http.get(url, {params: queryParams}).toPromise();
+
+    return new Observable(observable => {
+      observable.next(data.then((result:any) => {
+        console.log("result",result);
+        observable.next(result);
+        observable.complete();
+      })
+        .catch(error => {
+          console.log(error);
+        }));
+    });
+  }
+
 
 
 

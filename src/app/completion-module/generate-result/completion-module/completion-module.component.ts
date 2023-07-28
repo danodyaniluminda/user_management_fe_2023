@@ -33,6 +33,21 @@ export class CompletionModuleComponent implements OnInit {
   showExportButtonRegularCourseCheck: boolean = false;
   showRegularCourseCheckErrorMsg: boolean = false;
   showRegularCourseCheckSuccessMsg: boolean = false;
+  showExportButton4RegularCourseCheck: boolean = false;
+  show4RegularCourseCheckErrorMsg: boolean = false;
+  show4RegularCourseCheckSuccessMsg: boolean = false;
+  showExportButton5RegularCourseCheck: boolean = false;
+  show5RegularCourseCheckErrorMsg: boolean = false;
+  show5RegularCourseCheckSuccessMsg: boolean = false;
+  showExportButtonGrades3Check: boolean = false;
+  showGrades3CheckErrorMsg: boolean = false;
+  showGrades3CheckSuccessMsg: boolean = false;
+  showExportButtonGrades4Check: boolean = false;
+  showGrades4CheckErrorMsg: boolean = false;
+  showGrades4CheckSuccessMsg: boolean = false;
+  showExportButtonGrades5Check: boolean = false;
+  showGrades5CheckErrorMsg: boolean = false;
+  showGrades5CheckSuccessMsg: boolean = false;
   jsonData :any;
   critieaData: any;
   message:any;
@@ -65,16 +80,24 @@ export class CompletionModuleComponent implements OnInit {
   runFunction(data: any) {
     if (data.criteria.id === 1) {
       this.runContinueCourseCritriaChecking(data.program.id);
-    } else if (data.criteria.id === 2) {
+    }else if (data.criteria.id === 2) {
       this.runRegularCourseCheckCritriaChecking(data.program.id);
     }else if (data.criteria.id === 3) {
-      this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
+      this.run4RegularCourseCheckCritriaChecking(data.program.id);
     }else if (data.criteria.id === 4) {
-      this.runGpaCalculationCritriaChecking(data.program.id);
+      this.run5RegularCourseCheckCritriaChecking(data.program.id);
     }else if (data.criteria.id === 5) {
-      this.function3(data);
-    }else if (data.criteria.id === 6) {
       this.runOpenElectiveCheckLevel5CritriaChecking(data.program.id);
+    }else if (data.criteria.id === 6) {
+      this.runGpaCalculationCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 7) {
+      this.runGrades3CheckCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 8) {
+      this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
+    }else if (data.criteria.id === 9) {
+      this.runGrades4CheckCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 10) {
+      this.runGrades5CheckCritriaChecking(data.program.id);
     } else {
       // Implement other cases as needed
     }
@@ -274,7 +297,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
 
   runRegularCourseCheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
-      .runRegularCourseCheckCritiria(programeid))
+      .runRegularS1CourseCheckCritiria(programeid))
     .toPromise()
     .then((result: any) => {
       console.log(result);
@@ -290,6 +313,9 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
         this.message=result.message;
         this.showExportButtonRegularCourseCheck= true;
         this.showRegularCourseCheckErrorMsg=true;
+      }else{
+        this.message=result.message;
+        this.showRegularCourseCheckSuccessMsg=true;
       }
     })
   }
@@ -319,6 +345,251 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
 
+  run4RegularCourseCheckCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .run4RegularS1CourseCheckCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status==true){
+        this.updateFailedOrPassedCritia4RegularCourseCheck(programeid);
+        this.getCriteriaByProgrameId(programeid);
+        this.message= result.message;
+        this.show4RegularCourseCheckSuccessMsg = true;
+      }
+      if(result.conflict==true){
+        //const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+        this.jsonData=result.conflictExcel;
+        this.message=result.message;
+        this.showExportButton4RegularCourseCheck= true;
+        this.show4RegularCourseCheckErrorMsg=true;
+      }else{
+        this.message=result.message;
+        this.show4RegularCourseCheckSuccessMsg=true;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritia4RegularCourseCheck(programeid: any) {
+    // (
+    // this.addNewCompletionService
+    //   .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    // .toPromise()
+    // .then((result: any) => {
+    //   console.log(result);
+    //   if(result.status=='SUCCESS'){
+    //     this.showRegularCourseCheckSuccessMsg=true;
+    //     this.message=result.message;
+    //
+    //   }
+    //
+    // })
+  }
+
+  exportToExcel4RegularCourseCheck(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Regular Course Check List.xlsx');
+  }
+
+  run5RegularCourseCheckCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .run5RegularS1CourseCheckCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status==true){
+        this.updateFailedOrPassedCritia5RegularCourseCheck(programeid);
+        this.getCriteriaByProgrameId(programeid);
+        this.message= result.message;
+        this.show5RegularCourseCheckSuccessMsg = true;
+      }
+      if(result.conflict==true){
+        //const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+        this.jsonData=result.conflictExcel;
+        this.message=result.message;
+        this.showExportButton5RegularCourseCheck= true;
+        this.show5RegularCourseCheckErrorMsg=true;
+      }else{
+        this.message=result.message;
+        this.show5RegularCourseCheckSuccessMsg=true;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritia5RegularCourseCheck(programeid: any) {
+    // (
+    // this.addNewCompletionService
+    //   .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    // .toPromise()
+    // .then((result: any) => {
+    //   console.log(result);
+    //   if(result.status=='SUCCESS'){
+    //     this.showRegularCourseCheckSuccessMsg=true;
+    //     this.message=result.message;
+    //
+    //   }
+    //
+    // })
+  }
+
+  exportToExcel5RegularCourseCheck(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Regular Course Check List.xlsx');
+  }
+
+  runGrades3CheckCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runGrades3CheckCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status==true){
+        this.updateFailedOrPassedCritiaGrades3Check(programeid);
+        this.getCriteriaByProgrameId(programeid);
+        this.message= result.message;
+        this.showGrades3CheckSuccessMsg = true;
+      }
+      if(result.conflict==true){
+        //const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+        this.jsonData=result.conflictExcel;
+        this.message=result.message;
+        this.showExportButtonGrades3Check= true;
+        this.showGrades3CheckErrorMsg=true;
+      }else{
+        this.message=result.message;
+        this.showGrades3CheckSuccessMsg=true;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaGrades3Check(programeid: any) {
+    // (
+    // this.addNewCompletionService
+    //   .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    // .toPromise()
+    // .then((result: any) => {
+    //   console.log(result);
+    //   if(result.status=='SUCCESS'){
+    //     this.showRegularCourseCheckSuccessMsg=true;
+    //     this.message=result.message;
+    //
+    //   }
+    //
+    // })
+  }
+
+  exportToExcelGrades3Check(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Grades 3 Check List.xlsx');
+  }
+
+  runGrades4CheckCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runGrades4CheckCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status==true){
+        this.updateFailedOrPassedCritiaGrades4Check(programeid);
+        this.getCriteriaByProgrameId(programeid);
+        this.message= result.message;
+        this.showGrades4CheckSuccessMsg = true;
+      }
+      if(result.conflict==true){
+        //const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+        this.jsonData=result.conflictExcel;
+        this.message=result.message;
+        this.showExportButtonGrades4Check= true;
+        this.showGrades4CheckErrorMsg=true;
+      }else{
+        this.message=result.message;
+        this.showGrades4CheckSuccessMsg=true;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaGrades4Check(programeid: any) {
+    // (
+    // this.addNewCompletionService
+    //   .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    // .toPromise()
+    // .then((result: any) => {
+    //   console.log(result);
+    //   if(result.status=='SUCCESS'){
+    //     this.showRegularCourseCheckSuccessMsg=true;
+    //     this.message=result.message;
+    //
+    //   }
+    //
+    // })
+  }
+
+  exportToExcelGrades4Check(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Grades 4 Check List.xlsx');
+  }
+
+
+  runGrades5CheckCritriaChecking(programeid: any) {(
+    this.addNewCompletionService
+      .runGrades5CheckCritiria(programeid))
+    .toPromise()
+    .then((result: any) => {
+      console.log(result);
+      if(result.status==true){
+        this.updateFailedOrPassedCritiaGrades5Check(programeid);
+        this.getCriteriaByProgrameId(programeid);
+        this.message= result.message;
+        this.showGrades5CheckSuccessMsg = true;
+      }
+      if(result.conflict==true){
+        //const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData.data);
+        this.jsonData=result.conflictExcel;
+        this.message=result.message;
+        this.showExportButtonGrades5Check= true;
+        this.showGrades5CheckErrorMsg=true;
+      }else{
+        this.message=result.message;
+        this.showGrades5CheckSuccessMsg=true;
+      }
+    })
+  }
+
+  updateFailedOrPassedCritiaGrades5Check(programeid: any) {
+    // (
+    // this.addNewCompletionService
+    //   .updateFailedOrPassedCritiaRegularCourseCheck(programeid))
+    // .toPromise()
+    // .then((result: any) => {
+    //   console.log(result);
+    //   if(result.status=='SUCCESS'){
+    //     this.showRegularCourseCheckSuccessMsg=true;
+    //     this.message=result.message;
+    //
+    //   }
+    //
+    // })
+  }
+
+  exportToExcelGrades5Check(): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.jsonData);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const excelData: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
+    saveAs(excelData, 'Grades 5 Check List.xlsx');
+  }
 
 
 

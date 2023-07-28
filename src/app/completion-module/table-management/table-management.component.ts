@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { TableManagementService } from './table-management.service';
+import {saveAs} from "file-saver";
 
 
 const TABLE_MANAGEMENT = environment.graduation_completion + '/api/graduation-completion/table-management/';
@@ -20,6 +21,7 @@ export class TableManagementComponent implements OnInit {
   selectedTable: any;
   selectedFile: any;
   uploaData: unknown[];
+  download: any[];
   isFileSelected: boolean = false;
 
 
@@ -28,12 +30,10 @@ export class TableManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTables();
-
   }
 
   getTables(): void {
     this.tableManagementService.getTables().subscribe(
-      
       completionTableList => {
         this.completionTableList = completionTableList;
         console.log(this.completionTableList)
@@ -88,7 +88,7 @@ export class TableManagementComponent implements OnInit {
 
     fileReader.readAsBinaryString(file);
   }
-  checkForNullValues(NullValue: any) {     // Check for null values in the excel 
+  checkForNullValues(NullValue: any) {     // Check for null values in the excel
     console.log(NullValue)
     for (const key in NullValue) {
       if (NullValue.hasOwnProperty(key) && (NullValue[key] === null || NullValue[key] === undefined)) {
@@ -108,6 +108,41 @@ export class TableManagementComponent implements OnInit {
   onTableSelect(): void {
     console.log('Selected Table:', this.selectedTable);
   }
+
+  downloadTable(tableName: string): void {
+    this.tableManagementService.downloadTable(tableName).subscribe(
+      (download: any[]) => {
+        this.download = download;
+        console.log(this.download);
+        if (this.selectedTable.download === true) {
+          this.exportToExcel(download, this.selectedTable.label);
+          Swal.fire({
+            title: 'Success!',
+            text: 'Table Downloaded Successfully.',
+            icon: 'success',
+          }).then(() => {
+            location.reload();
+          });
+        } else {
+          console.log('Error');
+          Swal.fire('Error...', 'You Dont Have Access to Download this Table ', 'error');
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        Swal.fire('Error...', 'Unknown Error ', 'error');
+      }
+    );
+  }
+
+  exportToExcel(data: any[], fileName: string): void {
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob: Blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, `${fileName}.xlsx`);
+  }
+
 
   clearTable(){
 
