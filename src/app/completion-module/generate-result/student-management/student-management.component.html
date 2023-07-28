@@ -1,0 +1,159 @@
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">Generate Result</li>
+      <li class="breadcrumb-item active" aria-current="page">Student Management</li>
+    </ol>
+  </nav>
+</mat-card>
+
+<div class="content">
+  &nbsp;&nbsp;&nbsp;Completion Model
+</div>
+
+<br>
+
+<div class="content">
+  <mat-card  class="example-container" >
+    <div class="container">
+      <mat-card-content>
+        <form>
+          <mat-form-field  appearance="outline">
+            <mat-label>Student ID</mat-label>
+            <input matInput type="text" name="studentId" [matTooltip]="tooltipText">
+          </mat-form-field>
+
+          <br>
+          <button mat-raised-button color="primary" (click)="toggleCard()">Search</button>
+        </form>
+      </mat-card-content>
+
+    </div>
+  </mat-card>
+
+  <mat-card *ngIf="isCardOpen">
+    <mat-card-content>
+      <div class="example-button-row">
+        <button mat-button color="primary" (click)="viewResult()">View Result</button>
+        <button mat-button color="primary" (click)="viewFailedRecords()">View Failed Records</button>
+        <button mat-button color="primary" (click)="viewLog()">View Log</button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="isCardOpenViewResult">
+
+    <br>
+    <div>
+      View Result
+    </div>
+
+    <br>
+    <div class="example-table-container">
+
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
+          <thead>
+          <tr>
+            <th>Programme Name</th>
+            <th>Service Type</th>
+            <th>Transcript Type</th>
+            <th>Date Applied</th>
+            <th>Reg No</th>
+            <th>NIC/Passport</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </mat-card>
+
+  <mat-card *ngIf="isCardOpenViewFailedRecords">
+
+    <br>
+    <div>
+      View Failed Records
+    </div>
+    <br>
+    <div class="example-table-container">
+
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
+          <thead>
+          <tr>
+            <th>Programme Name</th>
+            <th>Service Type</th>
+            <th>Transcript Type</th>
+            <th>Date Applied</th>
+            <th>Reg No</th>
+            <th>NIC/Passport</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </mat-card>
+
+  <mat-card *ngIf="isCardOpenViewLog">
+
+    <br>
+    <div>
+      View Log Details
+    </div>
+    <br>
+    <div class="example-table-container">
+
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover">
+          <thead>
+          <tr>
+            <th>Programme Name</th>
+            <th>Service Type</th>
+            <th>Transcript Type</th>
+            <th>Date Applied</th>
+            <th>Reg No</th>
+            <th>NIC/Passport</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+            <td>X</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </mat-card>
+
+
+</div>

@@ -1,0 +1,17 @@
+.breadcrumb{
+  background-color: #ffffff;
+}
+
+.content {
+  font-weight: bolder;
+}
+
+mat-form-field {;
+  font-size: 12px;
+  width: 800px;
+}
+
+.example-button-row button {
+  padding: 10px 20px;
+  margin: 10px;
+}
