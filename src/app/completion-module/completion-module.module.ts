@@ -22,6 +22,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { StudentManagementComponent } from './generate-result/student-management/student-management.component';
 
 
 
@@ -30,6 +31,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     CompletionModuleComponent,
     TableManagementComponent,
+    StudentManagementComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +56,7 @@ import { FormsModule } from '@angular/forms';
         DataTablesModule,
         NgxDatatableModule,
         FormsModule
-        
+
   ]
 })
 export class CompletionModuleModule { }

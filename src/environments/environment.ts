@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   base_url_old_omis : "http://localhost:8091",
-  base_url : "http://localhost:8099",
+  base_url : "http://localhost:8080",
   gateway_url : "http://localhost:8000",
   base_url_user_mgt : "http://localhost:8081",
-  graduation_completion : "http://localhost:8081",
+  graduation_completion : "http://localhost:8099",
 };
 
 /*
