@@ -1,41 +1,73 @@
-<div class="content">
+<mat-card>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="'/dashboard'">Dashboard</a></li>
+      <li class="breadcrumb-item active">Generate Result</li>
+      <li class="breadcrumb-item active" aria-current="page">Table Management</li>
+    </ol>
+  </nav>
 
+</mat-card>
+<div class="content">
+  &nbsp;&nbsp;&nbsp;Table Management
+</div>
+<br>
+
+<div class="content">
   <mat-card class="example-container">
     <mat-card-content>
-      <div style="font-weight: bolder; font-size: 25px; text-align: center; ">
-        Table Records Management
-      </div>
+      <mat-tab-group color="primary" animationDuration="0ms">
+
+
+        <!-- Upload Tab -->
+        <mat-tab label="Upload Tables">
+          <br>
+          <div>
+            <mat-form-field appearance="outline" class="form-fields" style="width: 350px; margin-left: 20px;">
+              <mat-label> Select Table</mat-label>
+              <mat-select [(ngModel)]="selectedTable" (selectionChange)="onTableSelect()" [disabled]="isFileSelected"
+                required aria-required="true">
+                <mat-option *ngFor="let completionTable of completionTableList" [value]="completionTable">
+                  {{ completionTable.label }}
+                </mat-option>
+              </mat-select>
+
+            </mat-form-field>
+            <button mat-raised-button color="primary" style="width: 100px;margin-left: 20px;" (click)="browseTable()"
+              [disabled]="!selectedTable">Browse</button>
+            <button mat-raised-button color="primary" style="width: 100px; margin-left: 20px;" (click)="uploadbutton()"
+              [disabled]="!(selectedTable && isFileSelected && selectedTable.upload === true)">Upload</button>
+            <input type="file" accept=".xlsx" (change)="onFileSelected($event)" style="display: none" #fileInput>
+            <button mat-raised-button color="primary" style="width: 100px;margin-left: 20px;" (click)="clearTable()"
+              [disabled]="!selectedTable">Clear Table</button>
+          </div>
+
+          <div>
+            <mat-label style="margin-left: 20px;">Selected File Name: {{selectedFileName}}</mat-label>
+          </div>
+        </mat-tab>
+
+        <!-- Download Tab -->
+        <mat-tab label="Download Tables">
+          <br>
+          <div>
+            <mat-form-field appearance="outline" class="form-fields" style="width: 350px; margin-left: 20px;">
+              <mat-label> Select Table</mat-label>
+              <mat-select [(ngModel)]="selectedTable" (selectionChange)="onTableSelect()"
+                required aria-required="true">
+                <mat-option *ngFor="let completionTable of completionTableList" [value]="completionTable">
+                  {{ completionTable.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button (click)="downloadTable(selectedTable.name)" [disabled]="!selectedTable" mat-raised-button
+              color="primary" style="width: 100px;margin-left: 20px;">Download</button>
+            <button mat-raised-button color="primary" style="width: 100px;margin-left: 20px;" (click)="clearTable()"
+              [disabled]="!selectedTable">Clear Table</button>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
     </mat-card-content>
   </mat-card>
 </div>
-<br>
-<mat-card class="example-container">
-  <mat-card-content>
-    <div style="text-align: center;">
-      <mat-form-field appearance="outline" class="form-fields" style="width: 350px;margin-left: 20px;">
-        <mat-label> Select Table</mat-label>
-        <mat-select [(ngModel)]="selectedTable"(selectionChange)="onTableSelect()">
-          <mat-option *ngFor="let completionTable of completionTableList" [value]="completionTable" >
-            {{ completionTable.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <button (click)="downloadTable(selectedTable.name)" [disabled]="" mat-raised-button color="primary" style="width: 100px;margin-left: 20px;">Download</button>
-    </div>
-
-    <div style="text-align: center;">
-      <input type="file" accept=".xlsx" (change)="onFileSelected($event)" style="display: none" #fileInput>
-      <button  mat-raised-button color="primary" style="width: 75px;margin-left: 20px;" (click)="browseTable()" [disabled]="!selectedTable">Browse</button>
-      &nbsp;
-      <button mat-raised-button color="primary" style="width: 100px;margin-left: 162px;"(click)="clearTable()"[disabled]="!selectedTable">Clear Table</button>
-      <button mat-raised-button color="primary" style="width: 100px; margin-left: 20px;" (click)="uploadbutton()" [disabled]="!(selectedTable && isFileSelected)">Upload</button>
-    </div>
-    <br>
-    <div>
-      <mat-label>Last Uploaded File Details</mat-label>
-      <mat-label style="margin-left: 20px;" id="selectFileLabel" ></mat-label>
-    </div>
-    <div>
-      <mat-label style="margin-left: 207px;" id="dataCountLabel"></mat-label>
-
-    </div>
