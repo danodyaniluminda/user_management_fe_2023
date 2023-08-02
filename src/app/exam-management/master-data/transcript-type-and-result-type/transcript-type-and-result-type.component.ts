@@ -12,6 +12,13 @@ import {TranscriptTypeAndResultTypeService} from "./transcript-type-and-result-t
 })
 export class TranscriptTypeAndResultTypeComponent implements OnInit {
 
+
+  options = {}
+  data:any[] = [];
+  columns: any = {};
+
+
+
   selectedResultTypeId: number;
   selectedTranscriptTypeId: number;
 
@@ -53,6 +60,19 @@ export class TranscriptTypeAndResultTypeComponent implements OnInit {
     this.fetchTranscriptEligibilityDetails();
     this.fetchTranscriptTypeDetails();
     this.fetchResultTypeDetails();
+
+
+
+
+
+    this.data = this.getData();
+
+    this.columns = [
+      { key: 'id', title: "ID" },
+      { key: 'tranTypeName', title: 'Transcript Type Name' },
+      { key: 'resultTypeName', title: 'Result Type Name' }
+    ]
+
   }
 
   fetchTranscriptEligibilityDetails() {
@@ -61,6 +81,24 @@ export class TranscriptTypeAndResultTypeComponent implements OnInit {
       .toPromise()
       .then((result: any) => {
         this.allTranscriptEligibility = result;
+        this.data = result;
+
+        this.data = this.data.map((row:any) => ({
+          id: row['id'],
+          name: row['name'],
+          archive: row['archive'],
+          resultType: row['resultType'],
+          uri: row['uri'],
+          tranType: row['tranType'],
+          tranTypeName: row['tranType']['name'],
+          resultTypeName: row['resultType']['name']
+          }));
+
+
+
+
+
+
         this.eligibilityDT = new MatTableDataSource(this.allTranscriptEligibility);
         this.eligibilityDT.paginator = this.paginator;
         console.log("test", result);
@@ -201,6 +239,53 @@ export class TranscriptTypeAndResultTypeComponent implements OnInit {
   goToAddNewResultType(){
     this.router.navigate(['/exam/master-data/result-type'])
   }
+
+
+  getData(){
+    return [
+      {
+        "id": "1",
+        "name": "Brendan",
+        "phone": "1-724-406-2487",
+        "company": "ZEnim Commodo Limited Enim Commodo Limited Enim Commodo LimitedEnim Commodo Limited",
+        "zip": "98611",
+        "city": "Norman",
+        "date": "02/13/14",
+        "country": "Bangladesh"
+      },
+      {
+        "id": "2",
+        "name": "Warren",
+        "phone": "1-412-485-9725",
+        "company": "ZOdio Etiam Institute",
+        "zip": "10312",
+        "city": "Sautin",
+        "date": "01/01/13",
+        "country": "India"
+      },
+      {
+        "id": "3",
+        "name": "qwBrendan",
+        "phone": "1-724-406-2487",
+        "company": "YEnim Commodo Limited",
+        "zip": "98611",
+        "city": "Norman",
+        "date": "02/13/14",
+        "country": "Bangladesh"
+      },
+      {
+        "id": "4",
+        "name": "rarren",
+        "phone": "1-412-485-9725",
+        "company": "Odio Etiam Institute",
+        "zip": "10312",
+        "city": "Sautin",
+        "date": "01/01/13",
+        "country": "India"
+      }
+    ]
+  }
+
 
 }
 

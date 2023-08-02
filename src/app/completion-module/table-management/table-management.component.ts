@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { TableManagementService } from './table-management.service';
-import {saveAs} from "file-saver";
+import { saveAs } from "file-saver";
 
 
 const TABLE_MANAGEMENT = environment.graduation_completion + '/api/graduation-completion/table-management/';
@@ -55,11 +55,6 @@ export class TableManagementComponent implements OnInit {
     this.selectedFileName = file ? file.name : undefined;
     this.selectedFile = file;
     this.readFileContents(file);
-    const selectFileLabel = document.getElementById('selectFileLabel') as HTMLLabelElement | null;
-    if (selectFileLabel) {
-      selectFileLabel.innerText = 'Selected File Name: ' + this.selectedFileName || '';
-    }
-    this.isFileSelected = true;
   }
 
   readFileContents(file: File): void {   // Read the uploaded excel and convert it to json model object
@@ -74,15 +69,7 @@ export class TableManagementComponent implements OnInit {
         this.checkForNullValues(jsonData);
         this.uploaData = jsonData;
         const dataCount = jsonData.length;
-
-        // display no of records in file
-        const labelElement = document.getElementById('dataCountLabel');
-        if (labelElement) {
-          labelElement.innerText = `Records in the File: ${dataCount}`;
-        }
-
-
-
+        this.isFileSelected=true;
       });
     };
 
@@ -99,7 +86,7 @@ export class TableManagementComponent implements OnInit {
     return false; // No null values found
   }
   uploadbutton() {
-    this.tableManagementService.uploadFile(this.uploaData,this.selectedTable);
+    this.tableManagementService.uploadFile(this.uploaData, this.selectedTable);
     this.selectedTable = ''
 
   }
@@ -144,8 +131,21 @@ export class TableManagementComponent implements OnInit {
   }
 
 
-  clearTable(){
+  clearTable(): void {
+    this.selectedTable = null;
+    this.selectedFileName = undefined;
+    this.selectedFile = null;
+    this.uploaData = [];
+    this.isFileSelected = false;
 
-    this.selectedTable = ''
+    // Reset the file input element
+    if (this.fileInput && this.fileInput.nativeElement) {
+      this.fileInput.nativeElement.value = '';
+    }
+
+    const selectFileLabel = document.getElementById('selectFileLabel') as HTMLLabelElement | null;
+    if (selectFileLabel) {
+      selectFileLabel.innerText = '';
+    }
   }
 }
