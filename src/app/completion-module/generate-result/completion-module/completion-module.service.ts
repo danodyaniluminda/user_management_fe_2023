@@ -144,7 +144,7 @@ export class AddNewCompletionService {
   }
 
   runOpenElectiveCheckLevel5Critiria(programeid : any){
-    const url = OPEN_ELECTIVE_CHECK_LEVEL_5 + '/check-courses-need-to-be-converted';
+    const url = OPEN_ELECTIVE_CHECK_LEVEL_5 + '/check-open-elective-coursed-level-five';
     let queryParams = new HttpParams();
 
     queryParams = queryParams.append("id", programeid);
@@ -311,7 +311,7 @@ export class AddNewCompletionService {
   runGrades3CheckCritiria (programeid : any){
     const url = THREE_GRADES_CHECK  + '/level_three';
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("id", programeid);
     queryParams = queryParams.append("level", 3);
 
     const data = this.http.get(url, {params: queryParams}).toPromise();
@@ -331,7 +331,7 @@ export class AddNewCompletionService {
   runGrades4CheckCritiria (programeid : any){
     const url = FOUR_GRADES_CHECK  + '/level_five';
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("id", programeid);
     queryParams = queryParams.append("level", 4);
 
     const data = this.http.get(url, {params: queryParams}).toPromise();
@@ -351,7 +351,7 @@ export class AddNewCompletionService {
   runGrades5CheckCritiria (programeid : any){
     const url = FIVE_GRADES_CHECK  + '/level_five';
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("programId", 164);
+    queryParams = queryParams.append("id", programeid);
     queryParams = queryParams.append("level", 5);
 
     const data = this.http.get(url, {params: queryParams}).toPromise();
