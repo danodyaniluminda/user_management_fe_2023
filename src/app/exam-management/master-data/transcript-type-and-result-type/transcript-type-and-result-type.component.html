@@ -75,40 +75,48 @@
   <mat-card class="example-container">
     <br> <br>
     <div id="table-div" style="overflow-x: auto;">
-      <table id="printTable"
-             mat-table [dataSource]="eligibilityDT"
-             style="background-color: #ffffff"
-             class="example-container mat-elevation-z8" matSort>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
-          <td mat-cell *matCellDef="let element">{{element.id}}</td>
-        </ng-container>
-        <ng-container matColumnDef="tranTypeName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Type Name</th>
-          <td mat-cell *matCellDef="let element">{{element['tranType']['name']}}</td>
-        </ng-container>
-        <!--      <ng-container matColumnDef="name">-->
-        <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>-->
-        <!--        <td mat-cell *matCellDef="let element">{{element.name}}</td>-->
-        <!--      </ng-container>-->
-        <ng-container matColumnDef="resultTypeName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Result Type Name</th>
-          <td mat-cell *matCellDef="let element">
-            {{element['resultType']['name']}}
-            <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-          </td>
-        </ng-container>
-      </table>
+
+      <ngx-datatable tableClass="table table-striped table-bordered table-hover" [tableId]="'basic'" [data]="data" [options]="options"
+                     [columns]="columns">
+      </ngx-datatable>
+
+<!--      <table id="printTable"-->
+<!--             mat-table [dataSource]="eligibilityDT"-->
+<!--             style="background-color: #ffffff"-->
+<!--             class="example-container mat-elevation-z8" matSort>-->
+<!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>-->
+<!--        <ng-container matColumnDef="id">-->
+<!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>-->
+<!--          <td mat-cell *matCellDef="let element">{{element.id}}</td>-->
+<!--        </ng-container>-->
+<!--        <ng-container matColumnDef="tranTypeName">-->
+<!--          <th mat-header-cell *matHeaderCellDef mat-sort-header>Transcript Type Name</th>-->
+<!--          <td mat-cell *matCellDef="let element">{{element['tranType']['name']}}</td>-->
+<!--        </ng-container>-->
+<!--        &lt;!&ndash;      <ng-container matColumnDef="name">&ndash;&gt;-->
+<!--        &lt;!&ndash;        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <td mat-cell *matCellDef="let element">{{element.name}}</td>&ndash;&gt;-->
+<!--        &lt;!&ndash;      </ng-container>&ndash;&gt;-->
+<!--        <ng-container matColumnDef="resultTypeName">-->
+<!--          <th mat-header-cell *matHeaderCellDef mat-sort-header>Result Type Name</th>-->
+<!--          <td mat-cell *matCellDef="let element">-->
+<!--            {{element['resultType']['name']}}-->
+<!--            &lt;!&ndash; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &ndash;&gt;-->
+<!--          </td>-->
+<!--        </ng-container>-->
+<!--      </table>-->
     </div>
     <br>
-    <div id="paginator-card">
-      <mat-card>
-        <mat-paginator #paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>
-      </mat-card>
-    </div>
+<!--    <div id="paginator-card">-->
+<!--      <mat-card>-->
+<!--        <mat-paginator #paginator [pageSizeOptions]="[10]" showFirstLastButtons></mat-paginator>-->
+<!--      </mat-card>-->
+<!--    </div>-->
     <br>
   </mat-card>
   <br>
+</div>
+<div>
+
 </div>

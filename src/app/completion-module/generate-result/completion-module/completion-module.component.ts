@@ -83,44 +83,45 @@ export class CompletionModuleComponent implements OnInit {
     }else if (data.criteria.id === 2) {
       this.runRegularCourseCheckCritriaChecking(data.program.id);
     }else if (data.criteria.id === 3) {
-      this.run4RegularCourseCheckCritriaChecking(data.program.id);
+      this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
     }else if (data.criteria.id === 4) {
-      this.run5RegularCourseCheckCritriaChecking(data.program.id);
+      this.runGpaCalculationCritriaChecking(data.program.id);
     }else if (data.criteria.id === 5) {
       this.runOpenElectiveCheckLevel5CritriaChecking(data.program.id);
     }else if (data.criteria.id === 6) {
-      this.runGpaCalculationCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 7) {
       this.runGrades3CheckCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 8) {
-      this.runOpenElectiveCheckLevel3CritriaChecking(data.program.id);
-    }else if (data.criteria.id === 9) {
+    }else if (data.criteria.id === 7) {
       this.runGrades4CheckCritriaChecking(data.program.id);
-    }else if (data.criteria.id === 10) {
+    }else if (data.criteria.id === 8) {
       this.runGrades5CheckCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 9) {
+      this.run4RegularCourseCheckCritriaChecking(data.program.id);
+    }else if (data.criteria.id === 10) {
+      this.run5RegularCourseCheckCritriaChecking(data.program.id);
     } else {
       // Implement other cases as needed
     }
   }
-  function1(data: any) {
-    // Implement your function 1 logic here, using the row data if necessary
-    console.log('Running Function 1 for row with ID:', data.id);
-    alert(data.criteria.criteriaName);
-  }
+  // function1(data: any) {
+  //   // Implement your function 1 logic here, using the row data if necessary
+  //   console.log('Running Function 1 for row with ID:', data.id);
+  //   alert(data.criteria.criteriaName);
+  // }
+  //
+  // function2(data: any) {
+  //   // Implement your function 2 logic here, using the row data if necessary
+  //   console.log('Running Function 2 for row with ID:', data.id);
+  //   alert(data.criteria.criteriaName);
+  // }
+  //
+  // function3(data: any) {
+  //   // Implement your function 2 logic here, using the row data if necessary
+  //   console.log('Running Function 2 for row with ID:', data.id);
+  //   alert(data.criteria.criteriaName);
+  // }
 
-  function2(data: any) {
-    // Implement your function 2 logic here, using the row data if necessary
-    console.log('Running Function 2 for row with ID:', data.id);
-    alert(data.criteria.criteriaName);
-  }
 
-  function3(data: any) {
-    // Implement your function 2 logic here, using the row data if necessary
-    console.log('Running Function 2 for row with ID:', data.id);
-    alert(data.criteria.criteriaName);
-  }
-
-
+  //CourseCritria
 runContinueCourseCritriaChecking(programeid: any) {(
   this.addNewCompletionService
     .runContinueCourseCritiria(programeid))
@@ -163,6 +164,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
 
+  //OpenElectiveCheckLevel3Critria
   runOpenElectiveCheckLevel3CritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runOpenElectiveCheckLevel3Critiria(programeid))
@@ -206,6 +208,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     saveAs(excelData, 'Not Converted Open Elective Check Level 3 List.xlsx');
   }
 
+  //OpenElectiveCheckLevel5Critria
   runOpenElectiveCheckLevel5CritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runOpenElectiveCheckLevel5Critiria(programeid))
@@ -248,7 +251,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     saveAs(excelData, 'Not Converted Open Elective Check Level 5 List.xlsx');
   }
 
-
+  //GpaCalculationCritriaChecking
   runGpaCalculationCritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runGpaCalculationCritiria(programeid))
@@ -295,6 +298,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     saveAs(excelData, 'Not Converted Gpa Calculation List.xlsx');
   }
 
+  //RegularCourse3CheckCritriaChecking
   runRegularCourseCheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runRegularS1CourseCheckCritiria(programeid))
@@ -345,6 +349,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
 
+  //RegularCourse4CheckCritriaChecking
   run4RegularCourseCheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .run4RegularS1CourseCheckCritiria(programeid))
@@ -394,6 +399,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     saveAs(excelData, 'Regular Course Check List.xlsx');
   }
 
+  //RegularCourse5CheckCritriaChecking
   run5RegularCourseCheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .run5RegularS1CourseCheckCritiria(programeid))
@@ -443,6 +449,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     saveAs(excelData, 'Regular Course Check List.xlsx');
   }
 
+  //Grades3CheckCritriaChecking
   runGrades3CheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runGrades3CheckCritiria(programeid))
@@ -492,6 +499,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
     saveAs(excelData, 'Grades 3 Check List.xlsx');
   }
 
+  //Grades4CheckCritriaChecking
   runGrades4CheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runGrades4CheckCritiria(programeid))
@@ -542,6 +550,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
   }
 
 
+  //Grades5CheckCritriaChecking
   runGrades5CheckCritriaChecking(programeid: any) {(
     this.addNewCompletionService
       .runGrades5CheckCritiria(programeid))
@@ -619,6 +628,7 @@ updateFailedOrPassedCritiaStudent(programeid: any) {(
         console.log(data)
         this.critieaData = data;
         this.loading = true;
+        this.showTable = true;
 // console.log("this.loading",this.loading)
 //         this.oneDayDates = this.model.oneDayDates;
       })

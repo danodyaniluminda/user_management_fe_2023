@@ -47,7 +47,7 @@
 </div>
 
 <br>
-<mat-card class="example-container">
+<mat-card *ngIf="showTable" class="example-container">
   <br>
   <div class="table-responsive">
     <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover"  *ngIf="loading">
@@ -61,7 +61,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of critieaData; let index = index">
-        <td>{{ data.id }}</td>
+        <td>{{ data.sequenceId }}</td>
         <td>{{ data.criteria.criteriaName }}</td>
         <td>
           <button  mat-raised-button color="primary" type="submit" (click)="runFunction(data)" [disabled]=!data.active>Run</button>
@@ -91,63 +91,99 @@
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==2 && showExportButton4RegularCourseCheck">
-            &nbsp; <button (click)="exportToExcel4RegularCourseCheck()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          <ng-container *ngIf="index==2 && showExportButtonOpenElectiveCheckLevel3">
+            &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel3()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
 
-          <ng-container *ngIf="index==2 && show4RegularCourseCheckSuccessMsg">
+          <ng-container *ngIf="index==2 && showOpenElectiveCheckLevel3SuccessMsg">
             &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==2 && show4RegularCourseCheckErrorMsg">
-            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
-          </ng-container>
-          <ng-container *ngIf="index==4 && showExportButton5RegularCourseCheck">
-            &nbsp; <button (click)="exportToExcel5RegularCourseCheck()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
-          </ng-container>
-
-          <ng-container *ngIf="index==4 && show5RegularCourseCheckSuccessMsg">
-            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
-          </ng-container>
-
-          <ng-container *ngIf="index==4 && show5RegularCourseCheckErrorMsg">
+          <ng-container *ngIf="index==2 && showOpenElectiveCheckLevel3ErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==5 && showExportButtonOpenElectiveCheckLevel5">
-            &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel5()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
-          </ng-container>
-
-          <ng-container *ngIf="index==5 && showOpenElectiveCheckLevel5SuccessMsg">
-            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
-          </ng-container>
-
-          <ng-container *ngIf="index==5 && showOpenElectiveCheckLevel5ErrorMsg">
-            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
-          </ng-container>
-
-          <ng-container *ngIf="index==7 && showExportButtonGpaCalculation">
+          <ng-container *ngIf="index==3 && showExportButtonGpaCalculation">
             &nbsp; <button (click)="exportToExcelGpaCalculation()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
 
-          <ng-container *ngIf="index==7 && showGpaCalculationSuccessMsg">
+          <ng-container *ngIf="index==3 && showGpaCalculationSuccessMsg">
             &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==7 && showGpaCalculationErrorMsg">
+          <ng-container *ngIf="index==3 && showGpaCalculationErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==4 && showExportButtonOpenElectiveCheckLevel5">
+            &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel5()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==4 && showOpenElectiveCheckLevel5SuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==4 && showOpenElectiveCheckLevel5ErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==5 && showExportButtonGrades3Check">
+            &nbsp; <button (click)="exportToExcelGrades3Check()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==5 && showGrades3CheckSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==5 && showGrades3CheckErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
 
-          <ng-container *ngIf="index==6 && showExportButtonOpenElectiveCheckLevel5">
-            &nbsp; <button (click)="exportToExcelOpenElectiveCheckLevel5()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          <ng-container *ngIf="index==6 && showExportButtonGrades4Check">
+            &nbsp; <button (click)="exportToExcelGrades4Check()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
           </ng-container>
 
-          <ng-container *ngIf="index==6 && showOpenElectiveCheckLevel5SuccessMsg">
+          <ng-container *ngIf="index==6 && showGrades4CheckSuccessMsg">
             &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
           </ng-container>
 
-          <ng-container *ngIf="index==6 && showOpenElectiveCheckLevel5ErrorMsg">
+          <ng-container *ngIf="index==6 && showGrades4CheckErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==7 && showExportButtonGrades5Check">
+            &nbsp; <button (click)="exportToExcelGrades5Check()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==7 && showGrades5CheckSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==7 && showGrades5CheckErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==8 && showExportButton4RegularCourseCheck">
+            &nbsp; <button (click)="exportToExcel4RegularCourseCheck()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==8 && show4RegularCourseCheckSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==8 && show4RegularCourseCheckErrorMsg">
+            &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
+          </ng-container>
+          <ng-container *ngIf="index==9 && showExportButton5RegularCourseCheck">
+            &nbsp; <button (click)="exportToExcel5RegularCourseCheck()" mat-raised-button color="primary">Export to Excel</button>&nbsp;&nbsp;
+          </ng-container>
+
+          <ng-container *ngIf="index==9 && show5RegularCourseCheckSuccessMsg">
+            &nbsp;&nbsp; <span class="badge badge-success">{{message}}</span>
+          </ng-container>
+
+          <ng-container *ngIf="index==9 && show5RegularCourseCheckErrorMsg">
             &nbsp;&nbsp;<span class="badge badge-warning">{{message}}</span>
           </ng-container>
 
