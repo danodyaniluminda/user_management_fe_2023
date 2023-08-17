@@ -24,6 +24,9 @@ import {DataTablesModule} from "angular-datatables";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
+import { AddNewRoleComponent } from './master-data/role-management/add-new-role/add-new-role.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 @NgModule({
@@ -31,7 +34,8 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
     RoleManagementComponent,
     UserRoleManagementComponent,
     RouteManagementComponent,
-    RouteRoleManagementComponent
+    RouteRoleManagementComponent,
+    AddNewRoleComponent
   ],
     imports: [
         CommonModule,
@@ -49,6 +53,7 @@ import {NgxDatatableModule} from "@tusharghoshbd/ngx-datatable";
         MatTableExporterModule,
         MatTableModule,
         MatTooltipModule,
+        MatCheckboxModule,
         NgxMatSelectSearchModule,
         MatDatepickerModule,
         MatGridListModule,

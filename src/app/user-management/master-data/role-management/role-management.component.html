@@ -1,1 +1,89 @@
-<p>role-management works!</p>
+<div class="content">
+
+
+  <div style="font-weight: bolder; font-size: 20px; ">
+    Add New Role
+  </div>
+
+
+
+  <br>
+  <div id="root-container">
+    <mat-card id="root-card">
+      <br>
+
+      <!-- Start Table Division -->
+      <div id="table-div">
+        <div mat-dialog-actions>
+          <button (click)="onClickAdd()" mat-raised-button color="primary" style="width: 120px;margin-left: 10px;">
+            {{ AddNewRole ? "Add New Role" : "Add New Role" }}
+          </button>
+        </div>
+        <!-- Horizontal Line -->
+        <hr />
+
+        <div class="row">
+          <div class="col-sm-12">
+
+            <!-- Table starts -->
+            <ngx-datatable tableClass="table table-striped table-bordered table-hover"
+              [tableId]="'checkboxWithRowDetail'" [data]="roles" [options]="options" [columns]="columns">
+
+              <ngx-caption>
+                <div class="row">
+                  <div class="col-sm-12 col-xs-12 col-12 ">
+                    <b style="margin-left: 20px">
+                      Roles
+                    </b>
+                  </div>
+                </div>
+              </ngx-caption>
+
+              <!-- Row expansion area starts -->
+              <ng-template #rowExpansion let-row let-rowIndex="rowIndex">
+
+                <br><br>
+                <h6 style="color: #2f3d4a;margin-left: 50px">Role Name : {{row.roleName}}</h6>
+                <h6 style="color: #2f3d4a;margin-left: 50px">Status : {{row.active}}</h6>
+                <h6 style="color: #2f3d4a;margin-left: 50px">Category : {{row.categoryId_categoryName}}</h6>
+                <br>
+
+                <button (click)="showEditArray[rowIndex]=!showEditArray[rowIndex]" style="width:100px;margin-left: 50px"
+                  class="btn btn-primary">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button style="width:100px;margin-left: 20px" type="button" class="btn btn-danger">
+                  <mat-icon>delete</mat-icon>
+                </button>
+
+                <br>
+                <div style="margin-left: 100px;margin-top: 50px" *ngIf="showEditArray[rowIndex]">
+                  <label> Name : </label> <input type="text" value="{{row.name}}">
+                </div>
+
+                <br>
+
+                <span>.</span>
+
+              </ng-template>
+
+
+              <!-- Row expansion area ends -->
+
+
+            </ngx-datatable>
+            <!-- Table ends -->
+
+          </div>
+        </div>
+      </div>
+      <!-- End Table Division -->
+
+
+      <br>
+      <!-- Horizontal Line -->
+      <hr />
+    </mat-card>
+  </div>
+
+

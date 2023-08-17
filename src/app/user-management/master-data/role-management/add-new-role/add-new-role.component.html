@@ -1,0 +1,154 @@
+<div class="content">
+
+    <mat-card>
+        <mat-card-content>
+          <div class="input-group">
+                <div class="custom-card">
+                <form #roleForm="ngForm" (ngSubmit)="onAddNew(roleForm.value)">
+                        <mat-form-field class="form-field" appearance="outline" style="width: 600px;">
+                        <mat-label>Role Name</mat-label>
+                        <input matInput placeholder="Role Name" [(ngModel)]="roleForm.value.Rname" type="text" id="Rname" name="Rname">
+                        </mat-form-field>
+                        <br>
+                        <div>
+                        <mat-form-field appearance="outline" class="form-field" style="width: 600px;" >
+                            <mat-label>Select a category</mat-label>
+                            <mat-select [(ngModel)]="selectedCategory" name="category" (selectionChange)="applyFilter()">
+                            <mat-option *ngFor="let categoryInfo of categoryInfoList" [value]="categoryInfo.id" >
+                                {{ categoryInfo.categoryName }}
+                            </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        </div>
+                        <button mat-raised-button color="primary" type="submit" style="width: 100px;margin-left: 5px;">Add Role</button>
+                        <button mat-raised-button color="warn" type="button" style="width: 75px;margin-left: 10px;" (click)="cancelRole()" >Cancel</button>
+                        <button mat-raised-button color="primary" type="button" style="width: 75px;margin-left: 10px;" (click)="onClickBack()" >Back</button>
+
+                </form>
+                </div>  
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+
+      <!-- <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+        <ng-container matColumnDef="RouteName">
+          <th mat-header-cell *matHeaderCellDef>Route Name</th>
+          <td mat-cell *matCellDef="let roleroute">
+            <ng-container >{{ roleroute.label }}</ng-container>
+          </td>
+        </ng-container>
+      
+  
+        <ng-container matColumnDef="category_id">
+          <th mat-header-cell *matHeaderCellDef>Category ID</th>
+          <td mat-cell *matCellDef="let route">{{ route.category_id.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rout_id">
+          <th mat-header-cell *matHeaderCellDef>Route ID</th>
+          <td mat-cell *matCellDef="let route">{{ route.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="rolerout_id">
+          <th mat-header-cell *matHeaderCellDef>Roler Route ID</th>
+          <td mat-cell *matCellDef="let roleroute">{{ roleroute.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="permissions">
+          <th mat-header-cell *matHeaderCellDef>Permissions</th>
+          <td mat-cell *matCellDef="let route">
+
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" [checked]="selectAll[route.id]"   (change)="onAllCheckboxChange($event, route.id)">
+                  All
+                </mat-checkbox>
+              </span>
+            
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin"  [checked]="addChecked[route.id]" (change)="onAddCheckboxChange($event, route.id)">
+                  Add
+                </mat-checkbox>
+              </span>
+            
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin"  [checked]="editChecked[route.id]" (change)="onEditCheckboxChange($event, route.id)">
+                  Edit
+                </mat-checkbox>
+              </span>
+            
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" [checked]="deleteChecked[route.id]" (change)="onDeleteCheckboxChange($event, route.id)">
+                  Delete
+                </mat-checkbox>
+              </span>
+            </section>
+            
+            
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+      </table> -->
+
+
+      <table mat-table [dataSource]="dataSource3" class="mat-elevation-z8">
+        <!-- Define columns using *ngFor and display the data using data binding -->
+      
+        <ng-container matColumnDef="route_name">
+          <th mat-header-cell *matHeaderCellDef>Route Name</th>
+          <td mat-cell *matCellDef="let roleroute">{{ roleroute.routId.label }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role_route_name">
+          <th mat-header-cell *matHeaderCellDef>Role Name</th>
+          <td mat-cell *matCellDef="let roleroute">{{ roleroute.roleId.roleName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="role_name">
+          <th mat-header-cell *matHeaderCellDef>Category Name</th>
+          <td mat-cell *matCellDef="let route">{{ route.roleId.categoryId.categoryName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="permissions">
+          <th mat-header-cell *matHeaderCellDef>Permissions</th>
+          <td mat-cell *matCellDef="let roleroute">
+
+            <section class="example-section">
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" [checked]="selectAll[roleroute.id]"   (change)="onAllCheckboxChange($event, roleroute.id)">
+                  All
+                </mat-checkbox>
+              </span>
+            
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin"  [checked]="addChecked[roleroute.id]" (change)="onAddCheckboxChange($event, roleroute.id)">
+                  Add
+                </mat-checkbox>
+              </span>
+            
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin"  [checked]="editChecked[roleroute.id]" (change)="onEditCheckboxChange($event, roleroute.id)">
+                  Edit
+                </mat-checkbox>
+              </span>
+            
+              <span class="example-list-section">
+                <mat-checkbox class="example-margin" [checked]="deleteChecked[roleroute.id]" (change)="onDeleteCheckboxChange($event, roleroute.id)">
+                  Delete
+                </mat-checkbox>
+              </span>
+            </section>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+      </table>
+      
+
+      
+      
+
+      

@@ -12,6 +12,7 @@ import {RoleManagementComponent} from "./master-data/role-management/role-manage
 import {RouteManagementComponent} from "./master-data/route-management/route-management.component";
 import {UserRoleManagementComponent} from "./master-data/user-role-management/user-role-management.component";
 import {RouteRoleManagementComponent} from "./master-data/route-role-management/route-role-management.component";
+import { AddNewRoleComponent } from './master-data/role-management/add-new-role/add-new-role.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
       {
         path:'role-route-management',
         component:RouteRoleManagementComponent,
+      },
+      {
+        path:'role-management/add-new-role',
+        component:AddNewRoleComponent,
+        
       },
     ]
   }
